@@ -91,6 +91,18 @@ __synthesize(UIScrollView *, scrollView, cls(UIScrollView, self.view))
 			self.toolbarItems[1].title = [NSString stringWithFormat:@"Features: %lu", self.textFeatures.count];
 		}];
 	}];
+
+	/*
+	 [self.manager requestImageForAsset:self.assets[indexPath.row] targetSize:self.screenSize contentMode:PHImageContentModeAspectFill options:[PHImageRequestOptions optionsWithNetworkAccessAllowed:YES synchronous:NO progressHandler:^(double progress, NSError * _Nullable error, BOOL * _Nonnull stop, NSDictionary * _Nullable info) {
+	 [GCD main:^{
+	 segue.destinationViewController.navigationController.navigationBar.progress = progress;
+	 }];
+	 }] resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+	 [GCD main:^{
+	 segue.destinationViewController.navigationItem.title = [info[@"PHImageFileURLKey"] lastPathComponent];
+	 }];
+	 }];
+	 */
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {

@@ -9,18 +9,20 @@
 #import "ViewController.h"
 
 #import "CoreGraphics+Convenience.h"
-#import "CoreImage+Convenience.h"
 #import "Dispatch+Convenience.h"
 #import "Photos+Convenience.h"
 #import "NSObject+Convenience.h"
+
+#import "CoreImage+Convenience.h"
+#import "NSArray+Convenience.h"
 #import "UINavigationController+Convenience.h"
 
-// 0.4
-#warning Process images in a queue.
 // 0.5
-#warning Add text images to an album.
+#warning View images.
+#warning Watch for changes.
+#warning Scan in both directions.
 // 0.6
-#warning Process images in background.
+#warning Process images in background mode.
 // 0.7
 #warning Improve collection transition.
 // 0.8
@@ -48,20 +50,33 @@
 #warning Fix loading of images.
 */
 @interface ViewController ()
-@property (strong, nonatomic) PHFetchResult *photos;
+@property (assign, nonatomic) CGSize cellSize;
+@property (assign, nonatomic) CGSize screenSize;
+
+@property (strong, nonatomic) NSString *identifier;
+@property (strong, nonatomic) PHAssetCollection *collection;
+@property (strong, nonatomic) PHFetchResult *assets;
 
 @property (strong, nonatomic, readonly) PHCachingImageManager *manager;
 
-@property (strong, nonatomic, readonly) NSMutableArray *scans;
+@property (strong, nonatomic, readonly) NSMutableArray<PHAsset *> *tempAssets;
 @end
 
 @implementation ViewController
 
 static NSString * const reuseIdentifier = @"Cell";
 
+- (NSString *)identifier {
+	return [[NSUserDefaults standardUserDefaults] objectForKey:@"albumIdentifier"];
+}
+
+- (void)setIdentifier:(NSString *)identifier {
+	[[NSUserDefaults standardUserDefaults] setObject:identifier forKey:@"albumIdentifier"];
+}
+
 __synthesize(PHCachingImageManager *, manager, [[PHCachingImageManager alloc] init])
 
-__synthesize(NSMutableArray *, scans, [[NSMutableArray alloc] init])
+__synthesize(NSMutableArray *, tempAssets, [[NSMutableArray alloc] init])
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -74,20 +89,36 @@ __synthesize(NSMutableArray *, scans, [[NSMutableArray alloc] init])
 
 	// Do any additional setup after loading the view.
 
-	if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized) {
-		[self refreshAction:Nil];
+	self.cellSize = CGSizeScale(cls(UICollectionViewFlowLayout,  self.collectionView.collectionViewLayout).itemSize, [UIScreen mainScreen].nativeScale);
 
-		self.navigationItem.rightBarButtonItem.enabled = NO;
-/*
-		PHFetchResult<PHAssetCollection *> *assets = [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[ @"Scans" ] options:Nil];
-		if (!assets.count)
+	CGFloat max = fmax([UIScreen mainScreen].nativeBounds.size.width, [UIScreen mainScreen].nativeBounds.size.height);
+	self.screenSize = CGSizeMake(max, max);
+
+	[PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+		if (status != PHAuthorizationStatusAuthorized)
+			return;
+
+		self.collection = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:self.identifier options:Nil];
+		if (self.collection) {
+			self.assets = [PHAsset fetchAssetsInAssetCollection:self.collection options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
+
+			[self.manager startCachingImagesForAssets:self.assets.array targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil];
+
+			[self.tempAssets setArray:self.assets.array];
+
+			[GCD main:^{
+				[self.collectionView reloadData];
+			}];
+		} else {
 			[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-				[PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:@"Scans"];
+				self.identifier = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:@"Scans"].placeholderForCreatedAssetCollection.localIdentifier;
 			} completionHandler:^(BOOL success, NSError * _Nullable error) {
+				self.collection = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:self.identifier options:Nil];
+
 				[error log:@"creationRequestForAssetCollectionWithTitle:"];
 			}];
- */
-	}
+		}
+	}];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -101,17 +132,7 @@ __synthesize(NSMutableArray *, scans, [[NSMutableArray alloc] init])
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	 NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
 
-	 [self.manager requestImageForAsset:self.scans[indexPath.row] targetSize:[UIScreen mainScreen].nativeBounds.size contentMode:PHImageContentModeAspectFill options:[PHImageRequestOptions optionsWithNetworkAccessAllowed:YES synchronous:NO progressHandler:^(double progress, NSError * _Nullable error, BOOL * _Nonnull stop, NSDictionary * _Nullable info) {
-		 [GCD main:^{
-			 segue.destinationViewController.navigationController.navigationBar.progress = progress;
-		 }];
-	 }] resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-		 [GCD main:^{
-			 [segue.destinationViewController forwardSelector:@selector(setImage:) withObject:result nextTarget:Nil];
-
-			 segue.destinationViewController.navigationItem.title = [info[@"PHImageFileURLKey"] lastPathComponent];
-		 }];
-	 }];
+	 [segue.destinationViewController forwardSelector:@selector(setImage:) withObject:self.tempAssets[indexPath.row] nextTarget:Nil];
  }
 
 #pragma mark <UICollectionViewDataSource>
@@ -123,7 +144,7 @@ __synthesize(NSMutableArray *, scans, [[NSMutableArray alloc] init])
 */
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	return self.scans.count;
+	return self.tempAssets.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -131,7 +152,7 @@ __synthesize(NSMutableArray *, scans, [[NSMutableArray alloc] init])
 
 	// Configure the cell
 	UIImageView *imageView = cell.contentView.subviews.firstObject;
-	imageView.tag = [self.manager requestImageForAsset:self.scans[indexPath.item] targetSize:CGSizeScale(imageView.frame.size, [UIScreen mainScreen].scale) contentMode:PHImageContentModeAspectFill options:Nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+	imageView.tag = [self.manager requestImageForAsset:self.tempAssets[indexPath.item] targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
 		NSInteger tag = [info[PHImageResultRequestIDKey] integerValue];
 
 		[GCD main:^{
@@ -144,37 +165,39 @@ __synthesize(NSMutableArray *, scans, [[NSMutableArray alloc] init])
 }
 
 - (IBAction)refreshAction:(UIBarButtonItem *)sender {
-	[PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-		if (status != PHAuthorizationStatusAuthorized)
-			return;
+	[GCD global:^{
+		NSDate *date = self.tempAssets.firstObject.creationDate;
+		PHFetchResult *assets = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:date ? [NSPredicate predicateWithFormat:@"creationDate < %@", date] : Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
 
-		CGSize size = [UIScreen mainScreen].nativeBounds.size;
-		if (size.height > size.width)
-			size.width = size.height;
-		else
-			size.height = size.width;
+		PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+		options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+		options.networkAccessAllowed = YES;
+		options.synchronous = YES;
 
-		self.photos = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
+		NSUInteger count = 10;//assets.count;
+		for (NSInteger index = 0; index < count; index++)
+			[self.manager requestImageForAsset:assets[index] targetSize:self.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+				NSArray<CIFeature *> *features = [[result filterWithName:@"CIColorMonochrome"] featuresOfType:CIDetectorTypeText options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh, CIDetectorMinFeatureSize : @0.0, CIDetectorReturnSubFeatures : @YES }];
 
-		[self.manager startCachingImagesForAssets:self.photos.array targetSize:size contentMode:PHImageContentModeAspectFill options:Nil];
+				if (features.count)
+					[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+						[[PHAssetCollectionChangeRequest changeRequestForAssetCollection:self.collection] insertAssets:@[ assets[index] ]];
+					} completionHandler:^(BOOL success, NSError * _Nullable error) {
+						@synchronized(self) {
+							[self.tempAssets insertObject:assets[index] atIndex:0];
 
-		for (NSInteger index = 0; index < /*self.photos.count*/10; index++) {
-			[self.manager requestImageForAsset:self.photos[index] targetSize:size contentMode:PHImageContentModeAspectFill options:[PHImageRequestOptions optionsWithNetworkAccessAllowed:YES synchronous:YES] resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-				NSArray<CIFeature *> *features = [[result filterWithName:@"CIColorMonochrome"] featuresOfType:CIDetectorTypeText options:@{ CIDetectorMinFeatureSize : @0.0, CIDetectorAccuracy : CIDetectorAccuracyHigh }];
+							[GCD main:^{
+								[self.collectionView insertItemsAtIndexPaths:@[ [NSIndexPath indexPathForItem:0 inSection:0] ]];
+							}];
+						}
 
-				if (features.count) {
-					[self.scans insertObject:self.photos[index] atIndex:0];
-
-					[GCD main:^{
-						[self.collectionView insertItemsAtIndexPaths:@[ [NSIndexPath indexPathForItem:0 inSection:0] ]];
+						[error log:@"insertAssets:"];
 					}];
-				}
 
 				[GCD main:^{
-					self.navigationController.navigationBar.progress = (index + 1.0) / self.photos.count;
+					[self.navigationController.navigationBar setProgress:(index + 1.0) / count animated:YES];
 				}];
 			}];
-		}
 	}];
 }
 
@@ -183,25 +206,25 @@ __synthesize(NSMutableArray *, scans, [[NSMutableArray alloc] init])
 /*
  // Uncomment this method to specify if the specified item should be highlighted during tracking
  - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
- return YES;
+ 	return YES;
  }
  */
 
 /*
  // Uncomment this method to specify if the specified item should be selected
  - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
- return YES;
+ 	return YES;
  }
  */
 
 /*
  // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
  - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
- return NO;
+ 	return NO;
  }
 
  - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
- return NO;
+ 	return NO;
  }
 
  - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
