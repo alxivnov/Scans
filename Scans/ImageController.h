@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "Photos+Convenience.h"
+
 @interface ImageController : UIViewController
-@property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) PHAsset *image;
 @end

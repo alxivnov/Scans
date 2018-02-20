@@ -8,23 +8,19 @@
 
 #import "ViewController.h"
 
+#import "Global.h"
+
 #import "CoreGraphics+Convenience.h"
 #import "Dispatch+Convenience.h"
-#import "Photos+Convenience.h"
-#import "NSObject+Convenience.h"
 
 #import "CoreImage+Convenience.h"
 #import "NSArray+Convenience.h"
 #import "UINavigationController+Convenience.h"
 
-// 0.5
-#warning View images.
-#warning Watch for changes.
-#warning Scan in both directions.
 // 0.6
 #warning Process images in background mode.
 // 0.7
-#warning Improve collection transition.
+#warning Improve navigation transition.
 // 0.8
 #warning Add empty state.
 // 0.9
@@ -49,34 +45,16 @@
 #warning Improve collection UI on different devices.
 #warning Fix loading of images.
 */
-@interface ViewController ()
+@interface ViewController () <PHPhotoLibraryChangeObserver>
 @property (assign, nonatomic) CGSize cellSize;
-@property (assign, nonatomic) CGSize screenSize;
 
-@property (strong, nonatomic) NSString *identifier;
 @property (strong, nonatomic) PHAssetCollection *collection;
 @property (strong, nonatomic) PHFetchResult *assets;
-
-@property (strong, nonatomic, readonly) PHCachingImageManager *manager;
-
-@property (strong, nonatomic, readonly) NSMutableArray<PHAsset *> *tempAssets;
 @end
 
 @implementation ViewController
 
 static NSString * const reuseIdentifier = @"Cell";
-
-- (NSString *)identifier {
-	return [[NSUserDefaults standardUserDefaults] objectForKey:@"albumIdentifier"];
-}
-
-- (void)setIdentifier:(NSString *)identifier {
-	[[NSUserDefaults standardUserDefaults] setObject:identifier forKey:@"albumIdentifier"];
-}
-
-__synthesize(PHCachingImageManager *, manager, [[PHCachingImageManager alloc] init])
-
-__synthesize(NSMutableArray *, tempAssets, [[NSMutableArray alloc] init])
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -91,29 +69,25 @@ __synthesize(NSMutableArray *, tempAssets, [[NSMutableArray alloc] init])
 
 	self.cellSize = CGSizeScale(cls(UICollectionViewFlowLayout,  self.collectionView.collectionViewLayout).itemSize, [UIScreen mainScreen].nativeScale);
 
-	CGFloat max = fmax([UIScreen mainScreen].nativeBounds.size.width, [UIScreen mainScreen].nativeBounds.size.height);
-	self.screenSize = CGSizeMake(max, max);
-
+	[[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 	[PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
 		if (status != PHAuthorizationStatusAuthorized)
 			return;
 
-		self.collection = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:self.identifier options:Nil];
+		self.collection = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:GLOBAL.albumIdentifier options:Nil];
 		if (self.collection) {
 			self.assets = [PHAsset fetchAssetsInAssetCollection:self.collection options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
 
-			[self.manager startCachingImagesForAssets:self.assets.array targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil];
-
-			[self.tempAssets setArray:self.assets.array];
+			[GLOBAL.manager startCachingImagesForAssets:self.assets.array targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil];
 
 			[GCD main:^{
 				[self.collectionView reloadData];
 			}];
 		} else {
 			[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-				self.identifier = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:@"Scans"].placeholderForCreatedAssetCollection.localIdentifier;
+				GLOBAL.albumIdentifier = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:@"Scans"].placeholderForCreatedAssetCollection.localIdentifier;
 			} completionHandler:^(BOOL success, NSError * _Nullable error) {
-				self.collection = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:self.identifier options:Nil];
+				self.collection = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:GLOBAL.albumIdentifier options:Nil];
 
 				[error log:@"creationRequestForAssetCollectionWithTitle:"];
 			}];
@@ -132,7 +106,7 @@ __synthesize(NSMutableArray *, tempAssets, [[NSMutableArray alloc] init])
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	 NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
 
-	 [segue.destinationViewController forwardSelector:@selector(setImage:) withObject:self.tempAssets[indexPath.row] nextTarget:Nil];
+	 [segue.destinationViewController forwardSelector:@selector(setImage:) withObject:self.assets[indexPath.row] nextTarget:Nil];
  }
 
 #pragma mark <UICollectionViewDataSource>
@@ -144,7 +118,7 @@ __synthesize(NSMutableArray *, tempAssets, [[NSMutableArray alloc] init])
 */
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	return self.tempAssets.count;
+	return self.assets.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -152,7 +126,7 @@ __synthesize(NSMutableArray *, tempAssets, [[NSMutableArray alloc] init])
 
 	// Configure the cell
 	UIImageView *imageView = cell.contentView.subviews.firstObject;
-	imageView.tag = [self.manager requestImageForAsset:self.tempAssets[indexPath.item] targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+	imageView.tag = [GLOBAL.manager requestImageForAsset:self.assets[indexPath.item] targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
 		NSInteger tag = [info[PHImageResultRequestIDKey] integerValue];
 
 		[GCD main:^{
@@ -164,33 +138,46 @@ __synthesize(NSMutableArray *, tempAssets, [[NSMutableArray alloc] init])
 	return cell;
 }
 
+- (void)photoLibraryDidChange:(PHChange *)changeInstance {
+	PHFetchResultChangeDetails *changes = [changeInstance changeDetailsForFetchResult:self.assets];
+	if (!changes)
+		return;
+
+	self.assets = changes.fetchResultAfterChanges;
+
+	[GLOBAL.manager startCachingImagesForAssets:changes.insertedObjects targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil];
+
+	[GCD main:^{
+		[self.collectionView performFetchResultChanges:changes inSection:0];
+	}];
+}
+
 - (IBAction)refreshAction:(UIBarButtonItem *)sender {
 	[GCD global:^{
-		NSDate *date = self.tempAssets.firstObject.creationDate;
-		PHFetchResult *assets = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:date ? [NSPredicate predicateWithFormat:@"creationDate < %@", date] : Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
+		NSMutableArray *array = [NSMutableArray array];
+
+		NSDate *endDate = self.collection.endDate ?: [self.assets.lastObject creationDate];
+		PHFetchResult *newer = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:endDate ? [NSPredicate predicateWithFormat:@"creationDate > %@", endDate] : Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
+		[array addObjectsFromArray:newer.array];
+
+		NSDate *startDate = self.collection.startDate ?: [self.assets.firstObject creationDate];
+		PHFetchResult *older = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:startDate ? [NSPredicate predicateWithFormat:@"creationDate < %@", startDate] : Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
+		[array addObjectsFromArray:older.array];
 
 		PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
 		options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
 		options.networkAccessAllowed = YES;
 		options.synchronous = YES;
 
-		NSUInteger count = 10;//assets.count;
+		NSUInteger count = MIN(10, array.count);
 		for (NSInteger index = 0; index < count; index++)
-			[self.manager requestImageForAsset:assets[index] targetSize:self.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-				NSArray<CIFeature *> *features = [[result filterWithName:@"CIColorMonochrome"] featuresOfType:CIDetectorTypeText options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh, CIDetectorMinFeatureSize : @0.0, CIDetectorReturnSubFeatures : @YES }];
+			[GLOBAL.manager requestImageForAsset:array[index] targetSize:GLOBAL.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+				NSArray<CIFeature *> *features = [[result filterWithName:@"CIColorMonochrome"] featuresOfType:CIDetectorTypeText options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh, CIDetectorMinFeatureSize : @0.0, CIDetectorReturnSubFeatures : @YES, /*CIDetectorMaxFeatureCount : @1*/ }];
 
 				if (features.count)
 					[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-						[[PHAssetCollectionChangeRequest changeRequestForAssetCollection:self.collection] insertAssets:@[ assets[index] ]];
+						[[PHAssetCollectionChangeRequest changeRequestForAssetCollection:self.collection] insertAssets:@[ array[index] ]];
 					} completionHandler:^(BOOL success, NSError * _Nullable error) {
-						@synchronized(self) {
-							[self.tempAssets insertObject:assets[index] atIndex:0];
-
-							[GCD main:^{
-								[self.collectionView insertItemsAtIndexPaths:@[ [NSIndexPath indexPathForItem:0 inSection:0] ]];
-							}];
-						}
-
 						[error log:@"insertAssets:"];
 					}];
 

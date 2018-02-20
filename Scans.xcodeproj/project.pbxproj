@@ -26,6 +26,7 @@
 		CDAAC26F1FC8B20300C1C401 /* NSArray+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDAAC26E1FC8B20300C1C401 /* NSArray+Convenience.m */; };
 		CDAAC2721FC8B21600C1C401 /* NSLayoutConstraint+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDAAC2711FC8B21600C1C401 /* NSLayoutConstraint+Convenience.m */; };
 		CDAAC2751FC8B22D00C1C401 /* UIViewController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDAAC2731FC8B22C00C1C401 /* UIViewController+Convenience.m */; };
+		CDCAF72F203C669C00D387AC /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCAF72E203C669C00D387AC /* Global.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,8 @@
 		CDAAC2711FC8B21600C1C401 /* NSLayoutConstraint+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+Convenience.m"; sourceTree = "<group>"; };
 		CDAAC2731FC8B22C00C1C401 /* UIViewController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Convenience.m"; sourceTree = "<group>"; };
 		CDAAC2741FC8B22D00C1C401 /* UIViewController+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Convenience.h"; sourceTree = "<group>"; };
+		CDCAF72D203C669C00D387AC /* Global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
+		CDCAF72E203C669C00D387AC /* Global.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +110,8 @@
 				CD662FD01FC701E2002BA3F8 /* LaunchScreen.storyboard */,
 				CD662FD31FC701E2002BA3F8 /* Info.plist */,
 				CD662FD41FC701E2002BA3F8 /* main.m */,
+				CDCAF72D203C669C00D387AC /* Global.h */,
+				CDCAF72E203C669C00D387AC /* Global.m */,
 				CD662FCB1FC701E2002BA3F8 /* Scans.xcdatamodeld */,
 				CD662FE81FC70ECD002BA3F8 /* ImageController.h */,
 				CD662FE91FC70ECD002BA3F8 /* ImageController.m */,
@@ -231,6 +236,7 @@
 				CD662FF01FC72A40002BA3F8 /* UIImage+Convenience.m in Sources */,
 				CD662FD51FC701E2002BA3F8 /* main.m in Sources */,
 				CDAAC2751FC8B22D00C1C401 /* UIViewController+Convenience.m in Sources */,
+				CDCAF72F203C669C00D387AC /* Global.m in Sources */,
 				CD662FCD1FC701E2002BA3F8 /* Scans.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
