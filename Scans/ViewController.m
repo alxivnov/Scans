@@ -8,10 +8,13 @@
 
 #import "ViewController.h"
 
+@import Vision;
+
 #import "Global.h"
 
 #import "CoreGraphics+Convenience.h"
 #import "Dispatch+Convenience.h"
+#import "UIView+Convenience.h"
 
 #import "CoreImage+Convenience.h"
 #import "NSArray+Convenience.h"
@@ -50,6 +53,8 @@
 
 @property (strong, nonatomic) PHAssetCollection *collection;
 @property (strong, nonatomic) PHFetchResult *assets;
+
+@property (strong, nonatomic) NSArray<PHAsset *> *refresh;
 @end
 
 @implementation ViewController
@@ -67,7 +72,9 @@ static NSString * const reuseIdentifier = @"Cell";
 
 	// Do any additional setup after loading the view.
 
-	self.cellSize = CGSizeScale(cls(UICollectionViewFlowLayout,  self.collectionView.collectionViewLayout).itemSize, [UIScreen mainScreen].nativeScale);
+	UICollectionViewFlowLayout *layout = cls(UICollectionViewFlowLayout,  self.collectionView.collectionViewLayout);
+	layout.sectionHeadersPinToVisibleBounds = YES;
+	self.cellSize = CGSizeScale(layout.itemSize, [UIScreen mainScreen].nativeScale);
 
 	[[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 	[PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
@@ -82,6 +89,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 			[GCD main:^{
 				[self.collectionView reloadData];
+
+				[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.assets.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
 			}];
 		} else {
 			[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
@@ -106,7 +115,7 @@ static NSString * const reuseIdentifier = @"Cell";
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	 NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
 
-	 [segue.destinationViewController forwardSelector:@selector(setImage:) withObject:self.assets[indexPath.row] nextTarget:Nil];
+	 [segue.destinationViewController forwardSelector:@selector(setAsset:) withObject:self.assets[indexPath.row] nextTarget:Nil];
  }
 
 #pragma mark <UICollectionViewDataSource>
@@ -138,53 +147,85 @@ static NSString * const reuseIdentifier = @"Cell";
 	return cell;
 }
 
+
+
 - (void)photoLibraryDidChange:(PHChange *)changeInstance {
 	PHFetchResultChangeDetails *changes = [changeInstance changeDetailsForFetchResult:self.assets];
 	if (!changes)
 		return;
 
-	self.assets = changes.fetchResultAfterChanges;
-
 	[GLOBAL.manager startCachingImagesForAssets:changes.insertedObjects targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil];
 
-	[GCD main:^{
-		[self.collectionView performFetchResultChanges:changes inSection:0];
-	}];
+	@synchronized(self) {
+		self.assets = changes.fetchResultAfterChanges;
+
+		[GCD main:^{
+			[self.collectionView performFetchResultChanges:changes inSection:0];
+		}];
+	}
 }
 
-- (IBAction)refreshAction:(UIBarButtonItem *)sender {
-	[GCD global:^{
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+	if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
 		NSMutableArray *array = [NSMutableArray array];
-
-		NSDate *endDate = self.collection.endDate ?: [self.assets.lastObject creationDate];
-		PHFetchResult *newer = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:endDate ? [NSPredicate predicateWithFormat:@"creationDate > %@", endDate] : Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
-		[array addObjectsFromArray:newer.array];
-
 		NSDate *startDate = self.collection.startDate ?: [self.assets.firstObject creationDate];
-		PHFetchResult *older = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:startDate ? [NSPredicate predicateWithFormat:@"creationDate < %@", startDate] : Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
-		[array addObjectsFromArray:older.array];
+		NSDate *endDate = self.collection.endDate ?: [self.assets.lastObject creationDate];
+		if (startDate && endDate) {
+			PHFetchResult *newer = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:[NSPredicate predicateWithFormat:@"creationDate > %@", endDate] sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
+			[array addObjectsFromArray:newer.array];
 
+			PHFetchResult *older = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:[NSPredicate predicateWithFormat:@"creationDate < %@", startDate] sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
+			[array addObjectsFromArray:older.array];
+		} else {
+			PHFetchResult *older = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
+			[array addObjectsFromArray:older.array];
+		}
+
+		self.refresh = array.count > 0 ? array : Nil;
+	}
+	
+	UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:[kind isEqualToString:UICollectionElementKindSectionHeader] ? @"header" : @"footer" forIndexPath:indexPath];
+	UILabel *label = [view subview:UIViewSubview(UILabel)];
+	label.text = [kind isEqualToString:UICollectionElementKindSectionHeader] ? [NSString stringWithFormat:@"Scan %lu new photos from Library", self.refresh.count] : [NSString stringWithFormat:@"%lu photos", self.assets.count];
+	return view;
+}
+
+- (IBAction)refreshAction:(UIButton *)sender {
+	sender.enabled = NO;
+
+	[GCD global:^{
 		PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
 		options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
 		options.networkAccessAllowed = YES;
 		options.synchronous = YES;
 
-		NSUInteger count = MIN(10, array.count);
-		for (NSInteger index = 0; index < count; index++)
-			[GLOBAL.manager requestImageForAsset:array[index] targetSize:GLOBAL.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-				NSArray<CIFeature *> *features = [[result filterWithName:@"CIColorMonochrome"] featuresOfType:CIDetectorTypeText options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh, CIDetectorMinFeatureSize : @0.0, CIDetectorReturnSubFeatures : @YES, /*CIDetectorMaxFeatureCount : @1*/ }];
+//		NSUInteger count = MIN(10, array.count);
+		for (NSInteger index = 0; index < self.refresh.count; index++) {
+			PHAsset *asset = self.refresh[index];
 
-				if (features.count)
-					[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-						[[PHAssetCollectionChangeRequest changeRequestForAssetCollection:self.collection] insertAssets:@[ array[index] ]];
-					} completionHandler:^(BOOL success, NSError * _Nullable error) {
-						[error log:@"insertAssets:"];
+			NSUInteger item = self.assets.count && [self.assets.lastObject creationDate].timeIntervalSinceReferenceDate < asset.creationDate.timeIntervalSinceReferenceDate ? self.assets.count : 0;
+			
+			[GCD main:^{
+				[[PHImageManager defaultManager] requestImageForAsset:asset targetSize:GLOBAL.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+					[result detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } handler:^(NSArray<VNTextObservation *> *results) {
+						if (results)
+							[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+								[[PHAssetCollectionChangeRequest changeRequestForAssetCollection:self.collection]  insertAssets:@[ asset ] atIndexes:[NSIndexSet indexSetWithIndex:item]];
+							} completionHandler:^(BOOL success, NSError * _Nullable error) {
+								[error log:@"insertAssets:"];
+							}];
 					}];
-
-				[GCD main:^{
-					[self.navigationController.navigationBar setProgress:(index + 1.0) / count animated:YES];
 				}];
+
+				[[[self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]] subview:UIViewSubview(UILabel)] setText:[NSString stringWithFormat:@"%lu / %lu", index + 1, self.refresh.count]];
+
+				[self.navigationController.navigationBar setProgress:(index + 1.0) / self.refresh.count animated:YES];
+
+				[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+
+				NSLog(sender.titleLabel.text);
 			}];
+		}
 	}];
 }
 

@@ -54,7 +54,7 @@ static NSString * const reuseIdentifier = @"Cell";
 */
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.textFeatures.count;
+    return self.observations.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -62,7 +62,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     // Configure the cell
 	UIImageView *imageView = cell.contentView.subviews.firstObject;
-	imageView.image = [self.image imageWithFeature:self.textFeatures[indexPath.row]];
+	imageView.image = [self.image imageWithObservation:self.observations[indexPath.row]];
     
     return cell;
 }

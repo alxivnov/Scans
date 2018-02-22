@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@import Vision;
+
 @interface FeaturesController : UICollectionViewController
 @property (strong, nonatomic) UIImage *image;
 
-@property (strong, nonatomic) NSArray<CITextFeature *> *textFeatures;
+@property (strong, nonatomic) NSArray<VNTextObservation *> *observations;
 @end
