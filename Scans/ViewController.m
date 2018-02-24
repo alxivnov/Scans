@@ -20,34 +20,6 @@
 #import "NSArray+Convenience.h"
 #import "UINavigationController+Convenience.h"
 
-// 0.6
-#warning Process images in background mode.
-// 0.7
-#warning Improve navigation transition.
-// 0.8
-#warning Add empty state.
-// 0.9
-#warning Add icon and logotype.
-// 1.0
-#warning Add sharing, image and about info.
-#warning Release.
-
-/*
-#warning Save text features to Core Data.
-// 0.5
-#warning OCR features.
-// 0.6
-#warning Search.
-// 0.7
-#warning Detect keywords.
-// 0.8
-#warning Sync keywords to Photo Library.
-// 0.9
-#warning Add In-App Purchase.
-// 1.0
-#warning Improve collection UI on different devices.
-#warning Fix loading of images.
-*/
 @interface ViewController () <PHPhotoLibraryChangeObserver>
 @property (assign, nonatomic) CGSize cellSize;
 
@@ -87,11 +59,12 @@ static NSString * const reuseIdentifier = @"Cell";
 
 			[GLOBAL.manager startCachingImagesForAssets:self.assets.array targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil];
 
-			[GCD main:^{
-				[self.collectionView reloadData];
+			if (self.assets.count)
+				[GCD main:^{
+					[self.collectionView reloadData];
 
-				[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.assets.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
-			}];
+					[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.assets.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+				}];
 		} else {
 			[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
 				GLOBAL.albumIdentifier = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:@"Scans"].placeholderForCreatedAssetCollection.localIdentifier;
@@ -113,10 +86,16 @@ static NSString * const reuseIdentifier = @"Cell";
 
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	 NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
-
-	 [segue.destinationViewController forwardSelector:@selector(setAsset:) withObject:self.assets[indexPath.row] nextTarget:Nil];
+	 if ([segue.identifier isEqualToString:@"asset"]) {
+		 NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
+		 
+		 [segue.destinationViewController forwardSelector:@selector(setAsset:) withObject:self.assets[indexPath.row] nextTarget:Nil];
+	 }
  }
+
+- (IBAction)done:(UIStoryboardSegue *)sender {
+	
+}
 
 #pragma mark <UICollectionViewDataSource>
 /*
@@ -186,7 +165,7 @@ static NSString * const reuseIdentifier = @"Cell";
 	
 	UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:[kind isEqualToString:UICollectionElementKindSectionHeader] ? @"header" : @"footer" forIndexPath:indexPath];
 	UILabel *label = [view subview:UIViewSubview(UILabel)];
-	label.text = [kind isEqualToString:UICollectionElementKindSectionHeader] ? [NSString stringWithFormat:@"Scan %lu new photos from Library", self.refresh.count] : [NSString stringWithFormat:@"%lu photos", self.assets.count];
+	label.text = [kind isEqualToString:UICollectionElementKindSectionHeader] ? [NSString stringWithFormat:@"Scan %lu new photos from Library", self.refresh.count] : [NSString stringWithFormat:@"%lu %@", self.assets.count, self.navigationItem.title.lowercaseString];
 	return view;
 }
 

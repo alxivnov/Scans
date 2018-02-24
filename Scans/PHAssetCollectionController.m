@@ -1,22 +1,18 @@
 //
-//  FeaturesController.m
+//  PHAssetCollectionController.m
 //  Scans
 //
-//  Created by Alexander Ivanov on 23.11.2017.
-//  Copyright © 2017 Alexander Ivanov. All rights reserved.
+//  Created by Alexander Ivanov on 23.02.2018.
+//  Copyright © 2018 Alexander Ivanov. All rights reserved.
 //
 
-#import "FeaturesController.h"
+#import "PHAssetCollectionController.h"
 
-#import "CoreImage+Convenience.h"
-#import "NSObject+Convenience.h"
-#import "UIView+Convenience.h"
-
-@interface FeaturesController ()
+@interface PHAssetCollectionController ()
 
 @end
 
-@implementation FeaturesController
+@implementation PHAssetCollectionController
 
 static NSString * const reuseIdentifier = @"Cell";
 
@@ -27,7 +23,7 @@ static NSString * const reuseIdentifier = @"Cell";
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
-//    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.
 }
@@ -37,42 +33,35 @@ static NSString * const reuseIdentifier = @"Cell";
     // Dispose of any resources that can be recreated.
 }
 
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	[segue.destinationViewController forwardSelector:@selector(setImage:) withObject:[[sender contentView].subviews.firstObject image] nextTarget:Nil];
-
-	segue.destinationViewController.navigationItem.rightBarButtonItem = Nil;
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
+*/
 
 #pragma mark <UICollectionViewDataSource>
-/*
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
 #warning Incomplete implementation, return the number of sections
     return 0;
 }
-*/
+
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.observations.count;
+#warning Incomplete implementation, return the number of items
+    return 0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     // Configure the cell
-	UIImageView *imageView = cell.contentView.subviews.firstObject;
-	imageView.image = [self.image imageWithObservation:self.observations[indexPath.row]];
     
     return cell;
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-	UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"footer" forIndexPath:indexPath];
-	UILabel *label = [view subview:UIViewSubview(UILabel)];
-	label.text = [NSString stringWithFormat:@"%lu %@", self.observations.count, self.navigationItem.title.lowercaseString];
-	return view;
 }
 
 #pragma mark <UICollectionViewDelegate>

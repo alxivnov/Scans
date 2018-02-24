@@ -79,4 +79,8 @@ __synthesize(UIScrollView *, scrollView, cls(UIScrollView, self.view))
 	return [self.view viewWithTag:UICenteredScrollViewTag];
 }
 
+- (IBAction)shareAction:(UIBarButtonItem *)sender {
+	[self presentActivityWithActivityItems:@[ self.image ]];
+}
+
 @end

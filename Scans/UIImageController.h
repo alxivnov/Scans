@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "NSObject+Convenience.h"
+#import "UIActivityViewController+Convenience.h"
 #import "UICenteredScrollView.h"
 
 @interface UIImageController : UIViewController
