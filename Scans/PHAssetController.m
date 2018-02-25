@@ -108,7 +108,12 @@
 - (IBAction)trashAction:(UIBarButtonItem *)sender {
 	[self presentSheetWithTitle:Nil message:Nil cancelActionTitle:@"Cancel" destructiveActionTitle:@"Delete" otherActionTitles:Nil from:Nil completion:^(UIAlertController *instance, NSInteger index) {
 		if (index == UIAlertActionDestructive)
-			return;
+			[PHPhotoLibrary deleteAssets:@[ self.asset ] completionHandler:^(BOOL success) {
+				if (success)
+					[GCD main:^{
+						[self.navigationController popViewControllerAnimated:YES];
+					}];
+			}];
 	}];
 }
 

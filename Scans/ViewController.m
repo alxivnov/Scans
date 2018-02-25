@@ -59,12 +59,12 @@ static NSString * const reuseIdentifier = @"Cell";
 
 			[GLOBAL.manager startCachingImagesForAssets:self.assets.array targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil];
 
-			if (self.assets.count)
-				[GCD main:^{
-					[self.collectionView reloadData];
+			[GCD main:^{
+				[self.collectionView reloadData];
 
+				if (self.assets.count)
 					[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.assets.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
-				}];
+			}];
 		} else {
 			[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
 				GLOBAL.albumIdentifier = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:@"Scans"].placeholderForCreatedAssetCollection.localIdentifier;
@@ -188,11 +188,7 @@ static NSString * const reuseIdentifier = @"Cell";
 				[[PHImageManager defaultManager] requestImageForAsset:asset targetSize:GLOBAL.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
 					[result detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } handler:^(NSArray<VNTextObservation *> *results) {
 						if (results)
-							[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-								[[PHAssetCollectionChangeRequest changeRequestForAssetCollection:self.collection]  insertAssets:@[ asset ] atIndexes:[NSIndexSet indexSetWithIndex:item]];
-							} completionHandler:^(BOOL success, NSError * _Nullable error) {
-								[error log:@"insertAssets:"];
-							}];
+							[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:[NSIndexSet indexSetWithIndex:item] intoAssetCollection:self.collection completionHandler:Nil];
 					}];
 				}];
 
@@ -200,9 +196,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 				[self.navigationController.navigationBar setProgress:(index + 1.0) / self.refresh.count animated:YES];
 
-				[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
-
-				NSLog(sender.titleLabel.text);
+				if (self.assets.count)
+					[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:item ? item - 1 : 0 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
 			}];
 		}
 	}];

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Affiliates+Convenience.h"
+#import "NSDictionary+Convenience.h"
 #import "NSObject+Convenience.h"
 #import "Photos+Convenience.h"
 
@@ -15,11 +17,13 @@
 
 @interface Global : NSObject
 
-@property (strong, nonatomic) NSString *albumIdentifier;
+@property (strong, nonatomic, readonly) NSDictionary *affiliateInfo;
 
 @property (strong, nonatomic, readonly) PHCachingImageManager *manager;
 
 @property (assign, nonatomic, readonly) CGSize screenSize;
+
+@property (strong, nonatomic) NSString *albumIdentifier;
 
 + (instancetype)global;
 
