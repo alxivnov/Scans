@@ -10,8 +10,9 @@
 
 @import Vision;
 
-@interface FeaturesController : UICollectionViewController
-@property (strong, nonatomic) UIImage *image;
+@interface VNTextCollectionController : UICollectionViewController
 
+@property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) NSArray<VNTextObservation *> *observations;
+
 @end

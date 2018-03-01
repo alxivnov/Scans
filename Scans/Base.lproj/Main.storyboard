@@ -172,10 +172,26 @@
             </objects>
             <point key="canvasLocation" x="1614" y="-608"/>
         </scene>
+        <!--Asset Paging Controller-->
+        <scene sceneID="fTb-g4-Drt">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="40" navigationOrientation="horizontal" spineLocation="none" id="UFK-T2-VuH" customClass="PHAssetPagingController" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aoC-mV-BK1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2390" y="133"/>
+        </scene>
+        <!--Observation Paging Controller-->
+        <scene sceneID="Syn-A4-jnC">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="40" navigationOrientation="horizontal" spineLocation="none" id="hsc-cF-eaV" customClass="VNObservationPagingController" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KQh-rD-6fM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3910" y="133"/>
+        </scene>
         <!--Scans-->
         <scene sceneID="q7W-Ze-HPa">
             <objects>
-                <collectionViewController id="YMh-Kf-QJE" customClass="ViewController" sceneMemberID="viewController">
+                <collectionViewController id="YMh-Kf-QJE" customClass="ScanController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="Acs-1l-Ugm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -206,7 +222,7 @@
                                     <constraint firstAttribute="bottom" secondItem="Mui-C1-ZUB" secondAttribute="bottom" id="tTc-3l-2N0"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="pX9-q5-Nbg" kind="show" identifier="asset" id="qzo-Hj-IlQ"/>
+                                    <segue destination="UFK-T2-VuH" kind="show" identifier="asset" id="JGy-f0-lez"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -221,24 +237,30 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="100 new not scanned photos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yf9-Fl-y1D">
-                                                <rect key="frame" x="20" y="15" width="287" height="21"/>
+                                                <rect key="frame" x="20" y="14.5" width="287" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uYB-x4-yx5">
-                                                <rect key="frame" x="315" y="9" width="40" height="33"/>
+                                                <rect key="frame" x="315" y="8.5" width="40" height="33"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <state key="normal" title="Scan"/>
                                                 <connections>
                                                     <action selector="refreshAction:" destination="YMh-Kf-QJE" eventType="touchUpInside" id="fWh-rQ-Rv6"/>
                                                 </connections>
                                             </button>
+                                            <progressView contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="mrk-BG-7gC">
+                                                <rect key="frame" x="0.0" y="48.5" width="375" height="2.5"/>
+                                            </progressView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="mrk-BG-7gC" secondAttribute="trailing" id="75A-CN-QWq"/>
                                             <constraint firstItem="yf9-Fl-y1D" firstAttribute="centerY" secondItem="ISY-w5-dwm" secondAttribute="centerY" id="KTO-Hb-MRe"/>
                                             <constraint firstAttribute="trailing" secondItem="uYB-x4-yx5" secondAttribute="trailing" constant="20" symbolic="YES" id="LHf-CC-U3L"/>
                                             <constraint firstItem="uYB-x4-yx5" firstAttribute="leading" secondItem="yf9-Fl-y1D" secondAttribute="trailing" constant="8" symbolic="YES" id="Mxf-8E-seR"/>
+                                            <constraint firstAttribute="bottom" secondItem="mrk-BG-7gC" secondAttribute="bottom" id="Ss3-sE-p0D"/>
+                                            <constraint firstItem="mrk-BG-7gC" firstAttribute="leading" secondItem="ISY-w5-dwm" secondAttribute="leading" id="iCT-Cx-dIE"/>
                                             <constraint firstItem="yf9-Fl-y1D" firstAttribute="leading" secondItem="ISY-w5-dwm" secondAttribute="leading" constant="20" symbolic="YES" id="p3i-QF-ut3"/>
                                             <constraint firstItem="uYB-x4-yx5" firstAttribute="centerY" secondItem="ISY-w5-dwm" secondAttribute="centerY" id="vqA-82-MDO"/>
                                         </constraints>
@@ -291,7 +313,7 @@
         <!--Asset Controller-->
         <scene sceneID="o2l-Xc-ajK">
             <objects>
-                <viewController id="pX9-q5-Nbg" customClass="PHAssetController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PHAssetController" id="pX9-q5-Nbg" customClass="PHAssetController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="heQ-4K-sS8" customClass="UICenteredScrollView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -325,7 +347,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iCH-Lc-E6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2390" y="133"/>
+            <point key="canvasLocation" x="2390" y="-609"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6AS-qy-eeA">
@@ -352,7 +374,7 @@
         <!--Observations-->
         <scene sceneID="Llh-iH-pv0">
             <objects>
-                <collectionViewController id="7CA-9z-xdx" customClass="FeaturesController" sceneMemberID="viewController">
+                <collectionViewController id="7CA-9z-xdx" customClass="VNObservationCollectionController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="V5Q-oE-9Al">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -383,7 +405,7 @@
                                     <constraint firstAttribute="trailing" secondItem="fS3-h6-tOd" secondAttribute="trailing" id="KNh-Qf-2Hp"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="Cg9-Jd-22E" kind="show" identifier="observation" id="r45-Ec-ruZ"/>
+                                    <segue destination="hsc-cF-eaV" kind="show" identifier="observation" id="Ec7-4A-VRv"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -419,7 +441,7 @@
         <!--Image Controller-->
         <scene sceneID="oVw-co-Qtx">
             <objects>
-                <viewController id="Cg9-Jd-22E" customClass="UIImageController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UIImageController" id="Cg9-Jd-22E" customClass="UIImageController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YWJ-vf-7l7" customClass="UICenteredScrollView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -437,7 +459,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WpM-5p-2RC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3910" y="133"/>
+            <point key="canvasLocation" x="3910" y="-609"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bmd-2n-8ZE">

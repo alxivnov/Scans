@@ -65,7 +65,7 @@
 		CD36C62C2041C2B90029FA9C /* UIApplication+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C6062041C2B70029FA9C /* UIApplication+Convenience.m */; };
 		CD36C62D2041C2B90029FA9C /* UIActivityViewController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C6082041C2B70029FA9C /* UIActivityViewController+Convenience.m */; };
 		CD36C62E2041C2B90029FA9C /* NSLayoutConstraint+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C60A2041C2B70029FA9C /* NSLayoutConstraint+Convenience.m */; };
-		CD36C62F2041C2B90029FA9C /* UICenteredScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C60B2041C2B70029FA9C /* UICenteredScrollView.m */; };
+		CD36C62F2041C2B90029FA9C /* UIScrollView+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C60B2041C2B70029FA9C /* UIScrollView+Convenience.m */; };
 		CD36C6302041C2B90029FA9C /* NSBundle+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C60C2041C2B70029FA9C /* NSBundle+Convenience.m */; };
 		CD36C6312041C2B90029FA9C /* CoreImage+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C60D2041C2B70029FA9C /* CoreImage+Convenience.m */; };
 		CD36C6322041C2B90029FA9C /* UIActivity+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C6142041C2B80029FA9C /* UIActivity+Convenience.m */; };
@@ -86,10 +86,16 @@
 		CD662FD21FC701E2002BA3F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD662FD01FC701E2002BA3F8 /* LaunchScreen.storyboard */; };
 		CD662FD51FC701E2002BA3F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FD41FC701E2002BA3F8 /* main.m */; };
 		CD662FEA1FC70ECD002BA3F8 /* PHAssetController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FE91FC70ECD002BA3F8 /* PHAssetController.m */; };
-		CD662FF61FC73B27002BA3F8 /* FeaturesController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FF51FC73B27002BA3F8 /* FeaturesController.m */; };
+		CD662FF61FC73B27002BA3F8 /* VNTextCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FF51FC73B27002BA3F8 /* VNTextCollectionController.m */; };
+		CD66F3D42044858B00050C65 /* Vision+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD66F3D32044858B00050C65 /* Vision+Convenience.m */; };
+		CDC08DE72045C07C009C6AD0 /* VNTextPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */; };
+		CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */; };
+		CDC08DED2045E52A009C6AD0 /* UIPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DEC2045E52A009C6AD0 /* UIPagingController.m */; };
+		CDC08E0220475436009C6AD0 /* ScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08E0120475436009C6AD0 /* ScanController.m */; };
 		CDCAF72F203C669C00D387AC /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCAF72E203C669C00D387AC /* Global.m */; };
 		CDDBBE85203F4D3100E9E325 /* UIImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDBBE84203F4D3100E9E325 /* UIImageController.m */; };
-		CDDBBE8B203F759600E9E325 /* PHAssetCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDBBE8A203F759600E9E325 /* PHAssetCollectionController.m */; };
+		CDE33ABD20485FA700F89AD8 /* CollectionTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33ABC20485FA700F89AD8 /* CollectionTransition.m */; };
+		CDE33AC02048611300F89AD8 /* CoreData+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33ABE2048611300F89AD8 /* CoreData+Convenience.m */; };
 		CDFE017D2041F91300C5AC4E /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFE017C2041F91300C5AC4E /* AboutController.m */; };
 		CDFE01822041FD5B00C5AC4E /* chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017E2041FD5A00C5AC4E /* chat@2x.png */; };
 		CDFE01832041FD5B00C5AC4E /* envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017F2041FD5A00C5AC4E /* envelope@2x.png */; };
@@ -177,10 +183,10 @@
 		CD36C6082041C2B70029FA9C /* UIActivityViewController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIActivityViewController+Convenience.m"; path = "../Objective Sea/UIActivityViewController+Convenience.m"; sourceTree = "<group>"; };
 		CD36C6092041C2B70029FA9C /* NSArray+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+Convenience.h"; path = "../Objective Sea/NSArray+Convenience.h"; sourceTree = "<group>"; };
 		CD36C60A2041C2B70029FA9C /* NSLayoutConstraint+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+Convenience.m"; path = "../Objective Sea/NSLayoutConstraint+Convenience.m"; sourceTree = "<group>"; };
-		CD36C60B2041C2B70029FA9C /* UICenteredScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UICenteredScrollView.m; path = "../Objective Sea/UICenteredScrollView.m"; sourceTree = "<group>"; };
+		CD36C60B2041C2B70029FA9C /* UIScrollView+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+Convenience.m"; path = "../Objective Sea/UIScrollView+Convenience.m"; sourceTree = "<group>"; };
 		CD36C60C2041C2B70029FA9C /* NSBundle+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+Convenience.m"; path = "../Objective Sea/NSBundle+Convenience.m"; sourceTree = "<group>"; };
 		CD36C60D2041C2B70029FA9C /* CoreImage+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CoreImage+Convenience.m"; path = "../Objective Sea/CoreImage+Convenience.m"; sourceTree = "<group>"; };
-		CD36C60E2041C2B70029FA9C /* UICenteredScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UICenteredScrollView.h; path = "../Objective Sea/UICenteredScrollView.h"; sourceTree = "<group>"; };
+		CD36C60E2041C2B70029FA9C /* UIScrollView+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+Convenience.h"; path = "../Objective Sea/UIScrollView+Convenience.h"; sourceTree = "<group>"; };
 		CD36C60F2041C2B70029FA9C /* NSObject+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Convenience.h"; path = "../Objective Sea/NSObject+Convenience.h"; sourceTree = "<group>"; };
 		CD36C6102041C2B70029FA9C /* NSFormatter+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFormatter+Convenience.h"; path = "../Objective Sea/NSFormatter+Convenience.h"; sourceTree = "<group>"; };
 		CD36C6112041C2B70029FA9C /* NSFileManager+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+Convenience.h"; path = "../Objective Sea/NSFileManager+Convenience.h"; sourceTree = "<group>"; };
@@ -219,14 +225,26 @@
 		CD662FD41FC701E2002BA3F8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CD662FE81FC70ECD002BA3F8 /* PHAssetController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAssetController.h; sourceTree = "<group>"; };
 		CD662FE91FC70ECD002BA3F8 /* PHAssetController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHAssetController.m; sourceTree = "<group>"; };
-		CD662FF41FC73B27002BA3F8 /* FeaturesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeaturesController.h; sourceTree = "<group>"; };
-		CD662FF51FC73B27002BA3F8 /* FeaturesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeaturesController.m; sourceTree = "<group>"; };
+		CD662FF41FC73B27002BA3F8 /* VNTextCollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VNTextCollectionController.h; sourceTree = "<group>"; };
+		CD662FF51FC73B27002BA3F8 /* VNTextCollectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNTextCollectionController.m; sourceTree = "<group>"; };
+		CD66F3D22044858B00050C65 /* Vision+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Vision+Convenience.h"; path = "../Objective Sea/Vision+Convenience.h"; sourceTree = "<group>"; };
+		CD66F3D32044858B00050C65 /* Vision+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Vision+Convenience.m"; path = "../Objective Sea/Vision+Convenience.m"; sourceTree = "<group>"; };
+		CDC08DE52045C07C009C6AD0 /* VNTextPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VNTextPagingController.h; sourceTree = "<group>"; };
+		CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNTextPagingController.m; sourceTree = "<group>"; };
+		CDC08DE82045E18C009C6AD0 /* PHAssetPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAssetPagingController.h; sourceTree = "<group>"; };
+		CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHAssetPagingController.m; sourceTree = "<group>"; };
+		CDC08DEB2045E52A009C6AD0 /* UIPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIPagingController.h; sourceTree = "<group>"; };
+		CDC08DEC2045E52A009C6AD0 /* UIPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIPagingController.m; sourceTree = "<group>"; };
+		CDC08E0020475436009C6AD0 /* ScanController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanController.h; sourceTree = "<group>"; };
+		CDC08E0120475436009C6AD0 /* ScanController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanController.m; sourceTree = "<group>"; };
 		CDCAF72D203C669C00D387AC /* Global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		CDCAF72E203C669C00D387AC /* Global.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
 		CDDBBE83203F4D3100E9E325 /* UIImageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIImageController.h; sourceTree = "<group>"; };
 		CDDBBE84203F4D3100E9E325 /* UIImageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIImageController.m; sourceTree = "<group>"; };
-		CDDBBE89203F759600E9E325 /* PHAssetCollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAssetCollectionController.h; sourceTree = "<group>"; };
-		CDDBBE8A203F759600E9E325 /* PHAssetCollectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHAssetCollectionController.m; sourceTree = "<group>"; };
+		CDE33ABB20485FA700F89AD8 /* CollectionTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionTransition.h; sourceTree = "<group>"; };
+		CDE33ABC20485FA700F89AD8 /* CollectionTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionTransition.m; sourceTree = "<group>"; };
+		CDE33ABE2048611300F89AD8 /* CoreData+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CoreData+Convenience.m"; path = "../Objective Sea/CoreData+Convenience.m"; sourceTree = "<group>"; };
+		CDE33ABF2048611300F89AD8 /* CoreData+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CoreData+Convenience.h"; path = "../Objective Sea/CoreData+Convenience.h"; sourceTree = "<group>"; };
 		CDFE017B2041F91300C5AC4E /* AboutController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		CDFE017C2041F91300C5AC4E /* AboutController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		CDFE017E2041FD5A00C5AC4E /* chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chat@2x.png"; path = "../Frameworks/Images/chat@2x.png"; sourceTree = "<group>"; };
@@ -311,6 +329,8 @@
 				CD256D5B2042E1D80086EAAB /* Answers+Convenience.m */,
 				CD256D532042E0DF0086EAAB /* CommonCrypto+Convenience.h */,
 				CD256D522042E0DF0086EAAB /* CommonCrypto+Convenience.m */,
+				CDE33ABF2048611300F89AD8 /* CoreData+Convenience.h */,
+				CDE33ABE2048611300F89AD8 /* CoreData+Convenience.m */,
 				CD36C6132041C2B80029FA9C /* CoreGraphics+Convenience.h */,
 				CD36C6202041C2B90029FA9C /* CoreImage+Convenience.h */,
 				CD36C60D2041C2B70029FA9C /* CoreImage+Convenience.m */,
@@ -358,8 +378,8 @@
 				CD36C5FD2041C2B60029FA9C /* UIAlertController+Convenience.m */,
 				CD36C6242041C2B90029FA9C /* UIApplication+Convenience.h */,
 				CD36C6062041C2B70029FA9C /* UIApplication+Convenience.m */,
-				CD36C60E2041C2B70029FA9C /* UICenteredScrollView.h */,
-				CD36C60B2041C2B70029FA9C /* UICenteredScrollView.m */,
+				CD36C60E2041C2B70029FA9C /* UIScrollView+Convenience.h */,
+				CD36C60B2041C2B70029FA9C /* UIScrollView+Convenience.m */,
 				CD36C61E2041C2B80029FA9C /* UIDocumentPickerViewController+Convenience.h */,
 				CD36C6152041C2B80029FA9C /* UIDocumentPickerViewController+Convenience.m */,
 				CD256D43204200560086EAAB /* UIGestureRecognizer+Convenience.h */,
@@ -376,6 +396,8 @@
 				CD36C6032041C2B70029FA9C /* UIView+Convenience.m */,
 				CD36C6172041C2B80029FA9C /* UIViewController+Convenience.h */,
 				CD36C6182041C2B80029FA9C /* UIViewController+Convenience.m */,
+				CD66F3D22044858B00050C65 /* Vision+Convenience.h */,
+				CD66F3D32044858B00050C65 /* Vision+Convenience.m */,
 			);
 			name = "Objective Sea";
 			sourceTree = "<group>";
@@ -406,13 +428,17 @@
 				CD662FC31FC701E2002BA3F8 /* AppDelegate.m */,
 				CD662FC51FC701E2002BA3F8 /* ViewController.h */,
 				CD662FC61FC701E2002BA3F8 /* ViewController.m */,
+				CDC08E0020475436009C6AD0 /* ScanController.h */,
+				CDC08E0120475436009C6AD0 /* ScanController.m */,
+				CD36C5F82041BFC10029FA9C /* NavigationController.h */,
+				CD36C5F92041BFC10029FA9C /* NavigationController.m */,
+				CDE33ABB20485FA700F89AD8 /* CollectionTransition.h */,
+				CDE33ABC20485FA700F89AD8 /* CollectionTransition.m */,
 				CD662FC81FC701E2002BA3F8 /* Main.storyboard */,
 				CD662FCE1FC701E2002BA3F8 /* Assets.xcassets */,
 				CD662FD01FC701E2002BA3F8 /* LaunchScreen.storyboard */,
 				CD662FD31FC701E2002BA3F8 /* Info.plist */,
 				CD662FD41FC701E2002BA3F8 /* main.m */,
-				CD36C5F82041BFC10029FA9C /* NavigationController.h */,
-				CD36C5F92041BFC10029FA9C /* NavigationController.m */,
 				CD662FCB1FC701E2002BA3F8 /* Scans.xcdatamodeld */,
 				CDCAF72D203C669C00D387AC /* Global.h */,
 				CDCAF72E203C669C00D387AC /* Global.m */,
@@ -420,10 +446,14 @@
 				CDDBBE84203F4D3100E9E325 /* UIImageController.m */,
 				CD662FE81FC70ECD002BA3F8 /* PHAssetController.h */,
 				CD662FE91FC70ECD002BA3F8 /* PHAssetController.m */,
-				CDDBBE89203F759600E9E325 /* PHAssetCollectionController.h */,
-				CDDBBE8A203F759600E9E325 /* PHAssetCollectionController.m */,
-				CD662FF41FC73B27002BA3F8 /* FeaturesController.h */,
-				CD662FF51FC73B27002BA3F8 /* FeaturesController.m */,
+				CDC08DEB2045E52A009C6AD0 /* UIPagingController.h */,
+				CDC08DEC2045E52A009C6AD0 /* UIPagingController.m */,
+				CDC08DE82045E18C009C6AD0 /* PHAssetPagingController.h */,
+				CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */,
+				CDC08DE52045C07C009C6AD0 /* VNTextPagingController.h */,
+				CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */,
+				CD662FF41FC73B27002BA3F8 /* VNTextCollectionController.h */,
+				CD662FF51FC73B27002BA3F8 /* VNTextCollectionController.m */,
 				CDFE017B2041F91300C5AC4E /* AboutController.h */,
 				CDFE017C2041F91300C5AC4E /* AboutController.m */,
 			);
@@ -564,13 +594,15 @@
 				CD36C6282041C2B90029FA9C /* UIImage+Convenience.m in Sources */,
 				CD36C62A2041C2B90029FA9C /* NSArray+Convenience.m in Sources */,
 				CD662FC71FC701E2002BA3F8 /* ViewController.m in Sources */,
+				CDC08DED2045E52A009C6AD0 /* UIPagingController.m in Sources */,
 				CD256D4E2042E0B60086EAAB /* Affiliates+Convenience.m in Sources */,
 				CD662FEA1FC70ECD002BA3F8 /* PHAssetController.m in Sources */,
 				CD36C62E2041C2B90029FA9C /* NSLayoutConstraint+Convenience.m in Sources */,
-				CDDBBE8B203F759600E9E325 /* PHAssetCollectionController.m in Sources */,
 				CD36C6372041C2B90029FA9C /* NSURL+Convenience.m in Sources */,
 				CD256D572042E0F80086EAAB /* NSData+Convenience.m in Sources */,
 				CD36C6382041C2B90029FA9C /* NSFileManager+Convenience.m in Sources */,
+				CDE33AC02048611300F89AD8 /* CoreData+Convenience.m in Sources */,
+				CDC08E0220475436009C6AD0 /* ScanController.m in Sources */,
 				CD36C62C2041C2B90029FA9C /* UIApplication+Convenience.m in Sources */,
 				CD256D5D2042E1D90086EAAB /* Answers+Convenience.m in Sources */,
 				CD256D482042DFBD0086EAAB /* MessageUI+Convenience.m in Sources */,
@@ -579,16 +611,20 @@
 				CD256D682042E5D70086EAAB /* NSDictionary+Convenience.m in Sources */,
 				CD36C6292041C2B90029FA9C /* UIView+Convenience.m in Sources */,
 				CD256DAA2043045F0086EAAB /* StoreKit+Convenience.m in Sources */,
+				CDE33ABD20485FA700F89AD8 /* CollectionTransition.m in Sources */,
 				CD36C6332041C2B90029FA9C /* UIDocumentPickerViewController+Convenience.m in Sources */,
 				CD256DAD20430DD20086EAAB /* QuartzCore+Convenience.m in Sources */,
 				CD36C6322041C2B90029FA9C /* UIActivity+Convenience.m in Sources */,
 				CDDBBE85203F4D3100E9E325 /* UIImageController.m in Sources */,
+				CD66F3D42044858B00050C65 /* Vision+Convenience.m in Sources */,
 				CD256D422041FFC10086EAAB /* UIInteractiveTransition.m in Sources */,
 				CD36C6272041C2B90029FA9C /* Photos+Convenience.m in Sources */,
 				CD36C6342041C2B90029FA9C /* UIViewController+Convenience.m in Sources */,
 				CD256DA92043045F0086EAAB /* SKInAppPurchase.m in Sources */,
-				CD662FF61FC73B27002BA3F8 /* FeaturesController.m in Sources */,
+				CD662FF61FC73B27002BA3F8 /* VNTextCollectionController.m in Sources */,
 				CD36C62B2041C2B90029FA9C /* Dispatch+Convenience.m in Sources */,
+				CDC08DE72045C07C009C6AD0 /* VNTextPagingController.m in Sources */,
+				CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */,
 				CD36C6262041C2B90029FA9C /* UIAlertController+Convenience.m in Sources */,
 				CD36C6392041C2B90029FA9C /* NSObject+Convenience.m in Sources */,
 				CD36C6352041C2B90029FA9C /* NSFormatter+Convenience.m in Sources */,
@@ -604,7 +640,7 @@
 				CD36C6362041C2B90029FA9C /* UINavigationController+Convenience.m in Sources */,
 				CD256D5A2042E12E0086EAAB /* NSString+Convenience.m in Sources */,
 				CD36C62D2041C2B90029FA9C /* UIActivityViewController+Convenience.m in Sources */,
-				CD36C62F2041C2B90029FA9C /* UICenteredScrollView.m in Sources */,
+				CD36C62F2041C2B90029FA9C /* UIScrollView+Convenience.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

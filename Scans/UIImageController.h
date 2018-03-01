@@ -10,7 +10,7 @@
 
 #import "NSObject+Convenience.h"
 #import "UIActivityViewController+Convenience.h"
-#import "UICenteredScrollView.h"
+#import "UIScrollView+Convenience.h"
 
 @interface UIImageController : UIViewController
 @property (strong, nonatomic) UIImage *image;

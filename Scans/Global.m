@@ -8,6 +8,8 @@
 
 #import "Global.h"
 
+#define __defaults(type, get, set) - (type)get { return [[NSUserDefaults standardUserDefaults] objectForKey:@"##get"]; } - (void)set:(type)get { [[NSUserDefaults standardUserDefaults] setObject:get forKey:@"##get"]; }
+
 @implementation Global
 
 __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvider:@"10603809" affiliate:@"1l3voBu"] dictionaryWithObject:@"write-review" forKey:@"action"])
@@ -25,13 +27,9 @@ __synthesize(PHCachingImageManager *, manager, [[PHCachingImageManager alloc] in
 	return _screenSize;
 }
 
-- (NSString *)albumIdentifier {
-	return [[NSUserDefaults standardUserDefaults] objectForKey:@"albumIdentifier"];
-}
-
-- (void)setAlbumIdentifier:(NSString *)albumIdentifier {
-	[[NSUserDefaults standardUserDefaults] setObject:albumIdentifier forKey:@"albumIdentifier"];
-}
+__defaults(NSString *, albumIdentifier, setAlbumIdentifier)
+__defaults(NSDate *, albumStartDate, setAlbumStartDate)
+__defaults(NSDate *, albumEndDate, setAlbumEndDate)
 
 __static(Global *, global, [[self alloc] init])
 

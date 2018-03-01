@@ -8,30 +8,24 @@
 
 #import "ViewController.h"
 
-@import Vision;
-
-#import "Global.h"
-
-#import "CoreGraphics+Convenience.h"
-#import "Dispatch+Convenience.h"
-#import "UIView+Convenience.h"
-
-#import "CoreImage+Convenience.h"
-#import "NSArray+Convenience.h"
-#import "UINavigationController+Convenience.h"
-
 @interface ViewController () <PHPhotoLibraryChangeObserver>
 @property (assign, nonatomic) CGSize cellSize;
 
-@property (strong, nonatomic) PHAssetCollection *collection;
-@property (strong, nonatomic) PHFetchResult *assets;
-
-@property (strong, nonatomic) NSArray<PHAsset *> *refresh;
+@property (strong, nonatomic) PHAssetCollection *album;
+@property (strong, nonatomic) PHFetchResult *fetch;
 @end
 
 @implementation ViewController
 
 static NSString * const reuseIdentifier = @"Cell";
+
+- (UICollectionViewFlowLayout *)flowLayout {
+	return cls(UICollectionViewFlowLayout, self.collectionView.collectionViewLayout);
+}
+
+- (void)scrollToItem:(NSUInteger)item animated:(BOOL)animated {
+	[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:animated];
+}
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -40,40 +34,42 @@ static NSString * const reuseIdentifier = @"Cell";
 	// self.clearsSelectionOnViewWillAppear = NO;
 
 	// Register cell classes
-//	[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+//	  [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
 
 	// Do any additional setup after loading the view.
 
-	UICollectionViewFlowLayout *layout = cls(UICollectionViewFlowLayout,  self.collectionView.collectionViewLayout);
-	layout.sectionHeadersPinToVisibleBounds = YES;
-	self.cellSize = CGSizeScale(layout.itemSize, [UIScreen mainScreen].nativeScale);
+	self.cellSize = CGSizeScale(self.flowLayout.itemSize, [UIScreen mainScreen].nativeScale);
 
-	[[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+#warning If not authorized show empty state!
+
 	[PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
 		if (status != PHAuthorizationStatusAuthorized)
 			return;
 
-		self.collection = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:GLOBAL.albumIdentifier options:Nil];
-		if (self.collection) {
-			self.assets = [PHAsset fetchAssetsInAssetCollection:self.collection options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
-
-			[GLOBAL.manager startCachingImagesForAssets:self.assets.array targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil];
+		self.album = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:GLOBAL.albumIdentifier options:Nil];
+		if (self.album) {
+			self.fetch = [PHAsset fetchAssetsInAssetCollection:self.album options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
 
 			[GCD main:^{
 				[self.collectionView reloadData];
 
-				if (self.assets.count)
-					[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.assets.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+				if (self.fetch.count)
+					[self scrollToItem:self.fetch.count - 1 animated:NO];
 			}];
-		} else {
-			[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-				GLOBAL.albumIdentifier = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:@"Scans"].placeholderForCreatedAssetCollection.localIdentifier;
-			} completionHandler:^(BOOL success, NSError * _Nullable error) {
-				self.collection = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:GLOBAL.albumIdentifier options:Nil];
 
-				[error log:@"creationRequestForAssetCollectionWithTitle:"];
+			[GLOBAL.manager startCachingImagesForAssets:self.fetch.array targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil];
+		} else {
+			[PHPhotoLibrary createAssetCollectionWithTitle:@"Scans" completionHandler:^(NSString *localIdentifier) {
+				if (!localIdentifier)
+					return;
+
+				GLOBAL.albumIdentifier = localIdentifier;
+
+				self.album = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:localIdentifier options:Nil];
 			}];
 		}
+
+		[[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 	}];
 }
 
@@ -88,8 +84,9 @@ static NSString * const reuseIdentifier = @"Cell";
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	 if ([segue.identifier isEqualToString:@"asset"]) {
 		 NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
-		 
-		 [segue.destinationViewController forwardSelector:@selector(setAsset:) withObject:self.assets[indexPath.row] nextTarget:Nil];
+
+		 [segue.destinationViewController forwardSelector:@selector(setAssets:) withObject:self.fetch nextTarget:Nil];
+		 [segue.destinationViewController forwardSelector:@selector(setIndexPath:) withObject:indexPath nextTarget:Nil];
 	 }
  }
 
@@ -106,7 +103,7 @@ static NSString * const reuseIdentifier = @"Cell";
 */
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	return self.assets.count;
+	return self.fetch.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -114,7 +111,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 	// Configure the cell
 	UIImageView *imageView = cell.contentView.subviews.firstObject;
-	imageView.tag = [GLOBAL.manager requestImageForAsset:self.assets[indexPath.item] targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+	imageView.tag = [GLOBAL.manager requestImageForAsset:self.fetch[indexPath.item] targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
 		NSInteger tag = [info[PHImageResultRequestIDKey] integerValue];
 
 		[GCD main:^{
@@ -126,81 +123,28 @@ static NSString * const reuseIdentifier = @"Cell";
 	return cell;
 }
 
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+	UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"footer" forIndexPath:indexPath];
 
+	UILabel *label = [view subview:UIViewSubview(UILabel)];
+	label.text = [NSString stringWithFormat:@"%lu %@", self.fetch.count, self.navigationItem.title.lowercaseString];
+	return view;
+}
 
 - (void)photoLibraryDidChange:(PHChange *)changeInstance {
-	PHFetchResultChangeDetails *changes = [changeInstance changeDetailsForFetchResult:self.assets];
+	PHFetchResultChangeDetails *changes = [changeInstance changeDetailsForFetchResult:self.fetch];
 	if (!changes)
 		return;
 
-	[GLOBAL.manager startCachingImagesForAssets:changes.insertedObjects targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil];
-
 	@synchronized(self) {
-		self.assets = changes.fetchResultAfterChanges;
+		self.fetch = changes.fetchResultAfterChanges;
 
 		[GCD main:^{
 			[self.collectionView performFetchResultChanges:changes inSection:0];
 		}];
 	}
-}
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-	if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-		NSMutableArray *array = [NSMutableArray array];
-		NSDate *startDate = self.collection.startDate ?: [self.assets.firstObject creationDate];
-		NSDate *endDate = self.collection.endDate ?: [self.assets.lastObject creationDate];
-		if (startDate && endDate) {
-			PHFetchResult *newer = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:[NSPredicate predicateWithFormat:@"creationDate > %@", endDate] sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
-			[array addObjectsFromArray:newer.array];
-
-			PHFetchResult *older = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:[NSPredicate predicateWithFormat:@"creationDate < %@", startDate] sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
-			[array addObjectsFromArray:older.array];
-		} else {
-			PHFetchResult *older = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
-			[array addObjectsFromArray:older.array];
-		}
-
-		self.refresh = array.count > 0 ? array : Nil;
-	}
-	
-	UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:[kind isEqualToString:UICollectionElementKindSectionHeader] ? @"header" : @"footer" forIndexPath:indexPath];
-	UILabel *label = [view subview:UIViewSubview(UILabel)];
-	label.text = [kind isEqualToString:UICollectionElementKindSectionHeader] ? [NSString stringWithFormat:@"Scan %lu new photos from Library", self.refresh.count] : [NSString stringWithFormat:@"%lu %@", self.assets.count, self.navigationItem.title.lowercaseString];
-	return view;
-}
-
-- (IBAction)refreshAction:(UIButton *)sender {
-	sender.enabled = NO;
-
-	[GCD global:^{
-		PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-		options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-		options.networkAccessAllowed = YES;
-		options.synchronous = YES;
-
-//		NSUInteger count = MIN(10, array.count);
-		for (NSInteger index = 0; index < self.refresh.count; index++) {
-			PHAsset *asset = self.refresh[index];
-
-			NSUInteger item = self.assets.count && [self.assets.lastObject creationDate].timeIntervalSinceReferenceDate < asset.creationDate.timeIntervalSinceReferenceDate ? self.assets.count : 0;
-			
-			[GCD main:^{
-				[[PHImageManager defaultManager] requestImageForAsset:asset targetSize:GLOBAL.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-					[result detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } handler:^(NSArray<VNTextObservation *> *results) {
-						if (results)
-							[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:[NSIndexSet indexSetWithIndex:item] intoAssetCollection:self.collection completionHandler:Nil];
-					}];
-				}];
-
-				[[[self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]] subview:UIViewSubview(UILabel)] setText:[NSString stringWithFormat:@"%lu / %lu", index + 1, self.refresh.count]];
-
-				[self.navigationController.navigationBar setProgress:(index + 1.0) / self.refresh.count animated:YES];
-
-				if (self.assets.count)
-					[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:item ? item - 1 : 0 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
-			}];
-		}
-	}];
+	[GLOBAL.manager startCachingImagesForAssets:changes.insertedObjects targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil];
 }
 
 #pragma mark <UICollectionViewDelegate>

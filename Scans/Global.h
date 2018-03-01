@@ -24,6 +24,8 @@
 @property (assign, nonatomic, readonly) CGSize screenSize;
 
 @property (strong, nonatomic) NSString *albumIdentifier;
+@property (strong, nonatomic) NSDate *albumStartDate;
+@property (strong, nonatomic) NSDate *albumEndDate;
 
 + (instancetype)global;
 

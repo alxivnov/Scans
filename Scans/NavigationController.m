@@ -8,17 +8,23 @@
 
 #import "NavigationController.h"
 
+#import "CollectionTransition.h"
+
 #import "UIGestureRecognizer+Convenience.h"
-#import "UIGestureTransition.h"
 #import "UIViewController+Convenience.h"
 
 @interface NavigationController ()
-@property (strong, nonatomic, readonly) UIPanTransition *transition;
+@property (assign, nonatomic) BOOL statusBarHidden;
+
+@property (strong, nonatomic, readonly) UIPanTransition *modalTransition;
+
+@property (strong, nonatomic, readonly) CollectionTransition *collectionTransition;
 @end
 
 @implementation NavigationController
 
-__synthesize(UIPanTransition *, transition, [UIPanTransition gestureTransition:Nil])
+__synthesize(UIPanTransition *, modalTransition, [UIPanTransition gestureTransition:Nil])
+__synthesize(CollectionTransition *, collectionTransition, [CollectionTransition gestureTransition:Nil])
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,8 +32,10 @@ __synthesize(UIPanTransition *, transition, [UIPanTransition gestureTransition:N
 
 	self.delegate = self;
 
+//	[self.barHideOnTapGestureRecognizer addTarget:self action:@selector(hideBarsTap:)];
+
 	if (self.modalPresentationStyle == UIModalPresentationFullScreen) {
-		self.containingViewController.transitioningDelegate = self.transition;
+		self.containingViewController.transitioningDelegate = self.modalTransition;
 
 		[self.navigationBar addPanWithTarget:self];
 
@@ -61,9 +69,25 @@ __synthesize(UIPanTransition *, transition, [UIPanTransition gestureTransition:N
     // Pass the selected object to the new view controller.
 }
 */
+/*
+- (IBAction)hideBarsTap:(UITapGestureRecognizer *)sender {
+	[self setNeedsStatusBarAppearanceUpdate];
+}
 
+- (BOOL)prefersStatusBarHidden {
+	return self.navigationBarHidden;
+}
+*/
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-	navigationController.toolbarHidden = viewController.toolbarItems.count == 0;
+	[navigationController setToolbarHidden:viewController.toolbarItems.count == 0 animated:NO];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+	navigationController.hidesBarsOnTap = [viewController isKindOfClass:[UIPageViewController class]];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+	return (operation == UINavigationControllerOperationPush && [toVC isKindOfClass:[UIPageViewController class]]) || (operation == UINavigationControllerOperationPop && [fromVC isKindOfClass:[UIPageViewController class]]) ? self.collectionTransition : Nil;
 }
 
 @end

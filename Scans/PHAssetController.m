@@ -10,13 +10,12 @@
 
 #import "Global.h"
 
-#import "CoreImage+Convenience.h"
 #import "Dispatch+Convenience.h"
 #import "NSFormatter+Convenience.h"
 #import "UIAlertController+Convenience.h"
-#import "UICenteredScrollView.h"
 #import "UIImage+Convenience.h"
 #import "UINavigationController+Convenience.h"
+#import "Vision+Convenience.h"
 
 @interface PHAssetController ()
 @property (strong, nonatomic) NSArray<VNObservation *> *observations;
@@ -56,35 +55,49 @@
 			if ([info[PHImageResultIsDegradedKey] boolValue])
 				[self fit];
 			else
-				[result detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } handler:^(NSArray<VNTextObservation *> *results) {
-					self.observations = results;
+				[GCD global:^{
+					[result detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } handler:^(NSArray<VNTextObservation *> *results) {
+						self.observations = results;
 
-					if (!results)
-						return;
+						if (!results)
+							return;
+/*
+						UIImage *image = [UIImage imageWithSize:result.size draw:^(CGContextRef context) {
+							[result drawAtPoint:CGPointZero];
 
-					UIImage *image = [UIImage imageWithSize:result.size draw:^(CGContextRef context) {
-						[result drawAtPoint:CGPointZero];
+							CGContextSetStrokeColorWithColor(context, self.view.tintColor.CGColor);
+							CGContextSetLineWidth(context, 4.0);
 
-						CGContextSetStrokeColorWithColor(context, self.view.tintColor.CGColor);
-						CGContextSetLineWidth(context, 4.0);
+							for (VNTextObservation *observation in results)
+								CGContextStrokeRect(context, CGRectInset([result boundsForObservation:observation], -4.0, -4.0));
+						}];
+*/
+						UIImage *circle = [UIImage image:@"circle"];
+						UIImage *observations = results ? [UIImage imageWithSize:circle.size draw:^(CGContextRef context) {
+							[circle drawInRect:CGRectMake(0.0, 0.0, circle.size.width, circle.size.height)];
 
-						for (VNTextObservation *observation in results)
-							CGContextStrokeRect(context, CGRectInset([result boundsForObservation:observation], -4.0, -4.0));
-					}];
+							NSAttributedString *string = [[NSAttributedString alloc] initWithString:str(results.count) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:[UIFont systemFontSize]] }];
+							[string drawAtPoint:CGPointMake((circle.size.width - string.size.width) / 2.0, (circle.size.height - string.size.height) / 2.0)];
+						}] : Nil;
 
-					UIImage *circle = [UIImage image:@"circle"];
-					UIImage *observations = results ? [UIImage imageWithSize:circle.size draw:^(CGContextRef context) {
-						[circle drawInRect:CGRectMake(0.0, 0.0, circle.size.width, circle.size.height)];
+						[GCD main:^{
+							for (VNTextObservation *observation in results) {
+								UIView *superview = [self.view viewWithTag:UICenteredScrollViewTag];
+								CGRect bounds = observation.bounds;
+								bounds.origin.x *= superview.bounds.size.width;
+								bounds.origin.y *= superview.bounds.size.height;
+								bounds.size.width *= superview.bounds.size.width;
+								bounds.size.height *= superview.bounds.size.height;
+								
+								UIView *view = [[UIView alloc] initWithFrame:CGRectInset(bounds, -0.2, -0.2)];
+								view.layer.borderColor = self.view.tintColor.CGColor;
+								view.layer.borderWidth = 0.2;
+								[superview addSubview:view];
+							}
 
-						NSAttributedString *string = [[NSAttributedString alloc] initWithString:str(results.count) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:[UIFont systemFontSize]] }];
-						[string drawAtPoint:CGPointMake((circle.size.width - string.size.width) / 2.0, (circle.size.height - string.size.height) / 2.0)];
-					}] : Nil;
-
-					[GCD main:^{
-						self.image = image;
-
-						self.navigationItem.rightBarButtonItem.image = observations ?: circle;
-						self.navigationItem.rightBarButtonItem.enabled = observations != Nil;
+							self.navigationItem.rightBarButtonItem.image = observations ?: circle;
+							self.navigationItem.rightBarButtonItem.enabled = observations != Nil;
+						}];
 					}];
 				}];
 		}];

@@ -37,18 +37,21 @@ __synthesize(UIScrollView *, scrollView, cls(UIScrollView, self.view))
 		[self.scrollView addSubview:imageView];
 
 		self.scrollView.contentSize = imageView.image.size;
-		self.scrollView.maximumZoomScale = fmax(fmax(self.scrollView.bounds.size.width / self.imageView.image.size.width, self.scrollView.bounds.size.height / self.imageView.image.size.height), 2.0);
-		self.scrollView.minimumZoomScale = fmin(fmin(self.scrollView.bounds.size.width / self.imageView.image.size.width, self.scrollView.bounds.size.height / self.imageView.image.size.height), 1.0);
+		CGFloat fit = self.scrollView.fitZoom;
+		self.scrollView.maximumZoomScale = fmax(1.0, fit * 2.0);
+		self.scrollView.minimumZoomScale = fit;
 		self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
+
+		self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
 	}
 }
 
 - (void)fill {
-	self.scrollView.zoomScale = fmax(self.scrollView.bounds.size.width / self.imageView.image.size.width, self.scrollView.bounds.size.height / self.imageView.image.size.height);
+	self.scrollView.zoomScale = self.scrollView.fillZoom;
 }
 
 - (void)fit {
-	self.scrollView.zoomScale = fmin(self.scrollView.bounds.size.width / self.imageView.image.size.width, self.scrollView.bounds.size.height / self.imageView.image.size.height);
+	self.scrollView.zoomScale = self.scrollView.fitZoom;
 }
 
 - (void)viewDidLoad {
