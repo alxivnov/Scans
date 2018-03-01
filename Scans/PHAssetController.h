@@ -12,5 +12,6 @@
 #import "Photos+Convenience.h"
 
 @interface PHAssetController : UIImageController
+@property (strong, nonatomic) PHAssetCollection *album;
 @property (strong, nonatomic) PHAsset *asset;
 @end

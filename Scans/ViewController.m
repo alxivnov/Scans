@@ -49,7 +49,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 		Album *album = [GLOBAL.container.viewContext executeFetchRequestWithEntityName:@"Album" lastObject:@"creationDate"];
 
-		self.album = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:album.localIdentifier options:Nil];
+		self.album = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:album.albumIdentifier options:Nil];
 		if (self.album) {
 			self.fetch = [PHAsset fetchAssetsInAssetCollection:self.album options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
 
@@ -66,7 +66,7 @@ static NSString * const reuseIdentifier = @"Cell";
 					return;
 
 				Album *album = [Album insertInManagedObjectContext:GLOBAL.container.viewContext];
-				album.localIdentifier = localIdentifier;
+				album.albumIdentifier = localIdentifier;
 				album.creationDate = [NSDate date];
 				[GLOBAL.container.viewContext save];
 
@@ -90,7 +90,8 @@ static NSString * const reuseIdentifier = @"Cell";
 	 if ([segue.identifier isEqualToString:@"asset"]) {
 		 NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
 
-		 [segue.destinationViewController forwardSelector:@selector(setAssets:) withObject:self.fetch nextTarget:Nil];
+		 [segue.destinationViewController forwardSelector:@selector(setAlbum:) withObject:self.album nextTarget:Nil];
+		 [segue.destinationViewController forwardSelector:@selector(setFetch:) withObject:self.fetch nextTarget:Nil];
 		 [segue.destinationViewController forwardSelector:@selector(setIndexPath:) withObject:indexPath nextTarget:Nil];
 	 }
  }

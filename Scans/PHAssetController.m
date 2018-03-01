@@ -56,7 +56,7 @@
 
 			if (![info[PHImageResultIsDegradedKey] boolValue])
 				[GCD global:^{
-					self.observations = [[GLOBAL.container.viewContext executeFetchRequestWithEntityName:@"Observation" predicateWithFormat:@"localIdentifier = %@", self.asset.localIdentifier] map:^id(Observation *obj) {
+					self.observations = [[GLOBAL.container.viewContext executeFetchRequestWithEntityName:@"Observation" predicateWithFormat:@"albumIdentifier = %@ && assetIdentifier = %@", self.album.localIdentifier, self.asset.localIdentifier] map:^id(Observation *obj) {
 						return obj.observation;
 					}];
 

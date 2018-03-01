@@ -17,11 +17,12 @@
 @implementation PHAssetPagingController
 
 - (UIViewController *)viewControllerForIndex:(NSUInteger)index {
-	PHAsset *asset = idx(self.assets, index);
+	PHAsset *asset = idx(self.fetch, index);
 	if (!asset)
 		return Nil;
 
 	PHAssetController *vc = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"PHAssetController"];
+	vc.album = self.album;
 	vc.asset = asset;
 	vc.view.tag = index;
 	return vc;

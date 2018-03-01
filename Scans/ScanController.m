@@ -78,8 +78,8 @@ static NSString * const reuseIdentifier = @"Cell";
 	if ([kind isEqualToString:UICollectionElementKindSectionFooter])
 		return [super collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
 
-	NSArray *ids = [[GLOBAL.container.viewContext executeFetchRequestWithEntityName:@"Asset" predicate:Nil] map:^id(Asset *obj) {
-		return obj.localIdentifier;
+	NSArray *ids = [[GLOBAL.container.viewContext executeFetchRequestWithEntityName:@"Asset" predicateWithFormat:@"albumIdentifier = %@", self.album.localIdentifier] map:^id(Asset *obj) {
+		return obj.assetIdentifier;
 	}];
 	PHFetchResult *fetch = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
 	NSArray *array = [fetch.array query:^BOOL(PHAsset *obj) {
@@ -136,12 +136,14 @@ static NSString * const reuseIdentifier = @"Cell";
 							if (results) {
 								[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:[NSIndexSet indexSetWithIndex:item ? item + 1 : 0] intoAssetCollection:self.album completionHandler:^(BOOL success) {
 									Asset *obj = [Asset insertInManagedObjectContext:GLOBAL.container.viewContext];
-									obj.localIdentifier = asset.localIdentifier;
+									obj.albumIdentifier = self.album.localIdentifier;
+									obj.assetIdentifier = asset.localIdentifier;
 									obj.numberOfObservations = results.count;
 
 									for (VNTextObservation *observation in results) {
 										Observation *obj = [Observation insertInManagedObjectContext:GLOBAL.container.viewContext];
-										obj.localIdentifier = asset.localIdentifier;
+										obj.albumIdentifier = self.album.localIdentifier;
+										obj.assetIdentifier = asset.localIdentifier;
 										obj.observation = observation;
 									}
 
@@ -149,7 +151,8 @@ static NSString * const reuseIdentifier = @"Cell";
 								}];
 							} else {
 								Asset *obj = [Asset insertInManagedObjectContext:GLOBAL.container.viewContext];
-								obj.localIdentifier = asset.localIdentifier;
+								obj.albumIdentifier = self.album.localIdentifier;
+								obj.assetIdentifier = asset.localIdentifier;
 								obj.numberOfObservations = results.count;
 
 								[GLOBAL.container.viewContext save];
@@ -160,7 +163,7 @@ static NSString * const reuseIdentifier = @"Cell";
 				[GCD main:^{
 					[self scrollToItem:item animated:YES];
 
-					[self refreshHeaderWithIndex:index count:self.refresh.count];
+					[self refreshHeaderWithIndex:self.scanning ? index : NSNotFound count:self.refresh.count];
 				}];
 			}
 		}];
