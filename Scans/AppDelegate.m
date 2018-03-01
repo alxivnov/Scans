@@ -12,6 +12,8 @@
 #import <Crashlytics/Crashlytics.h>
 #import <Answers/Answers.h>
 
+#import "Global.h"
+
 @interface AppDelegate ()
 
 @end
@@ -22,6 +24,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.
 	[Fabric with:@[ [Crashlytics class], [Answers class] ]];
+
+	GLOBAL;
+
 	return YES;
 }
 

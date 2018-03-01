@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *headerButton;
 @property (weak, nonatomic) IBOutlet UIProgressView *headerProgress;
 
+@property (assign, nonatomic) BOOL scanning;
 @property (strong, nonatomic) NSMutableArray<PHAsset *> *refresh;
 @end
 
@@ -77,25 +78,21 @@ static NSString * const reuseIdentifier = @"Cell";
 	if ([kind isEqualToString:UICollectionElementKindSectionFooter])
 		return [super collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
 
-	NSMutableArray *array = [NSMutableArray array];
-	NSDate *startDate = self.album.startDate ?: [self.fetch.firstObject creationDate];
-	NSDate *endDate = self.album.endDate ?: [self.fetch.lastObject creationDate];
-	if (startDate && endDate) {
-		PHFetchResult *newer = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:[NSPredicate predicateWithFormat:@"creationDate > %@", endDate] sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
-		[array addObjectsFromArray:newer.array];
+	NSArray *ids = [[GLOBAL.container.viewContext executeFetchRequestWithEntityName:@"Asset" predicate:Nil] map:^id(Asset *obj) {
+		return obj.localIdentifier;
+	}];
+	PHFetchResult *fetch = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
+	NSArray *array = [fetch.array query:^BOOL(PHAsset *obj) {
+		return ![ids containsObject:obj.localIdentifier];
+	}];
 
-		PHFetchResult *older = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:[NSPredicate predicateWithFormat:@"creationDate < %@", startDate] sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
-		[array addObjectsFromArray:older.array];
-	} else {
-		PHFetchResult *older = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
-		[array addObjectsFromArray:older.array];
-	}
-
-	self.refresh = array.count > 0 ? array : Nil;
+	self.refresh = array.count > 0 ? [array mutableCopy] : Nil;
 
 	UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
-	UILabel *label = [view subview:UIViewSubview(UILabel)];
-	label.text = [NSString stringWithFormat:@"Scan %lu new photos from Library", array.count];
+	self.headerLabel = [view subview:UIViewSubview(UILabel)];
+	self.headerButton = [view subview:UIViewSubview(UIButton)];
+	self.headerProgress = [view subview:UIViewSubview(UIProgressView)];
+	self.headerLabel.text = [NSString stringWithFormat:@"Scan %lu new photos from Library", array.count];
 	return view;
 }
 
@@ -105,52 +102,70 @@ static NSString * const reuseIdentifier = @"Cell";
 	} else {
 		self.flowLayout.headerReferenceSize = self.flowLayout.footerReferenceSize;
 
-		self.headerLabel.text = index == 0 ? [NSString stringWithFormat:@"Scan %lu new photos from Library", count] : [NSString stringWithFormat:@"%lu / %lu", index, count];
+		self.headerLabel.text = index == NSNotFound ? [NSString stringWithFormat:@"Scan %lu new photos from Library", count] : [NSString stringWithFormat:@"%lu / %lu", index, count];
 
-		self.headerButton.titleLabel.text = index == 0 ? @"Scan" : @"Stop";
+		[self.headerButton setTitle:index == NSNotFound ? @"Scan" : @"Stop" forState:UIControlStateNormal];
 
-		self.headerProgress.progress = (float)index / (float)count;
+		[self.headerProgress setProgress:(float)index / (float)count animated:YES];
+
+		if (index == count)
+			self.headerProgress.progress = 0;
 	}
 }
 
 - (IBAction)refreshAction:(UIButton *)sender {
-	sender.titleLabel.text = [sender.titleLabel.text isEqualToString:@"Stop"] ? @"Scan" : @"Stop";
+	self.scanning = [sender.titleLabel.text isEqualToString:@"Scan"];
 
-	if ([sender.titleLabel.text isEqualToString:@"Stop"])
+	[sender setTitle:self.scanning ? @"Stop" : @"Scan" forState:UIControlStateNormal];
+
+	if (self.scanning)
 		[GCD global:^{
 			PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
 			options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
 			options.networkAccessAllowed = YES;
 			options.synchronous = YES;
 
-//			NSUInteger count = MIN(10, array.count);
-			for (NSInteger index = 0; index < self.refresh.count && [sender.titleLabel.text isEqualToString:@"Stop"]; index++) {
-				PHAsset *asset = self.refresh[index];
+			for (NSInteger index = 0; index <= self.refresh.count && self.scanning; index++) {
+				PHAsset *asset = idx(self.refresh, index);
 
-				NSUInteger item = self.fetch.count && [self.fetch.lastObject creationDate].timeIntervalSinceReferenceDate < asset.creationDate.timeIntervalSinceReferenceDate ? self.fetch.count : 0;
+				NSUInteger item = asset ? self.fetch.count && [self.fetch.lastObject creationDate].timeIntervalSinceReferenceDate < asset.creationDate.timeIntervalSinceReferenceDate ? self.fetch.count - 1 : 0 : NSNotFound;
 
-				[GCD main:^{
+				if (asset)
 					[[PHImageManager defaultManager] requestImageForAsset:asset targetSize:GLOBAL.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
 						[result detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } handler:^(NSArray<VNTextObservation *> *results) {
-							if (results)
-								[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:[NSIndexSet indexSetWithIndex:item] intoAssetCollection:self.album completionHandler:^(BOOL success) {
-									if (item)
-										GLOBAL.albumEndDate = asset.creationDate;
-									else
-										GLOBAL.albumStartDate = asset.creationDate;
+							if (results) {
+								[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:[NSIndexSet indexSetWithIndex:item ? item + 1 : 0] intoAssetCollection:self.album completionHandler:^(BOOL success) {
+									Asset *obj = [Asset insertInManagedObjectContext:GLOBAL.container.viewContext];
+									obj.localIdentifier = asset.localIdentifier;
+									obj.numberOfObservations = results.count;
+
+									for (VNTextObservation *observation in results) {
+										Observation *obj = [Observation insertInManagedObjectContext:GLOBAL.container.viewContext];
+										obj.localIdentifier = asset.localIdentifier;
+										obj.observation = observation;
+									}
+
+									[GLOBAL.container.viewContext save];
 								}];
+							} else {
+								Asset *obj = [Asset insertInManagedObjectContext:GLOBAL.container.viewContext];
+								obj.localIdentifier = asset.localIdentifier;
+								obj.numberOfObservations = results.count;
+
+								[GLOBAL.container.viewContext save];
+							}
 						}];
 					}];
 
-					[self refreshHeaderWithIndex:index + 1 count:self.refresh.count];
+				[GCD main:^{
+					[self scrollToItem:item animated:YES];
 
-					if (self.fetch.count)
-						[self scrollToItem:item ? item - 1 : 0 animated:YES];
+					[self refreshHeaderWithIndex:index count:self.refresh.count];
 				}];
 			}
 		}];
 	else
-		[self refreshHeaderWithIndex:0 count:self.refresh.count];
+		[self refreshHeaderWithIndex:NSNotFound count:self.refresh.count];
 }
 
 #pragma mark <UICollectionViewDelegate>

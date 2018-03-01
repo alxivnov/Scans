@@ -9,9 +9,7 @@
 #import "UIImageController.h"
 
 @interface UIImageController () <UIScrollViewDelegate>
-@property (strong, nonatomic, readonly) UIScrollView *scrollView;
 
-@property (strong, nonatomic) UIImageView *imageView;
 @end
 
 @implementation UIImageController

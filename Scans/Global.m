@@ -10,26 +10,32 @@
 
 #define __defaults(type, get, set) - (type)get { return [[NSUserDefaults standardUserDefaults] objectForKey:@"##get"]; } - (void)set:(type)get { [[NSUserDefaults standardUserDefaults] setObject:get forKey:@"##get"]; }
 
+@interface Global ()
+@property (assign, nonatomic) CGSize screenSize;
+@end
+
 @implementation Global
 
 __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvider:@"10603809" affiliate:@"1l3voBu"] dictionaryWithObject:@"write-review" forKey:@"action"])
 
 __synthesize(PHCachingImageManager *, manager, [[PHCachingImageManager alloc] init])
 
-@synthesize screenSize = _screenSize;
+__synthesize(NSPersistentContainer *, container, [NSPersistentContainer persistentContainerWithName:@"Scans"])
 
-- (CGSize)screenSize {
-	if (CGSizeEqualToSize(_screenSize, CGSizeZero)) {
+- (instancetype)init {
+	self = [super init];
+
+	if (self) {
+		[self.container loadPersistentStores:^(NSPersistentStoreDescription *description) {
+			NSLog(@"Core Data URL: %@", description.URL);
+		}];
+
 		CGFloat max = fmax([UIScreen mainScreen].nativeBounds.size.width, [UIScreen mainScreen].nativeBounds.size.height);
-		_screenSize = CGSizeMake(max, max);
+		self.screenSize = CGSizeMake(max, max);
 	}
 
-	return _screenSize;
+	return self;
 }
-
-__defaults(NSString *, albumIdentifier, setAlbumIdentifier)
-__defaults(NSDate *, albumStartDate, setAlbumStartDate)
-__defaults(NSDate *, albumEndDate, setAlbumEndDate)
 
 __static(Global *, global, [[self alloc] init])
 

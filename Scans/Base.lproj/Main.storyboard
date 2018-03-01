@@ -180,10 +180,10 @@
             </objects>
             <point key="canvasLocation" x="2390" y="133"/>
         </scene>
-        <!--Observation Paging Controller-->
+        <!--Text Paging Controller-->
         <scene sceneID="Syn-A4-jnC">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="40" navigationOrientation="horizontal" spineLocation="none" id="hsc-cF-eaV" customClass="VNObservationPagingController" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="40" navigationOrientation="horizontal" spineLocation="none" id="hsc-cF-eaV" customClass="VNTextPagingController" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KQh-rD-6fM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3910" y="133"/>
@@ -374,7 +374,7 @@
         <!--Observations-->
         <scene sceneID="Llh-iH-pv0">
             <objects>
-                <collectionViewController id="7CA-9z-xdx" customClass="VNObservationCollectionController" sceneMemberID="viewController">
+                <collectionViewController id="7CA-9z-xdx" customClass="VNTextCollectionController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="V5Q-oE-9Al">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -96,6 +96,7 @@
 		CDDBBE85203F4D3100E9E325 /* UIImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDBBE84203F4D3100E9E325 /* UIImageController.m */; };
 		CDE33ABD20485FA700F89AD8 /* CollectionTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33ABC20485FA700F89AD8 /* CollectionTransition.m */; };
 		CDE33AC02048611300F89AD8 /* CoreData+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33ABE2048611300F89AD8 /* CoreData+Convenience.m */; };
+		CDE33AD420486F8800F89AD8 /* Model+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33AD320486F8800F89AD8 /* Model+Convenience.m */; };
 		CDFE017D2041F91300C5AC4E /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFE017C2041F91300C5AC4E /* AboutController.m */; };
 		CDFE01822041FD5B00C5AC4E /* chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017E2041FD5A00C5AC4E /* chat@2x.png */; };
 		CDFE01832041FD5B00C5AC4E /* envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017F2041FD5A00C5AC4E /* envelope@2x.png */; };
@@ -245,6 +246,9 @@
 		CDE33ABC20485FA700F89AD8 /* CollectionTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionTransition.m; sourceTree = "<group>"; };
 		CDE33ABE2048611300F89AD8 /* CoreData+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CoreData+Convenience.m"; path = "../Objective Sea/CoreData+Convenience.m"; sourceTree = "<group>"; };
 		CDE33ABF2048611300F89AD8 /* CoreData+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CoreData+Convenience.h"; path = "../Objective Sea/CoreData+Convenience.h"; sourceTree = "<group>"; };
+		CDE33AC12048640800F89AD8 /* Scans.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Scans.entitlements; sourceTree = "<group>"; };
+		CDE33AD220486F8800F89AD8 /* Model+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Model+Convenience.h"; sourceTree = "<group>"; };
+		CDE33AD320486F8800F89AD8 /* Model+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Model+Convenience.m"; sourceTree = "<group>"; };
 		CDFE017B2041F91300C5AC4E /* AboutController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		CDFE017C2041F91300C5AC4E /* AboutController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		CDFE017E2041FD5A00C5AC4E /* chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chat@2x.png"; path = "../Frameworks/Images/chat@2x.png"; sourceTree = "<group>"; };
@@ -424,6 +428,9 @@
 		CD662FC11FC701E1002BA3F8 /* Scans */ = {
 			isa = PBXGroup;
 			children = (
+				CDE33AD220486F8800F89AD8 /* Model+Convenience.h */,
+				CDE33AD320486F8800F89AD8 /* Model+Convenience.m */,
+				CDE33AC12048640800F89AD8 /* Scans.entitlements */,
 				CD662FC21FC701E1002BA3F8 /* AppDelegate.h */,
 				CD662FC31FC701E2002BA3F8 /* AppDelegate.m */,
 				CD662FC51FC701E2002BA3F8 /* ViewController.h */,
@@ -434,6 +441,8 @@
 				CD36C5F92041BFC10029FA9C /* NavigationController.m */,
 				CDE33ABB20485FA700F89AD8 /* CollectionTransition.h */,
 				CDE33ABC20485FA700F89AD8 /* CollectionTransition.m */,
+				CDFE017B2041F91300C5AC4E /* AboutController.h */,
+				CDFE017C2041F91300C5AC4E /* AboutController.m */,
 				CD662FC81FC701E2002BA3F8 /* Main.storyboard */,
 				CD662FCE1FC701E2002BA3F8 /* Assets.xcassets */,
 				CD662FD01FC701E2002BA3F8 /* LaunchScreen.storyboard */,
@@ -454,8 +463,6 @@
 				CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */,
 				CD662FF41FC73B27002BA3F8 /* VNTextCollectionController.h */,
 				CD662FF51FC73B27002BA3F8 /* VNTextCollectionController.m */,
-				CDFE017B2041F91300C5AC4E /* AboutController.h */,
-				CDFE017C2041F91300C5AC4E /* AboutController.m */,
 			);
 			path = Scans;
 			sourceTree = "<group>";
@@ -495,6 +502,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
 								enabled = 1;
 							};
 						};
@@ -611,6 +621,7 @@
 				CD256D682042E5D70086EAAB /* NSDictionary+Convenience.m in Sources */,
 				CD36C6292041C2B90029FA9C /* UIView+Convenience.m in Sources */,
 				CD256DAA2043045F0086EAAB /* StoreKit+Convenience.m in Sources */,
+				CDE33AD420486F8800F89AD8 /* Model+Convenience.m in Sources */,
 				CDE33ABD20485FA700F89AD8 /* CollectionTransition.m in Sources */,
 				CD36C6332041C2B90029FA9C /* UIDocumentPickerViewController+Convenience.m in Sources */,
 				CD256DAD20430DD20086EAAB /* QuartzCore+Convenience.m in Sources */,
@@ -774,6 +785,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Scans/Scans.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VRBB8HL9RV;
 				FRAMEWORK_SEARCH_PATHS = "../Frameworks/**";
@@ -789,6 +801,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Scans/Scans.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VRBB8HL9RV;
 				FRAMEWORK_SEARCH_PATHS = "../Frameworks/**";

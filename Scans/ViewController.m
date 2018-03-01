@@ -24,7 +24,8 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)scrollToItem:(NSUInteger)item animated:(BOOL)animated {
-	[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:animated];
+	if ([self.collectionView numberOfItemsInSection:0] > item)
+		[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:animated];
 }
 
 - (void)viewDidLoad {
@@ -46,15 +47,16 @@ static NSString * const reuseIdentifier = @"Cell";
 		if (status != PHAuthorizationStatusAuthorized)
 			return;
 
-		self.album = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:GLOBAL.albumIdentifier options:Nil];
+		Album *album = [GLOBAL.container.viewContext executeFetchRequestWithEntityName:@"Album" lastObject:@"creationDate"];
+
+		self.album = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:album.localIdentifier options:Nil];
 		if (self.album) {
 			self.fetch = [PHAsset fetchAssetsInAssetCollection:self.album options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
 
 			[GCD main:^{
 				[self.collectionView reloadData];
 
-				if (self.fetch.count)
-					[self scrollToItem:self.fetch.count - 1 animated:NO];
+				[self scrollToItem:self.fetch.count - 1 animated:NO];
 			}];
 
 			[GLOBAL.manager startCachingImagesForAssets:self.fetch.array targetSize:self.cellSize contentMode:PHImageContentModeAspectFill options:Nil];
@@ -63,7 +65,10 @@ static NSString * const reuseIdentifier = @"Cell";
 				if (!localIdentifier)
 					return;
 
-				GLOBAL.albumIdentifier = localIdentifier;
+				Album *album = [Album insertInManagedObjectContext:GLOBAL.container.viewContext];
+				album.localIdentifier = localIdentifier;
+				album.creationDate = [NSDate date];
+				[GLOBAL.container.viewContext save];
 
 				self.album = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:localIdentifier options:Nil];
 			}];

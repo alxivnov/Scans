@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Model+Convenience.h"
+
 #import "Affiliates+Convenience.h"
+#import "CoreData+Convenience.h"
+#import "Photos+Convenience.h"
 #import "NSDictionary+Convenience.h"
 #import "NSObject+Convenience.h"
-#import "Photos+Convenience.h"
 
 #define GLOBAL [Global global]
 
@@ -21,11 +24,9 @@
 
 @property (strong, nonatomic, readonly) PHCachingImageManager *manager;
 
-@property (assign, nonatomic, readonly) CGSize screenSize;
+@property (strong, nonatomic, readonly) NSPersistentContainer *container;
 
-@property (strong, nonatomic) NSString *albumIdentifier;
-@property (strong, nonatomic) NSDate *albumStartDate;
-@property (strong, nonatomic) NSDate *albumEndDate;
+@property (assign, nonatomic, readonly) CGSize screenSize;
 
 + (instancetype)global;
 

@@ -52,52 +52,43 @@
 			if (!result)
 				return;
 
-			if ([info[PHImageResultIsDegradedKey] boolValue])
-				[self fit];
-			else
+			[self fit];
+
+			if (![info[PHImageResultIsDegradedKey] boolValue])
 				[GCD global:^{
-					[result detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } handler:^(NSArray<VNTextObservation *> *results) {
-						self.observations = results;
+					self.observations = [[GLOBAL.container.viewContext executeFetchRequestWithEntityName:@"Observation" predicateWithFormat:@"localIdentifier = %@", self.asset.localIdentifier] map:^id(Observation *obj) {
+						return obj.observation;
+					}];
 
-						if (!results)
-							return;
-/*
-						UIImage *image = [UIImage imageWithSize:result.size draw:^(CGContextRef context) {
-							[result drawAtPoint:CGPointZero];
+					if (!self.observations.count)
+						return;
 
-							CGContextSetStrokeColorWithColor(context, self.view.tintColor.CGColor);
-							CGContextSetLineWidth(context, 4.0);
+					UIImage *circle = [UIImage image:@"circle"];
+					UIImage *observations = [UIImage imageWithSize:circle.size draw:^(CGContextRef context) {
+						[circle drawInRect:CGRectMake(0.0, 0.0, circle.size.width, circle.size.height)];
 
-							for (VNTextObservation *observation in results)
-								CGContextStrokeRect(context, CGRectInset([result boundsForObservation:observation], -4.0, -4.0));
-						}];
-*/
-						UIImage *circle = [UIImage image:@"circle"];
-						UIImage *observations = results ? [UIImage imageWithSize:circle.size draw:^(CGContextRef context) {
-							[circle drawInRect:CGRectMake(0.0, 0.0, circle.size.width, circle.size.height)];
+						NSAttributedString *string = [[NSAttributedString alloc] initWithString:str(self.observations.count) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:[UIFont systemFontSize]] }];
+						[string drawAtPoint:CGPointMake((circle.size.width - string.size.width) / 2.0, (circle.size.height - string.size.height) / 2.0)];
+					}];
 
-							NSAttributedString *string = [[NSAttributedString alloc] initWithString:str(results.count) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:[UIFont systemFontSize]] }];
-							[string drawAtPoint:CGPointMake((circle.size.width - string.size.width) / 2.0, (circle.size.height - string.size.height) / 2.0)];
-						}] : Nil;
+					[GCD main:^{
+						for (VNTextObservation *observation in self.observations) {
+							CGRect bounds = observation.bounds;
+							bounds.origin.x *= self.scrollView.contentSize.width;
+							bounds.origin.y *= self.scrollView.contentSize.height;
+							bounds.size.width *= self.scrollView.contentSize.width;
+							bounds.size.height *= self.scrollView.contentSize.height;
+							bounds.origin.x += self.imageView.frame.origin.x;
+							bounds.origin.y += self.imageView.frame.origin.y;
 
-						[GCD main:^{
-							for (VNTextObservation *observation in results) {
-								UIView *superview = [self.view viewWithTag:UICenteredScrollViewTag];
-								CGRect bounds = observation.bounds;
-								bounds.origin.x *= superview.bounds.size.width;
-								bounds.origin.y *= superview.bounds.size.height;
-								bounds.size.width *= superview.bounds.size.width;
-								bounds.size.height *= superview.bounds.size.height;
-								
-								UIView *view = [[UIView alloc] initWithFrame:CGRectInset(bounds, -0.2, -0.2)];
-								view.layer.borderColor = self.view.tintColor.CGColor;
-								view.layer.borderWidth = 0.2;
-								[superview addSubview:view];
-							}
+							UIView *view = [[UIView alloc] initWithFrame:CGRectInset(bounds, 2.0, 2.0)];
+							view.layer.borderColor = self.view.tintColor.CGColor;
+							view.layer.borderWidth = 2.0;
+							[self.scrollView addSubview:view];
+						}
 
-							self.navigationItem.rightBarButtonItem.image = observations ?: circle;
-							self.navigationItem.rightBarButtonItem.enabled = observations != Nil;
-						}];
+						self.navigationItem.rightBarButtonItem.image = observations ?: circle;
+						self.navigationItem.rightBarButtonItem.enabled = observations != Nil;
 					}];
 				}];
 		}];
