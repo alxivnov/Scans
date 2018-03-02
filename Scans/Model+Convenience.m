@@ -25,8 +25,20 @@
 
 @implementation NSManagedObjectContext (Model)
 
+- (Album *)fetchLastAlbum {
+	return [Album executeFetchRequestInContext:self lastObject:@"creationDate"];
+}
+
+- (NSArray<Asset *> *)fetchAssetsWithAlbumIdentifier:(NSString *)albumIdentifier {
+	return [Asset executeFetchRequestInContext:self predicateWithFormat:@"albumIdentifier = %@", albumIdentifier];
+}
+
+- (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier assetIdentifier:(NSString *)assetIdentifier {
+	return [Observation executeFetchRequestInContext:self predicateWithFormat:@"albumIdentifier = %@ && assetIdentifier = %@", albumIdentifier, assetIdentifier];
+}
+
 - (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier creationDate:(NSDate *)creationDate {
-	Album *album = [Album insertInManagedObjectContext:self];
+	Album *album = [Album insertInContext:self];
 	album.albumIdentifier = albumIdentifier;
 	album.creationDate = creationDate;
 
@@ -36,13 +48,13 @@
 }
 
 - (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier observations:(NSArray *)observations {
-	Asset *asset = [Asset insertInManagedObjectContext:self];
+	Asset *asset = [Asset insertInContext:self];
 	asset.assetIdentifier = assetIdentifier;
 	asset.albumIdentifier = albumIdentifier;
 	asset.numberOfObservations = observations.count;
 
 	for (VNTextObservation *observation in observations) {
-		Observation *obj = [Observation insertInManagedObjectContext:self];
+		Observation *obj = [Observation insertInContext:self];
 		obj.albumIdentifier = albumIdentifier;
 		obj.assetIdentifier = assetIdentifier;
 		obj.observation = observation;

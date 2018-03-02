@@ -47,7 +47,7 @@ static NSString * const reuseIdentifier = @"Cell";
 		if (status != PHAuthorizationStatusAuthorized)
 			return;
 
-		Album *album = [GLOBAL.container.viewContext executeFetchRequestWithEntityName:@"Album" lastObject:@"creationDate"];
+		Album *album = [GLOBAL.container.viewContext fetchLastAlbum];
 
 		self.album = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:album.albumIdentifier options:Nil];
 		if (self.album) {

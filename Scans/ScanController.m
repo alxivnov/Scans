@@ -78,7 +78,7 @@ static NSString * const reuseIdentifier = @"Cell";
 	if ([kind isEqualToString:UICollectionElementKindSectionFooter])
 		return [super collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
 
-	NSArray *ids = [[GLOBAL.container.viewContext executeFetchRequestWithEntityName:@"Asset" predicateWithFormat:@"albumIdentifier = %@", self.album.localIdentifier] map:^id(Asset *obj) {
+	NSArray *ids = [[GLOBAL.container.viewContext fetchAssetsWithAlbumIdentifier:self.album.localIdentifier] map:^id(Asset *obj) {
 		return obj.assetIdentifier;
 	}];
 	PHFetchResult *fetch = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];

@@ -20,8 +20,11 @@
 
 @interface NSManagedObjectContext (Model)
 
-- (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier creationDate:(NSDate *)creationDate;
+- (Album *)fetchLastAlbum;
+- (NSArray<Asset *> *)fetchAssetsWithAlbumIdentifier:(NSString *)albumIdentifier;
+- (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier assetIdentifier:(NSString *)assetIdentifier;
 
+- (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier creationDate:(NSDate *)creationDate;
 - (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier observations:(NSArray *)observations;
 
 @end
