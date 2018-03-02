@@ -133,30 +133,12 @@ static NSString * const reuseIdentifier = @"Cell";
 				if (asset)
 					[[PHImageManager defaultManager] requestImageForAsset:asset targetSize:GLOBAL.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
 						[result detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } handler:^(NSArray<VNTextObservation *> *results) {
-							if (results) {
+							if (results)
 								[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:[NSIndexSet indexSetWithIndex:item ? item + 1 : 0] intoAssetCollection:self.album completionHandler:^(BOOL success) {
-									Asset *obj = [Asset insertInManagedObjectContext:GLOBAL.container.viewContext];
-									obj.albumIdentifier = self.album.localIdentifier;
-									obj.assetIdentifier = asset.localIdentifier;
-									obj.numberOfObservations = results.count;
-
-									for (VNTextObservation *observation in results) {
-										Observation *obj = [Observation insertInManagedObjectContext:GLOBAL.container.viewContext];
-										obj.albumIdentifier = self.album.localIdentifier;
-										obj.assetIdentifier = asset.localIdentifier;
-										obj.observation = observation;
-									}
-
-									[GLOBAL.container.viewContext save];
+									[GLOBAL.container.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results];
 								}];
-							} else {
-								Asset *obj = [Asset insertInManagedObjectContext:GLOBAL.container.viewContext];
-								obj.albumIdentifier = self.album.localIdentifier;
-								obj.assetIdentifier = asset.localIdentifier;
-								obj.numberOfObservations = results.count;
-
-								[GLOBAL.container.viewContext save];
-							}
+							else
+								[GLOBAL.container.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results];
 						}];
 					}];
 

@@ -11,7 +11,6 @@
 #import "Model+Convenience.h"
 
 #import "Affiliates+Convenience.h"
-#import "CoreData+Convenience.h"
 #import "Photos+Convenience.h"
 #import "NSDictionary+Convenience.h"
 #import "NSObject+Convenience.h"

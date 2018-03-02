@@ -65,10 +65,7 @@ static NSString * const reuseIdentifier = @"Cell";
 				if (!localIdentifier)
 					return;
 
-				Album *album = [Album insertInManagedObjectContext:GLOBAL.container.viewContext];
-				album.albumIdentifier = localIdentifier;
-				album.creationDate = [NSDate date];
-				[GLOBAL.container.viewContext save];
+				[GLOBAL.container.viewContext saveAlbumWithIdentifier:localIdentifier creationDate:[NSDate date]];
 
 				self.album = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:localIdentifier options:Nil];
 			}];
