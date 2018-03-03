@@ -8,6 +8,8 @@
 
 #import "UIImageController.h"
 
+#import "UIGestureRecognizer+Convenience.h"
+
 @interface UIImageController () <UIScrollViewDelegate>
 
 @end
@@ -35,30 +37,25 @@ __synthesize(UIScrollView *, scrollView, cls(UIScrollView, self.view))
 		[self.scrollView addSubview:imageView];
 
 		self.scrollView.contentSize = imageView.image.size;
-		CGFloat fit = self.scrollView.fitZoom;
-		self.scrollView.maximumZoomScale = fmax(1.0, fit * 2.0);
-		self.scrollView.minimumZoomScale = fit;
+		self.scrollView.maximumZoomScale = fmax(1.0, self.scrollView.fillZoom);
+		self.scrollView.minimumZoomScale = self.scrollView.fitZoom;
 		self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
 
-		self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+		[self.scrollView.panGestureRecognizer addTarget:self action:@selector(panAction:)];
+		[self.scrollView.pinchGestureRecognizer addTarget:self action:@selector(pinchAction:)];
 	}
-}
-
-- (void)fill {
-	self.scrollView.zoomScale = self.scrollView.fillZoom;
-}
-
-- (void)fit {
-	self.scrollView.zoomScale = self.scrollView.fitZoom;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-	self.scrollView.delegate = self;
-
+	self.scrollView.alwaysBounceVertical = YES;
 	self.scrollView.bouncesZoom = YES;
+
+	self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+
+	self.scrollView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,8 +73,30 @@ __synthesize(UIScrollView *, scrollView, cls(UIScrollView, self.view))
 }
 */
 
+#warning Fix Zooming of observations!
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
 	return [self.view viewWithTag:UICenteredScrollViewTag];
+}
+
+- (IBAction)panAction:(UIPanGestureRecognizer *)sender {
+	if (sender.state != UIGestureRecognizerStateEnded)
+		return;
+
+	CGPoint translation = [sender translationInView:sender.view];
+	if (fabs(translation.x) >= translation.y)
+		return;
+
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)pinchAction:(UIPinchGestureRecognizer *)sender {
+	if (sender.state != UIGestureRecognizerStateEnded)
+		return;
+
+	if (sender.scale > 1.0)
+		return;
+
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)shareAction:(UIBarButtonItem *)sender {

@@ -11,17 +11,27 @@
 #import "Global.h"
 
 #import "Dispatch+Convenience.h"
+#import "NSArray+Convenience.h"
 #import "NSFormatter+Convenience.h"
 #import "UIAlertController+Convenience.h"
 #import "UIImage+Convenience.h"
 #import "UINavigationController+Convenience.h"
 #import "Vision+Convenience.h"
 
-@interface PHAssetController ()
-@property (strong, nonatomic) NSArray<VNObservation *> *observations;
+@interface PHAssetController () <PHPhotoLibraryChangeObserver>
+@property (strong, nonatomic) NSArray<VNTextObservation *> *observations;
 @end
 
 @implementation PHAssetController
+
+- (UIImage *)imageWithCount:(NSUInteger)count {
+	UIImage *img = [UIImage image:@"circle"];
+	NSAttributedString *str = [[NSAttributedString alloc] initWithString:str(count) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:[UIFont systemFontSize]] }];
+	CGPoint loc = CGPointMake((img.size.width - str.size.width) / 2.0, (img.size.height - str.size.height) / 2.0);
+	return [img drawImage:^(CGContextRef context) {
+		[str drawAtPoint:loc];
+	}];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,6 +46,9 @@
 - (void)setAsset:(PHAsset *)asset {
 	_asset = asset;
 
+	if (self.image)
+		return;
+
 	PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
 	options.networkAccessAllowed = YES;
 	options.progressHandler = ^(double progress, NSError * _Nullable error, BOOL * _Nonnull stop, NSDictionary * _Nullable info) {
@@ -47,54 +60,49 @@
 	};
 	[GLOBAL.manager requestImageForAsset:asset targetSize:GLOBAL.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
 		[GCD main:^{
-			self.image = result;
-
 			if (!result)
 				return;
 
-			[self fit];
+			self.image = result;
 
-			if (![info[PHImageResultIsDegradedKey] boolValue])
-				[GCD global:^{
-					self.observations = [[GLOBAL.container.viewContext fetchObservationsWithAlbumIdentifier:self.album.localIdentifier assetIdentifier:self.asset.localIdentifier] map:^id(Observation *obj) {
-						return obj.observation;
-					}];
+			self.scrollView.zoomScale = self.scrollView.fitZoom;
 
-					if (!self.observations.count)
-						return;
+			if ([info[PHImageResultIsDegradedKey] boolValue])
+				return;
 
-					UIImage *circle = [UIImage image:@"circle"];
-					UIImage *observations = [UIImage imageWithSize:circle.size draw:^(CGContextRef context) {
-						[circle drawInRect:CGRectMake(0.0, 0.0, circle.size.width, circle.size.height)];
-
-						NSAttributedString *string = [[NSAttributedString alloc] initWithString:str(self.observations.count) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:[UIFont systemFontSize]] }];
-						[string drawAtPoint:CGPointMake((circle.size.width - string.size.width) / 2.0, (circle.size.height - string.size.height) / 2.0)];
-					}];
-
-					[GCD main:^{
-						for (VNTextObservation *observation in self.observations) {
-							CGRect bounds = observation.bounds;
-							bounds.origin.x *= self.scrollView.contentSize.width;
-							bounds.origin.y *= self.scrollView.contentSize.height;
-							bounds.size.width *= self.scrollView.contentSize.width;
-							bounds.size.height *= self.scrollView.contentSize.height;
-							bounds.origin.x += self.imageView.frame.origin.x;
-							bounds.origin.y += self.imageView.frame.origin.y;
-
-							UIView *view = [[UIView alloc] initWithFrame:CGRectInset(bounds, 2.0, 2.0)];
-							view.layer.borderColor = self.view.tintColor.CGColor;
-							view.layer.borderWidth = 2.0;
-							[self.scrollView addSubview:view];
-						}
-
-						self.navigationItem.rightBarButtonItem.image = observations ?: circle;
-						self.navigationItem.rightBarButtonItem.enabled = observations != Nil;
-					}];
+			[GCD global:^{
+				self.observations = [[GLOBAL.container.viewContext fetchObservationsWithAlbumIdentifier:self.album.localIdentifier assetIdentifier:self.asset.localIdentifier] map:^id(Observation *obj) {
+					return obj.observation;
 				}];
+
+				if (!self.observations.count)
+					return;
+
+				UIImage *image = [self imageWithCount:self.observations.count];
+
+				[GCD main:^{
+					self.navigationItem.rightBarButtonItem.image = image;
+					self.navigationItem.rightBarButtonItem.enabled = self.observations.count > 0;
+
+					for (VNTextObservation *observation in self.observations) {
+						CGRect bounds = observation.bounds;
+						bounds = CGRectScale(bounds, self.scrollView.contentSize.width, self.scrollView.contentSize.height);
+						bounds = CGRectOffsetOrigin(bounds, self.imageView.frame.origin);
+						bounds = CGRectInset(bounds, -2.0, -2.0);
+
+						UIView *view = [[UIView alloc] initWithFrame:bounds];
+						view.layer.borderColor = self.view.tintColor.CGColor;
+						view.layer.borderWidth = 2.0;
+						[self.view addSubview:view];
+					}
+				}];
+			}];
 		}];
 	}];
 
 	self.navigationItem.title = [asset.creationDate descriptionForDate:NSDateFormatterMediumStyle andTime:NSDateFormatterShortStyle];
+
+	idx(self.toolbarItems, 2).image = [UIImage image:self.asset.isFavorite ? @"like-fill" : @"like-line"];
 }
 
 #pragma mark - Navigation
@@ -105,14 +113,35 @@
 	[segue.destinationViewController forwardSelector:@selector(setObservations:) withObject:self.observations nextTarget:Nil];
 }
 
-- (IBAction)observationsAction:(UIBarButtonItem *)sender {
-	[self performSegueWithIdentifier:@"observations" sender:sender];
+- (void)photoLibraryDidChange:(PHChange *)changeInstance {
+	[[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
+
+	PHObjectChangeDetails *change = [changeInstance changeDetailsForObject:self.asset];
+
+	[GCD main:^{
+		self.asset = change.objectAfterChanges;
+
+		idx(self.toolbarItems, 2).image = [UIImage image:self.asset.isFavorite ? @"like-fill" : @"like-line"];
+	}];
+}
+
+- (IBAction)favoriteAction:(UIBarButtonItem *)sender {
+	[[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+
+	[PHPhotoLibrary toggleFavoriteOnAsset:self.asset completionHandler:Nil];
 }
 
 - (IBAction)trashAction:(UIBarButtonItem *)sender {
-	[self presentSheetWithTitle:Nil message:Nil cancelActionTitle:@"Cancel" destructiveActionTitle:@"Delete" otherActionTitles:Nil from:Nil completion:^(UIAlertController *instance, NSInteger index) {
+	[self presentSheetWithTitle:Nil message:Nil cancelActionTitle:@"Cancel" destructiveActionTitle:@"Delete" otherActionTitles:@[ @"Remove from Scans" ] from:Nil completion:^(UIAlertController *instance, NSInteger index) {
 		if (index == UIAlertActionDestructive)
 			[PHPhotoLibrary deleteAssets:@[ self.asset ] completionHandler:^(BOOL success) {
+				if (success)
+					[GCD main:^{
+						[self.navigationController popViewControllerAnimated:YES];
+					}];
+			}];
+		else if (index == 0)
+			[PHPhotoLibrary removeAssets:@[ self.asset ] fromAssetCollection:self.album completionHandler:^(BOOL success) {
 				if (success)
 					[GCD main:^{
 						[self.navigationController popViewControllerAnimated:YES];

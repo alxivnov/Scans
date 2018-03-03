@@ -18,7 +18,4 @@
 @property (strong, nonatomic) UIImageView *imageView;
 
 @property (strong, nonatomic) UIImage *image;
-
-- (void)fill;
-- (void)fit;
 @end

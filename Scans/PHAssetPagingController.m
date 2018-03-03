@@ -36,8 +36,12 @@
 	return vc.view.tag;
 }
 
-- (NSUInteger)initialIndex {
-	return self.indexPath.item;
+- (NSUInteger)numberOfPages {
+	return self.fetch.count;
+}
+
+- (NSUInteger)currentPage {
+	return self.viewControllers.count > 0 ? super.currentPage : self.indexPath.item;
 }
 
 - (void)viewDidLoad {

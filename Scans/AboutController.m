@@ -41,7 +41,7 @@
 
 	[AFMediaItem lookup:@{ KEY_ID : @(DEV_ID), KEY_MEDIA : kMediaSoftware, KEY_ENTITY : kEntitySoftware } handler:^(NSArray<AFMediaItem *> *results) {
 		self.apps = [results query:^BOOL(AFMediaItem *obj) {
-			return [obj.wrapperType isEqualToString:@"software"];
+			return [obj.wrapperType isEqualToString:kMediaSoftware];
 		}];
 
 		if (self.apps.count)

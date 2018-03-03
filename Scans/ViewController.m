@@ -39,7 +39,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 	// Do any additional setup after loading the view.
 
-	self.cellSize = CGSizeScale(self.flowLayout.itemSize, [UIScreen mainScreen].nativeScale);
+	self.cellSize = CGSizeScale(self.flowLayout.itemSize, [UIScreen mainScreen].nativeScale, [UIScreen mainScreen].nativeScale);
 
 #warning If not authorized show empty state!
 

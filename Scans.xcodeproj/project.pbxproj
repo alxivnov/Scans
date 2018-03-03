@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD04593D2049F922006D48D0 /* NSXMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD04593B2049F922006D48D0 /* NSXMLDictionary.m */; };
+		CD045943204B0940006D48D0 /* like-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD045941204B0940006D48D0 /* like-line@2x.png */; };
+		CD045944204B0940006D48D0 /* like-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD045942204B0940006D48D0 /* like-fill@2x.png */; };
 		CD256D3F2041FFA90086EAAB /* UIGestureTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D3E2041FFA90086EAAB /* UIGestureTransition.m */; };
 		CD256D422041FFC10086EAAB /* UIInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D412041FFC00086EAAB /* UIInteractiveTransition.m */; };
 		CD256D45204200560086EAAB /* UIGestureRecognizer+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D44204200560086EAAB /* UIGestureRecognizer+Convenience.m */; };
@@ -90,13 +93,13 @@
 		CD66F3D42044858B00050C65 /* Vision+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD66F3D32044858B00050C65 /* Vision+Convenience.m */; };
 		CDC08DE72045C07C009C6AD0 /* VNTextPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */; };
 		CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */; };
-		CDC08DED2045E52A009C6AD0 /* UIPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DEC2045E52A009C6AD0 /* UIPagingController.m */; };
 		CDC08E0220475436009C6AD0 /* ScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08E0120475436009C6AD0 /* ScanController.m */; };
 		CDCAF72F203C669C00D387AC /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCAF72E203C669C00D387AC /* Global.m */; };
 		CDDBBE85203F4D3100E9E325 /* UIImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDBBE84203F4D3100E9E325 /* UIImageController.m */; };
 		CDE33ABD20485FA700F89AD8 /* CollectionTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33ABC20485FA700F89AD8 /* CollectionTransition.m */; };
 		CDE33AC02048611300F89AD8 /* CoreData+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33ABE2048611300F89AD8 /* CoreData+Convenience.m */; };
 		CDE33AD420486F8800F89AD8 /* Model+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33AD320486F8800F89AD8 /* Model+Convenience.m */; };
+		CDE33B3F2049936000F89AD8 /* UIPageViewController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33B3D2049936000F89AD8 /* UIPageViewController+Convenience.m */; };
 		CDFE017D2041F91300C5AC4E /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFE017C2041F91300C5AC4E /* AboutController.m */; };
 		CDFE01822041FD5B00C5AC4E /* chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017E2041FD5A00C5AC4E /* chat@2x.png */; };
 		CDFE01832041FD5B00C5AC4E /* envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017F2041FD5A00C5AC4E /* envelope@2x.png */; };
@@ -105,6 +108,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CD04593B2049F922006D48D0 /* NSXMLDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSXMLDictionary.m; path = "../Objective Sea/NSXMLDictionary.m"; sourceTree = "<group>"; };
+		CD04593C2049F922006D48D0 /* NSXMLDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSXMLDictionary.h; path = "../Objective Sea/NSXMLDictionary.h"; sourceTree = "<group>"; };
+		CD045941204B0940006D48D0 /* like-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-line@2x.png"; path = "../Frameworks/Images/like-line@2x.png"; sourceTree = "<group>"; };
+		CD045942204B0940006D48D0 /* like-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-fill@2x.png"; path = "../Frameworks/Images/like-fill@2x.png"; sourceTree = "<group>"; };
 		CD256D3D2041FFA90086EAAB /* UIGestureTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIGestureTransition.h; path = "../Objective Sea/UIGestureTransition.h"; sourceTree = "<group>"; };
 		CD256D3E2041FFA90086EAAB /* UIGestureTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIGestureTransition.m; path = "../Objective Sea/UIGestureTransition.m"; sourceTree = "<group>"; };
 		CD256D402041FFC00086EAAB /* UIInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIInteractiveTransition.h; path = "../Objective Sea/UIInteractiveTransition.h"; sourceTree = "<group>"; };
@@ -234,8 +241,6 @@
 		CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNTextPagingController.m; sourceTree = "<group>"; };
 		CDC08DE82045E18C009C6AD0 /* PHAssetPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAssetPagingController.h; sourceTree = "<group>"; };
 		CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHAssetPagingController.m; sourceTree = "<group>"; };
-		CDC08DEB2045E52A009C6AD0 /* UIPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIPagingController.h; sourceTree = "<group>"; };
-		CDC08DEC2045E52A009C6AD0 /* UIPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIPagingController.m; sourceTree = "<group>"; };
 		CDC08E0020475436009C6AD0 /* ScanController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanController.h; sourceTree = "<group>"; };
 		CDC08E0120475436009C6AD0 /* ScanController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanController.m; sourceTree = "<group>"; };
 		CDCAF72D203C669C00D387AC /* Global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
@@ -249,6 +254,8 @@
 		CDE33AC12048640800F89AD8 /* Scans.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Scans.entitlements; sourceTree = "<group>"; };
 		CDE33AD220486F8800F89AD8 /* Model+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Model+Convenience.h"; sourceTree = "<group>"; };
 		CDE33AD320486F8800F89AD8 /* Model+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Model+Convenience.m"; sourceTree = "<group>"; };
+		CDE33B3D2049936000F89AD8 /* UIPageViewController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIPageViewController+Convenience.m"; path = "../Objective Sea/UIPageViewController+Convenience.m"; sourceTree = "<group>"; };
+		CDE33B3E2049936000F89AD8 /* UIPageViewController+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIPageViewController+Convenience.h"; path = "../Objective Sea/UIPageViewController+Convenience.h"; sourceTree = "<group>"; };
 		CDFE017B2041F91300C5AC4E /* AboutController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		CDFE017C2041F91300C5AC4E /* AboutController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		CDFE017E2041FD5A00C5AC4E /* chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chat@2x.png"; path = "../Frameworks/Images/chat@2x.png"; sourceTree = "<group>"; };
@@ -287,6 +294,8 @@
 				CD36C6402041DBEF0029FA9C /* scans-30@3x.png */,
 				CDFE017E2041FD5A00C5AC4E /* chat@2x.png */,
 				CDFE017F2041FD5A00C5AC4E /* envelope@2x.png */,
+				CD045942204B0940006D48D0 /* like-fill@2x.png */,
+				CD045941204B0940006D48D0 /* like-line@2x.png */,
 				CDFE01802041FD5A00C5AC4E /* moneybox@2x.png */,
 				CDFE01812041FD5A00C5AC4E /* star@2x.png */,
 				CD36C63C2041C5280029FA9C /* circle@2x.png */,
@@ -366,6 +375,8 @@
 				CD36C61F2041C2B90029FA9C /* NSURL+Convenience.m */,
 				CD256D4F2042E0CB0086EAAB /* NSURLSession+Convenience.h */,
 				CD256D502042E0CC0086EAAB /* NSURLSession+Convenience.m */,
+				CD04593C2049F922006D48D0 /* NSXMLDictionary.h */,
+				CD04593B2049F922006D48D0 /* NSXMLDictionary.m */,
 				CD36C61D2041C2B80029FA9C /* Photos+Convenience.h */,
 				CD36C5FF2041C2B60029FA9C /* Photos+Convenience.m */,
 				CD256DAB20430DD10086EAAB /* QuartzCore+Convenience.h */,
@@ -396,6 +407,8 @@
 				CD36C6022041C2B70029FA9C /* UIImage+Convenience.m */,
 				CD36C6192041C2B80029FA9C /* UINavigationController+Convenience.h */,
 				CD36C61C2041C2B80029FA9C /* UINavigationController+Convenience.m */,
+				CDE33B3E2049936000F89AD8 /* UIPageViewController+Convenience.h */,
+				CDE33B3D2049936000F89AD8 /* UIPageViewController+Convenience.m */,
 				CD36C6162041C2B80029FA9C /* UIView+Convenience.h */,
 				CD36C6032041C2B70029FA9C /* UIView+Convenience.m */,
 				CD36C6172041C2B80029FA9C /* UIViewController+Convenience.h */,
@@ -430,6 +443,8 @@
 			children = (
 				CDE33AD220486F8800F89AD8 /* Model+Convenience.h */,
 				CDE33AD320486F8800F89AD8 /* Model+Convenience.m */,
+				CDCAF72D203C669C00D387AC /* Global.h */,
+				CDCAF72E203C669C00D387AC /* Global.m */,
 				CDE33AC12048640800F89AD8 /* Scans.entitlements */,
 				CD662FC21FC701E1002BA3F8 /* AppDelegate.h */,
 				CD662FC31FC701E2002BA3F8 /* AppDelegate.m */,
@@ -449,14 +464,10 @@
 				CD662FD31FC701E2002BA3F8 /* Info.plist */,
 				CD662FD41FC701E2002BA3F8 /* main.m */,
 				CD662FCB1FC701E2002BA3F8 /* Scans.xcdatamodeld */,
-				CDCAF72D203C669C00D387AC /* Global.h */,
-				CDCAF72E203C669C00D387AC /* Global.m */,
 				CDDBBE83203F4D3100E9E325 /* UIImageController.h */,
 				CDDBBE84203F4D3100E9E325 /* UIImageController.m */,
 				CD662FE81FC70ECD002BA3F8 /* PHAssetController.h */,
 				CD662FE91FC70ECD002BA3F8 /* PHAssetController.m */,
-				CDC08DEB2045E52A009C6AD0 /* UIPagingController.h */,
-				CDC08DEC2045E52A009C6AD0 /* UIPagingController.m */,
 				CDC08DE82045E18C009C6AD0 /* PHAssetPagingController.h */,
 				CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */,
 				CDC08DE52045C07C009C6AD0 /* VNTextPagingController.h */,
@@ -557,6 +568,8 @@
 				CDFE01842041FD5B00C5AC4E /* moneybox@2x.png in Resources */,
 				CDFE01852041FD5B00C5AC4E /* star@2x.png in Resources */,
 				CD256D9C2042E7810086EAAB /* Twitter-60@3x.png in Resources */,
+				CD045944204B0940006D48D0 /* like-fill@2x.png in Resources */,
+				CD045943204B0940006D48D0 /* like-line@2x.png in Resources */,
 				CD256D9A2042E7810086EAAB /* VK-76.png in Resources */,
 				CD256DA42042E7810086EAAB /* VK-60.png in Resources */,
 				CD256D812042E7740086EAAB /* Google+-60@2x.png in Resources */,
@@ -604,7 +617,6 @@
 				CD36C6282041C2B90029FA9C /* UIImage+Convenience.m in Sources */,
 				CD36C62A2041C2B90029FA9C /* NSArray+Convenience.m in Sources */,
 				CD662FC71FC701E2002BA3F8 /* ViewController.m in Sources */,
-				CDC08DED2045E52A009C6AD0 /* UIPagingController.m in Sources */,
 				CD256D4E2042E0B60086EAAB /* Affiliates+Convenience.m in Sources */,
 				CD662FEA1FC70ECD002BA3F8 /* PHAssetController.m in Sources */,
 				CD36C62E2041C2B90029FA9C /* NSLayoutConstraint+Convenience.m in Sources */,
@@ -614,6 +626,7 @@
 				CDE33AC02048611300F89AD8 /* CoreData+Convenience.m in Sources */,
 				CDC08E0220475436009C6AD0 /* ScanController.m in Sources */,
 				CD36C62C2041C2B90029FA9C /* UIApplication+Convenience.m in Sources */,
+				CD04593D2049F922006D48D0 /* NSXMLDictionary.m in Sources */,
 				CD256D5D2042E1D90086EAAB /* Answers+Convenience.m in Sources */,
 				CD256D482042DFBD0086EAAB /* MessageUI+Convenience.m in Sources */,
 				CDFE017D2041F91300C5AC4E /* AboutController.m in Sources */,
@@ -646,6 +659,7 @@
 				CD36C5FA2041BFC10029FA9C /* NavigationController.m in Sources */,
 				CD256D512042E0CC0086EAAB /* NSURLSession+Convenience.m in Sources */,
 				CDCAF72F203C669C00D387AC /* Global.m in Sources */,
+				CDE33B3F2049936000F89AD8 /* UIPageViewController+Convenience.m in Sources */,
 				CD256D45204200560086EAAB /* UIGestureRecognizer+Convenience.m in Sources */,
 				CD662FCD1FC701E2002BA3F8 /* Scans.xcdatamodeld in Sources */,
 				CD36C6362041C2B90029FA9C /* UINavigationController+Convenience.m in Sources */,

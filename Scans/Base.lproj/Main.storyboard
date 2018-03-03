@@ -327,6 +327,12 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="DQQ-1t-9JV"/>
+                        <barButtonItem title="Favorite" image="like-line.png" id="58O-ED-ljH">
+                            <connections>
+                                <action selector="favoriteAction:" destination="pX9-q5-Nbg" id="d94-dm-aG9"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="zCb-Op-zKD"/>
                         <barButtonItem systemItem="trash" id="hyV-43-fTk">
                             <connections>
                                 <action selector="trashAction:" destination="pX9-q5-Nbg" id="X6O-eu-jnH"/>
@@ -336,14 +342,11 @@
                     <navigationItem key="navigationItem" id="GUk-JM-1na">
                         <barButtonItem key="rightBarButtonItem" enabled="NO" title="Item" image="circle.png" id="Ku2-i5-8Db">
                             <connections>
-                                <action selector="observationsAction:" destination="pX9-q5-Nbg" id="2Ds-9F-NG3"/>
+                                <segue destination="7CA-9z-xdx" kind="show" identifier="observations" id="SSl-80-FvI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <segue destination="7CA-9z-xdx" kind="show" identifier="observations" id="jWv-ft-If3"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iCH-Lc-E6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -484,6 +487,7 @@
         <image name="chat.png" width="30" height="30"/>
         <image name="circle.png" width="30" height="30"/>
         <image name="envelope.png" width="30" height="30"/>
+        <image name="like-line.png" width="30" height="30"/>
         <image name="scans-30.png" width="30" height="30"/>
         <image name="star.png" width="30" height="30"/>
     </resources>

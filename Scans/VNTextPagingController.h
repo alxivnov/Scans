@@ -10,7 +10,7 @@
 
 @import Vision;
 
-#import "UIPagingController.h"
+#import "UIPageViewController+Convenience.h"
 
 @interface VNTextPagingController : UIPagingController
 

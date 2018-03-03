@@ -39,7 +39,7 @@ __synthesize(CollectionTransition *, collectionTransition, [CollectionTransition
 
 		[self.navigationBar addPanWithTarget:self];
 
-		[cls(UIScrollView, self.lastViewController.view).panGestureRecognizer addTarget:self action:@selector(pan:)];
+		[cls(UIScrollView, self.lastViewController.view).panGestureRecognizer addTarget:self action:@selector(panAction:)];
 
 		self.delegate = self;
 	}
@@ -50,7 +50,7 @@ __synthesize(CollectionTransition *, collectionTransition, [CollectionTransition
     // Dispose of any resources that can be recreated.
 }
 
-- (void)pan:(UIPanGestureRecognizer *)sender {
+- (void)panAction:(UIPanGestureRecognizer *)sender {
 	if (sender.state == UIGestureRecognizerStateBegan && 0.0 - cls(UIScrollView, sender.view).contentOffset.y >= cls(UIScrollView, sender.view).contentInset.top) {
 		__block id <UIViewControllerTransitioningDelegate> transition = self.containingViewController.transitioningDelegate = [UIPanTransition gestureTransition:sender];
 
