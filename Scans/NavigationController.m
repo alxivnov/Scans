@@ -13,7 +13,7 @@
 #import "UIGestureRecognizer+Convenience.h"
 #import "UIViewController+Convenience.h"
 
-@interface NavigationController ()
+@interface NavigationController () <UINavigationControllerDelegate>
 @property (assign, nonatomic) BOOL statusBarHidden;
 
 @property (strong, nonatomic, readonly) UIPanTransition *modalTransition;

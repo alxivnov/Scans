@@ -340,7 +340,7 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="GUk-JM-1na">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Item" image="circle.png" id="Ku2-i5-8Db">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Item" image="circle-line.png" id="Ku2-i5-8Db">
                             <connections>
                                 <segue destination="7CA-9z-xdx" kind="show" identifier="observations" id="SSl-80-FvI"/>
                             </connections>
@@ -485,6 +485,7 @@
     </scenes>
     <resources>
         <image name="chat.png" width="30" height="30"/>
+        <image name="circle-line.png" width="30" height="30"/>
         <image name="circle.png" width="30" height="30"/>
         <image name="envelope.png" width="30" height="30"/>
         <image name="like-line.png" width="30" height="30"/>

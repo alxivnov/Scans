@@ -79,7 +79,7 @@
 		CD36C6372041C2B90029FA9C /* NSURL+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C61F2041C2B90029FA9C /* NSURL+Convenience.m */; };
 		CD36C6382041C2B90029FA9C /* NSFileManager+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C6212041C2B90029FA9C /* NSFileManager+Convenience.m */; };
 		CD36C6392041C2B90029FA9C /* NSObject+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C6252041C2B90029FA9C /* NSObject+Convenience.m */; };
-		CD36C63D2041C5290029FA9C /* circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C63C2041C5280029FA9C /* circle@2x.png */; };
+		CD36C63D2041C5290029FA9C /* circle-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C63C2041C5280029FA9C /* circle-line@2x.png */; };
 		CD36C6412041DBF00029FA9C /* scans-30@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C6402041DBEF0029FA9C /* scans-30@3x.png */; };
 		CD662FC41FC701E2002BA3F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC31FC701E2002BA3F8 /* AppDelegate.m */; };
 		CD662FC71FC701E2002BA3F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC61FC701E2002BA3F8 /* ViewController.m */; };
@@ -101,10 +101,10 @@
 		CDE33AD420486F8800F89AD8 /* Model+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33AD320486F8800F89AD8 /* Model+Convenience.m */; };
 		CDE33B3F2049936000F89AD8 /* UIPageViewController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33B3D2049936000F89AD8 /* UIPageViewController+Convenience.m */; };
 		CDFE017D2041F91300C5AC4E /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFE017C2041F91300C5AC4E /* AboutController.m */; };
-		CDFE01822041FD5B00C5AC4E /* chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017E2041FD5A00C5AC4E /* chat@2x.png */; };
-		CDFE01832041FD5B00C5AC4E /* envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017F2041FD5A00C5AC4E /* envelope@2x.png */; };
-		CDFE01842041FD5B00C5AC4E /* moneybox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE01802041FD5A00C5AC4E /* moneybox@2x.png */; };
-		CDFE01852041FD5B00C5AC4E /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE01812041FD5A00C5AC4E /* star@2x.png */; };
+		CDFE01822041FD5B00C5AC4E /* chat-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017E2041FD5A00C5AC4E /* chat-fill@2x.png */; };
+		CDFE01832041FD5B00C5AC4E /* envelope-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017F2041FD5A00C5AC4E /* envelope-fill@2x.png */; };
+		CDFE01842041FD5B00C5AC4E /* moneybox-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE01802041FD5A00C5AC4E /* moneybox-fill@2x.png */; };
+		CDFE01852041FD5B00C5AC4E /* star-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE01812041FD5A00C5AC4E /* star-fill@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -218,7 +218,7 @@
 		CD36C6232041C2B90029FA9C /* NSURL+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+Convenience.h"; path = "../Objective Sea/NSURL+Convenience.h"; sourceTree = "<group>"; };
 		CD36C6242041C2B90029FA9C /* UIApplication+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplication+Convenience.h"; path = "../Objective Sea/UIApplication+Convenience.h"; sourceTree = "<group>"; };
 		CD36C6252041C2B90029FA9C /* NSObject+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Convenience.m"; path = "../Objective Sea/NSObject+Convenience.m"; sourceTree = "<group>"; };
-		CD36C63C2041C5280029FA9C /* circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle@2x.png"; path = "../Frameworks/Images/circle@2x.png"; sourceTree = "<group>"; };
+		CD36C63C2041C5280029FA9C /* circle-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-line@2x.png"; path = "../Frameworks/Images/circle-line@2x.png"; sourceTree = "<group>"; };
 		CD36C6402041DBEF0029FA9C /* scans-30@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scans-30@3x.png"; path = "Images/scans-30@3x.png"; sourceTree = "<group>"; };
 		CD662FBF1FC701E1002BA3F8 /* Scans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scans.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD662FC21FC701E1002BA3F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -258,10 +258,10 @@
 		CDE33B3E2049936000F89AD8 /* UIPageViewController+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIPageViewController+Convenience.h"; path = "../Objective Sea/UIPageViewController+Convenience.h"; sourceTree = "<group>"; };
 		CDFE017B2041F91300C5AC4E /* AboutController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		CDFE017C2041F91300C5AC4E /* AboutController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
-		CDFE017E2041FD5A00C5AC4E /* chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chat@2x.png"; path = "../Frameworks/Images/chat@2x.png"; sourceTree = "<group>"; };
-		CDFE017F2041FD5A00C5AC4E /* envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "envelope@2x.png"; path = "../Frameworks/Images/envelope@2x.png"; sourceTree = "<group>"; };
-		CDFE01802041FD5A00C5AC4E /* moneybox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "moneybox@2x.png"; path = "../Frameworks/Images/moneybox@2x.png"; sourceTree = "<group>"; };
-		CDFE01812041FD5A00C5AC4E /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star@2x.png"; path = "../Frameworks/Images/star@2x.png"; sourceTree = "<group>"; };
+		CDFE017E2041FD5A00C5AC4E /* chat-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chat-fill@2x.png"; path = "../Frameworks/Images/chat-fill@2x.png"; sourceTree = "<group>"; };
+		CDFE017F2041FD5A00C5AC4E /* envelope-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "envelope-fill@2x.png"; path = "../Frameworks/Images/envelope-fill@2x.png"; sourceTree = "<group>"; };
+		CDFE01802041FD5A00C5AC4E /* moneybox-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "moneybox-fill@2x.png"; path = "../Frameworks/Images/moneybox-fill@2x.png"; sourceTree = "<group>"; };
+		CDFE01812041FD5A00C5AC4E /* star-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star-fill@2x.png"; path = "../Frameworks/Images/star-fill@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,13 +292,13 @@
 			isa = PBXGroup;
 			children = (
 				CD36C6402041DBEF0029FA9C /* scans-30@3x.png */,
-				CDFE017E2041FD5A00C5AC4E /* chat@2x.png */,
-				CDFE017F2041FD5A00C5AC4E /* envelope@2x.png */,
+				CDFE017E2041FD5A00C5AC4E /* chat-fill@2x.png */,
+				CDFE017F2041FD5A00C5AC4E /* envelope-fill@2x.png */,
+				CDFE01802041FD5A00C5AC4E /* moneybox-fill@2x.png */,
+				CDFE01812041FD5A00C5AC4E /* star-fill@2x.png */,
+				CD36C63C2041C5280029FA9C /* circle-line@2x.png */,
 				CD045942204B0940006D48D0 /* like-fill@2x.png */,
 				CD045941204B0940006D48D0 /* like-line@2x.png */,
-				CDFE01802041FD5A00C5AC4E /* moneybox@2x.png */,
-				CDFE01812041FD5A00C5AC4E /* star@2x.png */,
-				CD36C63C2041C5280029FA9C /* circle@2x.png */,
 				CD256D782042E7730086EAAB /* Facebook-60.png */,
 				CD256D6D2042E7720086EAAB /* Facebook-60@2x.png */,
 				CD256D762042E7730086EAAB /* Facebook-60@3x.png */,
@@ -554,7 +554,7 @@
 				CD256D882042E7740086EAAB /* Facebook-60@3x.png in Resources */,
 				CD256D872042E7740086EAAB /* iCloud-76@2x.png in Resources */,
 				CD256D9E2042E7810086EAAB /* VK-60@3x.png in Resources */,
-				CD36C63D2041C5290029FA9C /* circle@2x.png in Resources */,
+				CD36C63D2041C5290029FA9C /* circle-line@2x.png in Resources */,
 				CD256D9F2042E7810086EAAB /* VK-76@2x.png in Resources */,
 				CD662FD21FC701E2002BA3F8 /* LaunchScreen.storyboard in Resources */,
 				CD256D8B2042E7740086EAAB /* Google+-76@2x.png in Resources */,
@@ -563,10 +563,10 @@
 				CD256D7D2042E7740086EAAB /* Google+-76.png in Resources */,
 				CD256D8C2042E7740086EAAB /* Google+-76@3x.png in Resources */,
 				CD256D802042E7740086EAAB /* iCloud-60@3x.png in Resources */,
-				CDFE01832041FD5B00C5AC4E /* envelope@2x.png in Resources */,
+				CDFE01832041FD5B00C5AC4E /* envelope-fill@2x.png in Resources */,
 				CD662FCF1FC701E2002BA3F8 /* Assets.xcassets in Resources */,
-				CDFE01842041FD5B00C5AC4E /* moneybox@2x.png in Resources */,
-				CDFE01852041FD5B00C5AC4E /* star@2x.png in Resources */,
+				CDFE01842041FD5B00C5AC4E /* moneybox-fill@2x.png in Resources */,
+				CDFE01852041FD5B00C5AC4E /* star-fill@2x.png in Resources */,
 				CD256D9C2042E7810086EAAB /* Twitter-60@3x.png in Resources */,
 				CD045944204B0940006D48D0 /* like-fill@2x.png in Resources */,
 				CD045943204B0940006D48D0 /* like-line@2x.png in Resources */,
@@ -583,7 +583,7 @@
 				CD256D892042E7740086EAAB /* Google+-60.png in Resources */,
 				CD256D7E2042E7740086EAAB /* iCloud-76.png in Resources */,
 				CD256D9D2042E7810086EAAB /* VK-60@2x.png in Resources */,
-				CDFE01822041FD5B00C5AC4E /* chat@2x.png in Resources */,
+				CDFE01822041FD5B00C5AC4E /* chat-fill@2x.png in Resources */,
 				CD662FCA1FC701E2002BA3F8 /* Main.storyboard in Resources */,
 				CD256DA12042E7810086EAAB /* Twitter-76@2x.png in Resources */,
 			);

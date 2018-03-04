@@ -25,7 +25,7 @@
 @implementation PHAssetController
 
 - (UIImage *)imageWithCount:(NSUInteger)count {
-	UIImage *img = [UIImage image:@"circle"];
+	UIImage *img = [UIImage image:@"circle-line"];
 	NSAttributedString *str = [[NSAttributedString alloc] initWithString:str(count) attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:[UIFont systemFontSize]] }];
 	CGPoint loc = CGPointMake((img.size.width - str.size.width) / 2.0, (img.size.height - str.size.height) / 2.0);
 	return [img drawImage:^(CGContextRef context) {
