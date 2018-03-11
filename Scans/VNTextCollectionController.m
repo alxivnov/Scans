@@ -8,12 +8,14 @@
 
 #import "VNTextCollectionController.h"
 
+#import "CollectionTransition.h"
+
 #import "NSObject+Convenience.h"
 #import "UIView+Convenience.h"
 #import "Vision+Convenience.h"
 
-@interface VNTextCollectionController ()
-
+@interface VNTextCollectionController () <CollectionTransitionDelegate>
+@property (strong, nonatomic) NSIndexPath *indexPath;
 @end
 
 @implementation VNTextCollectionController
@@ -41,11 +43,11 @@ static NSString * const reuseIdentifier = @"Cell";
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
+	self.indexPath = [self.collectionView indexPathForCell:sender];
 
 	[segue.destinationViewController forwardSelector:@selector(setImage:) withObject:self.image nextTarget:Nil];
 	[segue.destinationViewController forwardSelector:@selector(setObservations:) withObject:self.observations nextTarget:Nil];
-	[segue.destinationViewController forwardSelector:@selector(setIndexPath:) withObject:indexPath nextTarget:Nil];
+	[segue.destinationViewController forwardSelector:@selector(setIndexPath:) withObject:self.indexPath nextTarget:Nil];
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -108,5 +110,12 @@ static NSString * const reuseIdentifier = @"Cell";
 	
 }
 */
+
+- (UIView *)transitionViewForView:(UIView *)view {
+	UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:view ? [NSIndexPath indexPathForItem:view.tag inSection:0] : self.indexPath];
+	UIImageView *imageView = [cell subview:UIViewSubview(UIImageView)];
+	imageView.tag = self.indexPath.item;
+	return imageView;
+}
 
 @end

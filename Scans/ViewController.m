@@ -8,11 +8,17 @@
 
 #import "ViewController.h"
 
-@interface ViewController () <PHPhotoLibraryChangeObserver>
+#import "UIViewController+Convenience.h"
+
+#import "CollectionTransition.h"
+
+@interface ViewController () <PHPhotoLibraryChangeObserver, CollectionTransitionDelegate>
 @property (assign, nonatomic) CGSize cellSize;
 
 @property (strong, nonatomic) PHAssetCollection *album;
 @property (strong, nonatomic) PHFetchResult *fetch;
+
+@property (strong, nonatomic) NSIndexPath *indexPath;
 @end
 
 @implementation ViewController
@@ -85,11 +91,11 @@ static NSString * const reuseIdentifier = @"Cell";
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	 if ([segue.identifier isEqualToString:@"asset"]) {
-		 NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
+		 self.indexPath = [self.collectionView indexPathForCell:sender];
 
 		 [segue.destinationViewController forwardSelector:@selector(setAlbum:) withObject:self.album nextTarget:Nil];
 		 [segue.destinationViewController forwardSelector:@selector(setFetch:) withObject:self.fetch nextTarget:Nil];
-		 [segue.destinationViewController forwardSelector:@selector(setIndexPath:) withObject:indexPath nextTarget:Nil];
+		 [segue.destinationViewController forwardSelector:@selector(setIndexPath:) withObject:self.indexPath nextTarget:Nil];
 	 }
  }
 
@@ -180,5 +186,12 @@ static NSString * const reuseIdentifier = @"Cell";
 
  }
  */
+
+- (UIView *)transitionViewForView:(UIView *)view {
+	UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:view ? [NSIndexPath indexPathForItem:view.tag inSection:0] : self.indexPath];
+	UIImageView *imageView = [cell subview:UIViewSubview(UIImageView)];
+	imageView.tag = self.indexPath.item;
+	return imageView;
+}
 
 @end

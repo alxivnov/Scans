@@ -8,6 +8,7 @@
 
 #import "UIImageController.h"
 
+#import "CoreGraphics+Convenience.h"
 #import "UIGestureRecognizer+Convenience.h"
 
 @interface UIImageController () <UIScrollViewDelegate>
@@ -18,29 +19,33 @@
 
 __synthesize(UIScrollView *, scrollView, cls(UIScrollView, self.view))
 
-- (UIImageView *)imageView {
-	return cls(UIImageView, [self.view viewWithTag:UICenteredScrollViewTag]);
-}
+__synthesize(UIImageView *, imageView, ({
+	UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+	imageView.clipsToBounds = YES;
+	imageView.contentMode = UIViewContentModeScaleAspectFill;
+
+	imageView.tag = UICenteredScrollViewTag;
+
+	[self.scrollView addSubview:imageView];
+
+	imageView;
+}))
 
 - (UIImage *)image {
 	return self.imageView.image;
 }
 
 - (void)setImage:(UIImage *)image {
-	if (self.imageView) {
-		self.imageView.image = image;
-	} else if (image) {
-		UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+	self.imageView.image = image;
 
-		imageView.tag = UICenteredScrollViewTag;
+	if (self.imageView.frame.size.width == 0.0 || self.imageView.frame.size.height == 0.0) {
+		self.imageView.frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
 
-		[self.scrollView addSubview:imageView];
-
-		self.scrollView.contentSize = imageView.image.size;
+		self.scrollView.contentSize = image.size;
 		self.scrollView.maximumZoomScale = fmax(1.0, self.scrollView.fillZoom);
 		self.scrollView.minimumZoomScale = self.scrollView.fitZoom;
 		self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
-
+		
 		[self.scrollView.panGestureRecognizer addTarget:self action:@selector(panAction:)];
 		[self.scrollView.pinchGestureRecognizer addTarget:self action:@selector(pinchAction:)];
 	}
@@ -73,7 +78,8 @@ __synthesize(UIScrollView *, scrollView, cls(UIScrollView, self.view))
 }
 */
 
-#warning Fix Zooming of observations!
+#warning Fix zooming of observations!
+
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
 	return [self.view viewWithTag:UICenteredScrollViewTag];
 }

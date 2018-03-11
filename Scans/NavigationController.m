@@ -79,6 +79,8 @@ __synthesize(CollectionTransition *, collectionTransition, [CollectionTransition
 }
 */
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+	[navigationController setNavigationBarHidden:NO animated:NO];
+
 	[navigationController setToolbarHidden:viewController.toolbarItems.count == 0 animated:NO];
 }
 

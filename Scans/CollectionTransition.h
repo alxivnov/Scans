@@ -8,6 +8,18 @@
 
 #import "UIGestureTransition.h"
 
+#import "CoreGraphics+Convenience.h"
+
+@protocol CollectionTransitionDelegate
+
+- (UIView *)transitionViewForView:(UIView *)view;
+
+@optional
+
+- (CGRect)transitionFrameForView:(UIView *)view;
+
+@end
+
 @interface CollectionTransition : UIGestureTransition
 
 @end

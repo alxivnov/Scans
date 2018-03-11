@@ -12,7 +12,7 @@
 
 #import "UIView+Convenience.h"
 
-@interface ViewController : UICollectionViewController <UICollectionViewDelegate>
+@interface ViewController : UICollectionViewController
 
 @property (strong, nonatomic, readonly) UICollectionViewFlowLayout *flowLayout;
 @property (assign, nonatomic, readonly) CGSize cellSize;

@@ -11,6 +11,7 @@
 #import "NSArray+Convenience.h"
 #import "NSObject+Convenience.h"
 #import "UIViewController+Convenience.h"
+#import "CoreGraphics+Convenience.h"
 #import "Vision+Convenience.h"
 
 #import "UIImageController.h"
@@ -67,5 +68,25 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (UIView *)transitionViewForView:(UIView *)view {
+	UIImageController *vc = self.viewControllers.firstObject;
+	UIImageView *imageView = vc.imageView;
+	if (view == Nil)
+		imageView.tag = self.currentPage;
+	return imageView;
+}
+
+- (CGRect)transitionFrameForView:(UIView *)view {
+	UIImageView *imageView = cls(UIImageView, view);
+	if (!imageView)
+		return CGRectNull;
+
+	CGSize size = imageView.image.size;
+	size = CGSizeAspectFit(size, self.view.bounds.size);
+	CGRect rect = CGRectMakeWithSize(size);
+	rect = CGRectCenterInSize(rect, self.view.bounds.size);
+	return rect;
+}
 
 @end
