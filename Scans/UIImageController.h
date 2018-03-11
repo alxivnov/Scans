@@ -15,6 +15,7 @@
 @interface UIImageController : UIViewController
 @property (strong, nonatomic, readonly) UIScrollView *scrollView;
 
+@property (strong, nonatomic) UIView *contentView;
 @property (strong, nonatomic) UIImageView *imageView;
 
 @property (strong, nonatomic) UIImage *image;

@@ -85,15 +85,17 @@
 					self.navigationItem.rightBarButtonItem.enabled = self.observations.count > 0;
 
 					for (VNTextObservation *observation in self.observations) {
+						CGFloat width = 2.0 / self.scrollView.zoomScale;
+
 						CGRect bounds = observation.bounds;
-						bounds = CGRectScale(bounds, self.scrollView.contentSize.width, self.scrollView.contentSize.height);
+						bounds = CGRectScale(bounds, self.contentView.bounds.size.width, self.contentView.bounds.size.height);
 						bounds = CGRectOffsetOrigin(bounds, self.imageView.frame.origin);
-						bounds = CGRectInset(bounds, -2.0, -2.0);
+						bounds = CGRectInset(bounds, -width, -width);
 
 						UIView *view = [[UIView alloc] initWithFrame:bounds];
 						view.layer.borderColor = self.view.tintColor.CGColor;
-						view.layer.borderWidth = 2.0;
-						[self.view addSubview:view];
+						view.layer.borderWidth = width;
+						[self.contentView addSubview:view];
 					}
 				}];
 			}];

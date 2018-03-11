@@ -19,14 +19,21 @@
 
 __synthesize(UIScrollView *, scrollView, cls(UIScrollView, self.view))
 
+__synthesize(UIView *, contentView, ({
+	UIView *contentView = [[UIView alloc] initWithFrame:CGRectZero];
+	contentView.tag = UICenteredScrollViewTag;
+
+	[self.scrollView addSubview:contentView];
+
+	contentView;
+}))
+
 __synthesize(UIImageView *, imageView, ({
 	UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
 	imageView.clipsToBounds = YES;
 	imageView.contentMode = UIViewContentModeScaleAspectFill;
 
-	imageView.tag = UICenteredScrollViewTag;
-
-	[self.scrollView addSubview:imageView];
+	[self.contentView addSubview:imageView];
 
 	imageView;
 }))
@@ -39,7 +46,7 @@ __synthesize(UIImageView *, imageView, ({
 	self.imageView.image = image;
 
 	if (self.imageView.frame.size.width == 0.0 || self.imageView.frame.size.height == 0.0) {
-		self.imageView.frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+		self.contentView.frame = self.imageView.frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
 
 		self.scrollView.contentSize = image.size;
 		self.scrollView.maximumZoomScale = fmax(1.0, self.scrollView.fillZoom);

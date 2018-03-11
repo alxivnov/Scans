@@ -23,7 +23,7 @@
 	UIView *fromView = ret_(self.fromViewController, transitionViewForView:, Nil);
 	if ([self.fromViewController respondsToSelector:@selector(transitionFrameForView:)])
 		self.fromFrame = [(id<CollectionTransitionDelegate>)self.fromViewController transitionFrameForView:Nil];
-	if (CGRectIsNull(self.fromFrame) && fromView)
+	if (CGRectIsEmpty(self.fromFrame) && fromView)
 		self.fromFrame = [self.containerView convertRect:fromView.frame fromView:fromView.superview];
 
 	UIView *toView = ret_(self.toViewController, transitionViewForView:, fromView);
