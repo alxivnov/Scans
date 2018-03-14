@@ -39,10 +39,19 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
+
+	NSURL *url = [[NSFileManager URLForDirectory:NSCachesDirectory] URLByAppendingPathComponent:[NSString stringWithFormat:@"%ul.plist", DEV_ID]];
+	self.apps = [[NSArray arrayWithContentsOfURL:url] map:^id(id obj) {
+		return [[AFMediaItem alloc] initWithDictionary:obj];
+	}];
+
 	[AFMediaItem lookup:@{ KEY_ID : @(DEV_ID), KEY_MEDIA : kMediaSoftware, KEY_ENTITY : kEntitySoftware } handler:^(NSArray<AFMediaItem *> *results) {
 		self.apps = [results query:^BOOL(AFMediaItem *obj) {
 			return [obj.wrapperType isEqualToString:kMediaSoftware];
 		}];
+		[[self.apps map:^id(AFMediaItem *obj) {
+			return obj.dictionary;
+		}] writeToURL:url];
 
 		if (self.apps.count)
 			[GCD main:^{
@@ -83,7 +92,9 @@
 	} else if (indexPath.section == 4) {
 		AFMediaItem *app = self.apps[indexPath.row];
 
-		cell.textLabel.text = app.trackName;
+		NSArray *titles = [app.trackName componentsSeparatedByString:@" - "];
+		cell.textLabel.text = titles.count > 1 ? titles.firstObject : app.trackName;
+		cell.detailTextLabel.text = titles.count > 1 ? titles.lastObject : [app.dictionary[@"genres"] firstObject];
 		if (URL_CACHE(app.artworkUrl100).isExistingFile)
 			cell.imageView.image = [[UIImage image:URL_CACHE(app.artworkUrl100)] imageWithSize:CGSizeMake(30.0, 30.0) mode:UIImageScaleAspectFit];
 		else

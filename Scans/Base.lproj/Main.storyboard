@@ -129,7 +129,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.090196078430000007" green="0.090196078430000007" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="4" textLabel="lWq-st-WUa" imageView="JpE-QR-YJD" style="IBUITableViewCellStyleDefault" id="xeL-js-pjz">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="4" textLabel="lWq-st-WUa" detailTextLabel="z4z-0f-MYq" imageView="JpE-QR-YJD" style="IBUITableViewCellStyleSubtitle" id="xeL-js-pjz">
                                 <rect key="frame" x="0.0" y="231.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xeL-js-pjz" id="T03-Pt-ZX1">
@@ -137,7 +137,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lWq-st-WUa">
-                                            <rect key="frame" x="61" y="0.0" width="298" height="43.5"/>
+                                            <rect key="frame" x="61" y="5" width="31.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" red="0.090196078430000007" green="0.090196078430000007" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -148,6 +148,13 @@
                                             <rect key="frame" x="16" y="6" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Genre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="z4z-0f-MYq">
+                                            <rect key="frame" x="61" y="25.5" width="34.5" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.090196078430000007" green="0.090196078430000007" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
@@ -191,7 +198,7 @@
         <!--Scans-->
         <scene sceneID="q7W-Ze-HPa">
             <objects>
-                <collectionViewController id="YMh-Kf-QJE" customClass="ScanController" sceneMemberID="viewController">
+                <collectionViewController id="YMh-Kf-QJE" customClass="CameraController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="Acs-1l-Ugm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -302,6 +309,11 @@
                         <barButtonItem key="leftBarButtonItem" title="Item" image="scans-30.png" id="ub8-gR-atk">
                             <connections>
                                 <segue destination="fLl-8j-y24" kind="show" id="y3J-fw-Jc1"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="eKB-UG-vQZ">
+                            <connections>
+                                <action selector="cameraAction:" destination="YMh-Kf-QJE" id="443-nM-hx8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

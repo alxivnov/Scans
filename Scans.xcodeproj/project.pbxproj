@@ -10,6 +10,7 @@
 		CD04593D2049F922006D48D0 /* NSXMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD04593B2049F922006D48D0 /* NSXMLDictionary.m */; };
 		CD045943204B0940006D48D0 /* like-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD045941204B0940006D48D0 /* like-line@2x.png */; };
 		CD045944204B0940006D48D0 /* like-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD045942204B0940006D48D0 /* like-fill@2x.png */; };
+		CD24186820585F4000AD0B59 /* CameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD24186720585F4000AD0B59 /* CameraController.m */; };
 		CD256D3F2041FFA90086EAAB /* UIGestureTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D3E2041FFA90086EAAB /* UIGestureTransition.m */; };
 		CD256D422041FFC10086EAAB /* UIInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D412041FFC00086EAAB /* UIInteractiveTransition.m */; };
 		CD256D45204200560086EAAB /* UIGestureRecognizer+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D44204200560086EAAB /* UIGestureRecognizer+Convenience.m */; };
@@ -112,6 +113,8 @@
 		CD04593C2049F922006D48D0 /* NSXMLDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSXMLDictionary.h; path = "../Objective Sea/NSXMLDictionary.h"; sourceTree = "<group>"; };
 		CD045941204B0940006D48D0 /* like-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-line@2x.png"; path = "../Frameworks/Images/like-line@2x.png"; sourceTree = "<group>"; };
 		CD045942204B0940006D48D0 /* like-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-fill@2x.png"; path = "../Frameworks/Images/like-fill@2x.png"; sourceTree = "<group>"; };
+		CD24186620585F4000AD0B59 /* CameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraController.h; sourceTree = "<group>"; };
+		CD24186720585F4000AD0B59 /* CameraController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraController.m; sourceTree = "<group>"; };
 		CD256D3D2041FFA90086EAAB /* UIGestureTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIGestureTransition.h; path = "../Objective Sea/UIGestureTransition.h"; sourceTree = "<group>"; };
 		CD256D3E2041FFA90086EAAB /* UIGestureTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIGestureTransition.m; path = "../Objective Sea/UIGestureTransition.m"; sourceTree = "<group>"; };
 		CD256D402041FFC00086EAAB /* UIInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIInteractiveTransition.h; path = "../Objective Sea/UIInteractiveTransition.h"; sourceTree = "<group>"; };
@@ -452,6 +455,8 @@
 				CD662FC61FC701E2002BA3F8 /* ViewController.m */,
 				CDC08E0020475436009C6AD0 /* ScanController.h */,
 				CDC08E0120475436009C6AD0 /* ScanController.m */,
+				CD24186620585F4000AD0B59 /* CameraController.h */,
+				CD24186720585F4000AD0B59 /* CameraController.m */,
 				CD36C5F82041BFC10029FA9C /* NavigationController.h */,
 				CD36C5F92041BFC10029FA9C /* NavigationController.m */,
 				CDE33ABB20485FA700F89AD8 /* CollectionTransition.h */,
@@ -612,6 +617,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD24186820585F4000AD0B59 /* CameraController.m in Sources */,
 				CD256D4B2042DFCE0086EAAB /* MobileCoreServices+Convenience.m in Sources */,
 				CD256D542042E0DF0086EAAB /* CommonCrypto+Convenience.m in Sources */,
 				CD36C6282041C2B90029FA9C /* UIImage+Convenience.m in Sources */,

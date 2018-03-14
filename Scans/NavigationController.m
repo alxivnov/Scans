@@ -79,13 +79,17 @@ __synthesize(CollectionTransition *, collectionTransition, [CollectionTransition
 }
 */
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-	[navigationController setNavigationBarHidden:NO animated:NO];
+	BOOL isPage = [viewController isKindOfClass:[UIPageViewController class]];
 
-	[navigationController setToolbarHidden:viewController.toolbarItems.count == 0 animated:NO];
+	[navigationController setNavigationBarHidden:isPage animated:animated];
+
+	[navigationController setToolbarHidden:isPage || viewController.toolbarItems.count == 0 animated:animated];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-	navigationController.hidesBarsOnTap = [viewController isKindOfClass:[UIPageViewController class]];
+	BOOL isPage = [viewController isKindOfClass:[UIPageViewController class]];
+
+	navigationController.hidesBarsOnTap = isPage;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {

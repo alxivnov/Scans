@@ -27,7 +27,7 @@ __synthesize(NSPersistentContainer *, container, [NSPersistentContainer persiste
 
 	if (self) {
 		[self.container loadPersistentStores:^(NSPersistentStoreDescription *description) {
-			NSLog(@"Core Data URL: %@", description.URL);
+			[description.URL.absoluteString log:@"Core Data URL:"];
 		}];
 
 		CGFloat max = fmax([UIScreen mainScreen].nativeBounds.size.width, [UIScreen mainScreen].nativeBounds.size.height);
