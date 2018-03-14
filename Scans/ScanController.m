@@ -134,7 +134,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 				if (asset)
 					[[PHImageManager defaultManager] requestImageForAsset:asset targetSize:GLOBAL.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-						[result detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } handler:^(NSArray<VNTextObservation *> *results) {
+						[result detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
 							if (results)
 								[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:[NSIndexSet indexSetWithIndex:item ? item + 1 : 0] intoAssetCollection:self.album completionHandler:^(BOOL success) {
 									[GLOBAL.container.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results];

@@ -8,6 +8,10 @@
 
 #import "CameraController.h"
 
+#import "UIImagePickerController+Convenience.h"
+#import "CoreImage+Convenience.h"
+#import "Vision+Convenience.h"
+
 @interface CameraController ()
 
 @end
@@ -15,7 +19,32 @@
 @implementation CameraController
 
 - (IBAction)cameraAction:(UIBarButtonItem *)sender {
-	NSLog(@"cameraAction:");
+	[self presentImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera mediaTypes:Nil from:sender completion:^(UIImage *image) {
+		[image detectRectanglesWithOptions:Nil completionHandler:^(NSArray<VNRectangleObservation *> *results) {
+			VNRectangleObservation *rectangle = results.firstObject;
+			if (!rectangle)
+				return;
+
+			UIImage *corrected = [image filterWithName:@"CIPerspectiveCorrection" parameters:@{ @"inputTopLeft" : [[CIVector alloc] initWithCGPoint:CGPointScale(rectangle.topLeft, image.size.width, image.size.height)], @"inputTopRight" : [[CIVector alloc] initWithCGPoint:CGPointScale(rectangle.topRight, image.size.width, image.size.height)], @"inputBottomRight" : [[CIVector alloc] initWithCGPoint:CGPointScale(rectangle.bottomRight, image.size.width, image.size.height)], @"inputBottomLeft" : [[CIVector alloc] initWithCGPoint:CGPointScale(rectangle.bottomLeft, image.size.width, image.size.height)] }];
+			if (!corrected)
+				return;
+
+			[PHPhotoLibrary createAssetWithImage:image completionHandler:^(NSString *localIdentifier) {
+				PHAsset *asset = [PHAsset fetchAssetsWithLocalIdentifier:localIdentifier options:Nil].firstObject;
+				if (!asset)
+					return;
+
+				[image detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
+					if (results)
+						[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:self.album completionHandler:^(BOOL success) {
+							[GLOBAL.container.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results];
+						}];
+					else
+						[GLOBAL.container.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results];
+				}];
+			}];
+		}];
+	}];
 }
 
 - (void)viewDidLoad {
