@@ -15,26 +15,32 @@
 @interface CameraController ()
 
 @end
-
+#warning Add Camera UI!!!
 @implementation CameraController
 
 - (IBAction)cameraAction:(UIBarButtonItem *)sender {
 	[self presentImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera mediaTypes:Nil from:sender completion:^(UIImage *image) {
+		image = [image drawImage:Nil];
+
 		[image detectRectanglesWithOptions:Nil completionHandler:^(NSArray<VNRectangleObservation *> *results) {
 			VNRectangleObservation *rectangle = results.firstObject;
 			if (!rectangle)
 				return;
 
-			UIImage *corrected = [image filterWithName:@"CIPerspectiveCorrection" parameters:@{ @"inputTopLeft" : [[CIVector alloc] initWithCGPoint:CGPointScale(rectangle.topLeft, image.size.width, image.size.height)], @"inputTopRight" : [[CIVector alloc] initWithCGPoint:CGPointScale(rectangle.topRight, image.size.width, image.size.height)], @"inputBottomRight" : [[CIVector alloc] initWithCGPoint:CGPointScale(rectangle.bottomRight, image.size.width, image.size.height)], @"inputBottomLeft" : [[CIVector alloc] initWithCGPoint:CGPointScale(rectangle.bottomLeft, image.size.width, image.size.height)] }];
+			CGPoint topLeft = CGPointScale(rectangle.topLeft, image.size.width, image.size.height);
+			CGPoint topRight = CGPointScale(rectangle.topRight, image.size.width, image.size.height);
+			CGPoint bottomRight = CGPointScale(rectangle.bottomRight, image.size.width, image.size.height);
+			CGPoint bottomLeft = CGPointScale(rectangle.bottomLeft, image.size.width, image.size.height);
+			UIImage *corrected = [image filterWithName:@"CIPerspectiveCorrection" parameters:@{ @"inputTopLeft" : [[CIVector alloc] initWithCGPoint:topLeft], @"inputTopRight" : [[CIVector alloc] initWithCGPoint:topRight], @"inputBottomRight" : [[CIVector alloc] initWithCGPoint:bottomRight], @"inputBottomLeft" : [[CIVector alloc] initWithCGPoint:bottomLeft] } createCGImage:YES];
 			if (!corrected)
 				return;
 
-			[PHPhotoLibrary createAssetWithImage:image completionHandler:^(NSString *localIdentifier) {
+			[PHPhotoLibrary createAssetWithImage:corrected completionHandler:^(NSString *localIdentifier) {
 				PHAsset *asset = [PHAsset fetchAssetsWithLocalIdentifier:localIdentifier options:Nil].firstObject;
 				if (!asset)
 					return;
 
-				[image detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
+				[corrected detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
 					if (results)
 						[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:self.album completionHandler:^(BOOL success) {
 							[GLOBAL.container.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results];
@@ -46,6 +52,26 @@
 		}];
 	}];
 }
+
+/*
+ CGPoint topLeft = CGPointScale(rectangle.topLeft, image.size.width, image.size.height);
+ CGPoint topRight = CGPointScale(rectangle.topRight, image.size.width, image.size.height);
+ CGPoint bottomRight = CGPointScale(rectangle.bottomRight, image.size.width, image.size.height);
+ CGPoint bottomLeft = CGPointScale(rectangle.bottomLeft, image.size.width, image.size.height);
+
+ image = [image drawImage:^(CGContextRef context) {
+ CGContextSetLineWidth(context, 4.0);
+ CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
+
+ CGContextMoveToPoint(context, topLeft.x, image.size.height - topLeft.y);
+ CGContextAddLineToPoint(context, topRight.x, image.size.height - topRight.y);
+ CGContextAddLineToPoint(context, bottomRight.x, image.size.height - bottomRight.y);
+ CGContextAddLineToPoint(context, bottomLeft.x, image.size.height - bottomLeft.y);
+ CGContextAddLineToPoint(context, topLeft.x, image.size.height - topLeft.y);
+
+ CGContextDrawPath(context, kCGPathStroke);
+ }];
+*/
 
 - (void)viewDidLoad {
     [super viewDidLoad];
