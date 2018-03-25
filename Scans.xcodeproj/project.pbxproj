@@ -82,6 +82,7 @@
 		CD36C6392041C2B90029FA9C /* NSObject+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C6252041C2B90029FA9C /* NSObject+Convenience.m */; };
 		CD36C63D2041C5290029FA9C /* circle-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C63C2041C5280029FA9C /* circle-line@2x.png */; };
 		CD36C6412041DBF00029FA9C /* scans-30@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C6402041DBEF0029FA9C /* scans-30@3x.png */; };
+		CD466436205C203B002F068A /* VNDetectRectanglesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD466435205C203B002F068A /* VNDetectRectanglesViewController.m */; };
 		CD662FC41FC701E2002BA3F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC31FC701E2002BA3F8 /* AppDelegate.m */; };
 		CD662FC71FC701E2002BA3F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC61FC701E2002BA3F8 /* ViewController.m */; };
 		CD662FCA1FC701E2002BA3F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD662FC81FC701E2002BA3F8 /* Main.storyboard */; };
@@ -224,6 +225,8 @@
 		CD36C6252041C2B90029FA9C /* NSObject+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Convenience.m"; path = "../Objective Sea/NSObject+Convenience.m"; sourceTree = "<group>"; };
 		CD36C63C2041C5280029FA9C /* circle-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-line@2x.png"; path = "../Frameworks/Images/circle-line@2x.png"; sourceTree = "<group>"; };
 		CD36C6402041DBEF0029FA9C /* scans-30@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scans-30@3x.png"; path = "Images/scans-30@3x.png"; sourceTree = "<group>"; };
+		CD466434205C203B002F068A /* VNDetectRectanglesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VNDetectRectanglesViewController.h; sourceTree = "<group>"; };
+		CD466435205C203B002F068A /* VNDetectRectanglesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNDetectRectanglesViewController.m; sourceTree = "<group>"; };
 		CD662FBF1FC701E1002BA3F8 /* Scans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scans.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD662FC21FC701E1002BA3F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CD662FC31FC701E2002BA3F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -449,6 +452,8 @@
 		CD662FC11FC701E1002BA3F8 /* Scans */ = {
 			isa = PBXGroup;
 			children = (
+				CD466434205C203B002F068A /* VNDetectRectanglesViewController.h */,
+				CD466435205C203B002F068A /* VNDetectRectanglesViewController.m */,
 				CDE33AD220486F8800F89AD8 /* Model+Convenience.h */,
 				CDE33AD320486F8800F89AD8 /* Model+Convenience.m */,
 				CDCAF72D203C669C00D387AC /* Global.h */,
@@ -655,6 +660,7 @@
 				CD256D422041FFC10086EAAB /* UIInteractiveTransition.m in Sources */,
 				CD36C6272041C2B90029FA9C /* Photos+Convenience.m in Sources */,
 				CD36C6342041C2B90029FA9C /* UIViewController+Convenience.m in Sources */,
+				CD466436205C203B002F068A /* VNDetectRectanglesViewController.m in Sources */,
 				CD256DA92043045F0086EAAB /* SKInAppPurchase.m in Sources */,
 				CD662FF61FC73B27002BA3F8 /* VNTextCollectionController.m in Sources */,
 				CD36C62B2041C2B90029FA9C /* Dispatch+Convenience.m in Sources */,
@@ -813,6 +819,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Scans/Scans.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VRBB8HL9RV;
 				FRAMEWORK_SEARCH_PATHS = "../Frameworks/**";
 				INFOPLIST_FILE = Scans/Info.plist;
@@ -829,6 +836,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Scans/Scans.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VRBB8HL9RV;
 				FRAMEWORK_SEARCH_PATHS = "../Frameworks/**";
 				INFOPLIST_FILE = Scans/Info.plist;

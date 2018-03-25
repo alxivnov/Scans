@@ -40,8 +40,6 @@
 	toView.hidden = YES;
 }
 
-#warning Improve toolbar animation!
-
 - (void)endInteractiveTransition:(BOOL)didComplete {
 	[super endInteractiveTransition:didComplete];
 

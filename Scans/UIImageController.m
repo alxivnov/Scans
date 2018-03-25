@@ -85,8 +85,6 @@ __synthesize(UIImageView *, imageView, ({
 }
 */
 
-#warning Fix zooming of observations!
-
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
 	return [self.view viewWithTag:UICenteredScrollViewTag];
 }

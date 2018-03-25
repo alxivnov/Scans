@@ -12,14 +12,21 @@
 #import "CoreImage+Convenience.h"
 #import "Vision+Convenience.h"
 
+#import "VNDetectRectanglesViewController.h"
+
 @interface CameraController ()
 
 @end
-#warning Add Camera UI!!!
+
 @implementation CameraController
 
 - (IBAction)cameraAction:(UIBarButtonItem *)sender {
-	[self presentImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera mediaTypes:Nil from:sender completion:^(UIImage *image) {
+	VNDetectRectanglesViewController *vc = [[VNDetectRectanglesViewController alloc] init];
+
+	vc.view.tintColor = [UIColor redColor];
+	
+	vc.capturePhotoHandler = ^(AVCapturePhoto *photo) {
+		UIImage *image = [UIImage imageWithCGImage:photo.CGImageRepresentation];
 		image = [image drawImage:Nil];
 
 		[image detectRectanglesWithOptions:Nil completionHandler:^(NSArray<VNRectangleObservation *> *results) {
@@ -50,28 +57,10 @@
 				}];
 			}];
 		}];
-	}];
+	};
+
+	[self presentViewController:vc animated:YES completion:Nil];
 }
-
-/*
- CGPoint topLeft = CGPointScale(rectangle.topLeft, image.size.width, image.size.height);
- CGPoint topRight = CGPointScale(rectangle.topRight, image.size.width, image.size.height);
- CGPoint bottomRight = CGPointScale(rectangle.bottomRight, image.size.width, image.size.height);
- CGPoint bottomLeft = CGPointScale(rectangle.bottomLeft, image.size.width, image.size.height);
-
- image = [image drawImage:^(CGContextRef context) {
- CGContextSetLineWidth(context, 4.0);
- CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
-
- CGContextMoveToPoint(context, topLeft.x, image.size.height - topLeft.y);
- CGContextAddLineToPoint(context, topRight.x, image.size.height - topRight.y);
- CGContextAddLineToPoint(context, bottomRight.x, image.size.height - bottomRight.y);
- CGContextAddLineToPoint(context, bottomLeft.x, image.size.height - bottomLeft.y);
- CGContextAddLineToPoint(context, topLeft.x, image.size.height - topLeft.y);
-
- CGContextDrawPath(context, kCGPathStroke);
- }];
-*/
 
 - (void)viewDidLoad {
     [super viewDidLoad];

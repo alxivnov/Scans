@@ -113,8 +113,6 @@ static NSString * const reuseIdentifier = @"Cell";
 	}
 }
 
-#warning Fix adding images while scanning!
-
 - (IBAction)refreshAction:(UIButton *)sender {
 	self.scanning = [sender.titleLabel.text isEqualToString:@"Scan"];
 
