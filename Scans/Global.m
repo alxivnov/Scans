@@ -11,6 +11,8 @@
 #define __defaults(type, get, set) - (type)get { return [[NSUserDefaults standardUserDefaults] objectForKey:@"##get"]; } - (void)set:(type)get { [[NSUserDefaults standardUserDefaults] setObject:get forKey:@"##get"]; }
 
 @interface Global ()
+@property (strong, nonatomic) NSPersistentContainer *container;
+
 @property (assign, nonatomic) CGSize screenSize;
 @end
 
@@ -19,14 +21,15 @@
 __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvider:@"10603809" affiliate:@"1l3voBu"] dictionaryWithObject:@"write-review" forKey:@"action"])
 
 __synthesize(PHCachingImageManager *, manager, [[PHCachingImageManager alloc] init])
-
-__synthesize(NSPersistentContainer *, container, [NSPersistentContainer persistentContainerWithName:@"Scans"])
+__synthesize(PHAssetCollection *, album, [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:[self.container.viewContext fetchLastAlbum].albumIdentifier options:Nil])
 
 - (instancetype)init {
 	self = [super init];
 
 	if (self) {
-		[self.container loadPersistentStores:^(NSPersistentStoreDescription *description) {
+		[NSPersistentContainer loadPersistentContainerWithName:@"Scans" completionHandler:^(NSPersistentContainer *container, NSPersistentStoreDescription *description) {
+			self.container = container;
+
 			[description.URL.absoluteString log:@"Core Data URL:"];
 		}];
 

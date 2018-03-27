@@ -30,7 +30,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)scrollToItem:(NSUInteger)item animated:(BOOL)animated {
-	if ([self.collectionView numberOfItemsInSection:0] > item)
+	if (item < [self.collectionView numberOfItemsInSection:0])
 		[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:animated];
 }
 
@@ -53,9 +53,7 @@ static NSString * const reuseIdentifier = @"Cell";
 		if (status != PHAuthorizationStatusAuthorized)
 			return;
 
-		Album *album = [GLOBAL.container.viewContext fetchLastAlbum];
-
-		self.album = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:album.albumIdentifier options:Nil];
+		self.album = GLOBAL.album;
 		if (self.album) {
 			self.fetch = [PHAsset fetchAssetsInAssetCollection:self.album options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
 

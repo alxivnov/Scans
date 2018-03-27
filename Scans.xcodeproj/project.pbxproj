@@ -82,6 +82,7 @@
 		CD36C6392041C2B90029FA9C /* NSObject+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C6252041C2B90029FA9C /* NSObject+Convenience.m */; };
 		CD36C63D2041C5290029FA9C /* circle-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C63C2041C5280029FA9C /* circle-line@2x.png */; };
 		CD36C6412041DBF00029FA9C /* scans-30@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C6402041DBEF0029FA9C /* scans-30@3x.png */; };
+		CD3D70FF206AAB6D00ECF828 /* TextDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3D70FE206AAB6D00ECF828 /* TextDetector.m */; };
 		CD466436205C203B002F068A /* VNDetectRectanglesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD466435205C203B002F068A /* VNDetectRectanglesViewController.m */; };
 		CD662FC41FC701E2002BA3F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC31FC701E2002BA3F8 /* AppDelegate.m */; };
 		CD662FC71FC701E2002BA3F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC61FC701E2002BA3F8 /* ViewController.m */; };
@@ -225,6 +226,8 @@
 		CD36C6252041C2B90029FA9C /* NSObject+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Convenience.m"; path = "../Objective Sea/NSObject+Convenience.m"; sourceTree = "<group>"; };
 		CD36C63C2041C5280029FA9C /* circle-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-line@2x.png"; path = "../Frameworks/Images/circle-line@2x.png"; sourceTree = "<group>"; };
 		CD36C6402041DBEF0029FA9C /* scans-30@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scans-30@3x.png"; path = "Images/scans-30@3x.png"; sourceTree = "<group>"; };
+		CD3D70FD206AAB6D00ECF828 /* TextDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
+		CD3D70FE206AAB6D00ECF828 /* TextDetector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextDetector.m; sourceTree = "<group>"; };
 		CD466434205C203B002F068A /* VNDetectRectanglesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VNDetectRectanglesViewController.h; sourceTree = "<group>"; };
 		CD466435205C203B002F068A /* VNDetectRectanglesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNDetectRectanglesViewController.m; sourceTree = "<group>"; };
 		CD662FBF1FC701E1002BA3F8 /* Scans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scans.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -456,6 +459,8 @@
 				CD466435205C203B002F068A /* VNDetectRectanglesViewController.m */,
 				CDE33AD220486F8800F89AD8 /* Model+Convenience.h */,
 				CDE33AD320486F8800F89AD8 /* Model+Convenience.m */,
+				CD3D70FD206AAB6D00ECF828 /* TextDetector.h */,
+				CD3D70FE206AAB6D00ECF828 /* TextDetector.m */,
 				CDCAF72D203C669C00D387AC /* Global.h */,
 				CDCAF72E203C669C00D387AC /* Global.m */,
 				CDE33AC12048640800F89AD8 /* Scans.entitlements */,
@@ -675,6 +680,7 @@
 				CD36C6312041C2B90029FA9C /* CoreImage+Convenience.m in Sources */,
 				CD36C5FA2041BFC10029FA9C /* NavigationController.m in Sources */,
 				CD256D512042E0CC0086EAAB /* NSURLSession+Convenience.m in Sources */,
+				CD3D70FF206AAB6D00ECF828 /* TextDetector.m in Sources */,
 				CDCAF72F203C669C00D387AC /* Global.m in Sources */,
 				CDE33B3F2049936000F89AD8 /* UIPageViewController+Convenience.m in Sources */,
 				CD256D45204200560086EAAB /* UIGestureRecognizer+Convenience.m in Sources */,

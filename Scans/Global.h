@@ -19,13 +19,14 @@
 
 @interface Global : NSObject
 
-@property (strong, nonatomic, readonly) NSDictionary *affiliateInfo;
-
-@property (strong, nonatomic, readonly) PHCachingImageManager *manager;
+@property (assign, nonatomic, readonly) CGSize screenSize;
 
 @property (strong, nonatomic, readonly) NSPersistentContainer *container;
 
-@property (assign, nonatomic, readonly) CGSize screenSize;
+@property (strong, nonatomic, readonly) PHCachingImageManager *manager;
+@property (strong, nonatomic, readonly) PHAssetCollection *album;
+
+@property (strong, nonatomic, readonly) NSDictionary *affiliateInfo;
 
 + (instancetype)global;
 

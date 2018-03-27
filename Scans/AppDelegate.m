@@ -13,6 +13,7 @@
 #import <Answers/Answers.h>
 
 #import "Global.h"
+#import "TextDetector.h"
 
 @interface AppDelegate ()
 
@@ -28,6 +29,17 @@
 	GLOBAL;
 
 	return YES;
+}
+
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+	TextDetector *detector = [[TextDetector alloc] initWithAlbum:GLOBAL.album context:GLOBAL.container.viewContext];
+	if (detector.assets.count)
+		[detector process:^(PHAsset *asset) {
+			completionHandler(UIBackgroundFetchResultNewData);
+		}];
+	else
+		completionHandler(UIBackgroundFetchResultNoData);
 }
 
 

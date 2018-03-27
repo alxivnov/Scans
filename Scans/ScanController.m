@@ -8,21 +8,39 @@
 
 #import "ScanController.h"
 
-#import "NSArray+Convenience.h"
-#import "Vision+Convenience.h"
+#import "TextDetector.h"
 
 @interface ScanController ()
-@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
-@property (weak, nonatomic) IBOutlet UIButton *headerButton;
-@property (weak, nonatomic) IBOutlet UIProgressView *headerProgress;
+@property (strong, nonatomic) TextDetector *detector;
 
-@property (assign, nonatomic) BOOL scanning;
-@property (strong, nonatomic) NSMutableArray<PHAsset *> *refresh;
+@property (assign, nonatomic) NSUInteger scanning;
 @end
 
 @implementation ScanController
 
 static NSString * const reuseIdentifier = @"Cell";
+
+- (void)updateHeader:(UICollectionReusableView *)header {
+	if (self.detector.assets.count) {
+		if (!header)
+			header = [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+
+		UILabel *label = [header subview:UIViewSubview(UILabel)];
+		UIButton *button = [header subview:UIViewSubview(UIButton)];
+		UIProgressView *progress = [header subview:UIViewSubview(UIProgressView)];
+
+		NSUInteger index = self.scanning - self.detector.assets.count + 1;
+		NSUInteger count = self.scanning;
+
+		label.text = self.scanning ? [NSString stringWithFormat:@"%lu / %lu", index, count] : [NSString stringWithFormat:@"Scan %lu new photos from Library", self.detector.assets.count];
+		[button setTitle:self.scanning ? @"Stop" : @"Scan" forState:UIControlStateNormal];
+		[progress setProgress:self.scanning ? (float)index / (float)count : 0.0 animated:self.scanning];
+
+		self.flowLayout.headerReferenceSize = self.flowLayout.footerReferenceSize;
+	} else {
+		self.flowLayout.headerReferenceSize = CGSizeZero;
+	}
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,6 +54,9 @@ static NSString * const reuseIdentifier = @"Cell";
     // Do any additional setup after loading the view.
 
 	self.flowLayout.sectionHeadersPinToVisibleBounds = YES;
+
+	self.detector = [[TextDetector alloc] initWithAlbum:self.album context:GLOBAL.container.viewContext];
+	[self updateHeader:Nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,79 +99,35 @@ static NSString * const reuseIdentifier = @"Cell";
 	if ([kind isEqualToString:UICollectionElementKindSectionFooter])
 		return [super collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
 
-	NSArray *ids = [[GLOBAL.container.viewContext fetchAssetsWithAlbumIdentifier:self.album.localIdentifier] map:^id(Asset *obj) {
-		return obj.assetIdentifier;
-	}];
-	PHFetchResult *fetch = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
-	NSArray *array = [fetch.array query:^BOOL(PHAsset *obj) {
-		return ![ids containsObject:obj.localIdentifier];
-	}];
-
-	self.refresh = array.count > 0 ? [array mutableCopy] : Nil;
-
-	UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
-	self.headerLabel = [view subview:UIViewSubview(UILabel)];
-	self.headerButton = [view subview:UIViewSubview(UIButton)];
-	self.headerProgress = [view subview:UIViewSubview(UIProgressView)];
-	self.headerLabel.text = [NSString stringWithFormat:@"Scan %lu new photos from Library", array.count];
-	return view;
-}
-
-- (void)refreshHeaderWithIndex:(NSUInteger)index count:(NSUInteger)count {
-	if (count == 0) {
-		self.flowLayout.headerReferenceSize = CGSizeZero;
-	} else {
-		self.flowLayout.headerReferenceSize = self.flowLayout.footerReferenceSize;
-
-		self.headerLabel.text = index == NSNotFound ? [NSString stringWithFormat:@"Scan %lu new photos from Library", count] : [NSString stringWithFormat:@"%lu / %lu", index, count];
-
-		[self.headerButton setTitle:index == NSNotFound ? @"Scan" : @"Stop" forState:UIControlStateNormal];
-
-		[self.headerProgress setProgress:(float)index / (float)count animated:YES];
-
-		if (index == count)
-			self.headerProgress.progress = 0;
-	}
+	UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
+	[self updateHeader:header];
+	return header;
 }
 
 - (IBAction)refreshAction:(UIButton *)sender {
-	self.scanning = [sender.titleLabel.text isEqualToString:@"Scan"];
+	if (self.scanning) {
+		self.scanning = 0;
 
-	[sender setTitle:self.scanning ? @"Stop" : @"Scan" forState:UIControlStateNormal];
+		self.detector = [[TextDetector alloc] initWithAlbum:self.album context:GLOBAL.container.viewContext];
+		[self updateHeader:Nil];
+	} else {
+		self.scanning = self.detector.assets.count;
 
-	if (self.scanning)
+		[self updateHeader:Nil];
+
 		[GCD global:^{
-			PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-			options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-			options.networkAccessAllowed = YES;
-			options.synchronous = YES;
+			while (self.detector.assets.count && self.scanning)
+				[self.detector process:^(PHAsset *asset) {
+					NSUInteger index = asset ? self.fetch.count && [self.fetch.lastObject creationDate].timeIntervalSinceReferenceDate < asset.creationDate.timeIntervalSinceReferenceDate ? self.fetch.count : 0 : NSNotFound;
 
-			for (NSInteger index = 0; index <= self.refresh.count && self.scanning; index++) {
-				PHAsset *asset = idx(self.refresh, index);
+					[GCD main:^{
+						[self scrollToItem:index animated:YES];
 
-				NSUInteger item = asset ? self.fetch.count && [self.fetch.lastObject creationDate].timeIntervalSinceReferenceDate < asset.creationDate.timeIntervalSinceReferenceDate ? self.fetch.count - 1 : 0 : NSNotFound;
-
-				if (asset)
-					[[PHImageManager defaultManager] requestImageForAsset:asset targetSize:GLOBAL.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-						[result detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
-							if (results)
-								[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:[NSIndexSet indexSetWithIndex:item ? item + 1 : 0] intoAssetCollection:self.album completionHandler:^(BOOL success) {
-									[GLOBAL.container.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results];
-								}];
-							else
-								[GLOBAL.container.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results];
-						}];
+						[self updateHeader:Nil];
 					}];
-
-				[GCD main:^{
-					[self scrollToItem:item animated:YES];
-
-					[self refreshHeaderWithIndex:self.scanning ? index : NSNotFound count:self.refresh.count];
 				}];
-			}
 		}];
-	else
-		[self refreshHeaderWithIndex:NSNotFound count:self.refresh.count];
+	}
 }
 
 #pragma mark <UICollectionViewDelegate>
