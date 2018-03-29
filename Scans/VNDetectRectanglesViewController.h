@@ -10,17 +10,14 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-#import "NSObject+Convenience.h"
 #import "CoreGraphics+Convenience.h"
 #import "Dispatch+Convenience.h"
+#import "QuartzCore+Convenience.h"
 #import "Vision+Convenience.h"
-
-@interface AVCapturePhotoViewController : UIViewController
-
-@property (copy, nonatomic) void (^capturePhotoHandler)(AVCapturePhoto *photo);
-
-@end
+#import "AVCaptureSession+Convenience.h"
 
 @interface VNDetectRectanglesViewController : AVCapturePhotoViewController
+
+@property (strong, nonatomic, readonly) CAShapeLayer *shapeLayer;
 
 @end

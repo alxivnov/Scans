@@ -95,6 +95,7 @@
 		CD662FF61FC73B27002BA3F8 /* VNTextCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FF51FC73B27002BA3F8 /* VNTextCollectionController.m */; };
 		CD66F3D42044858B00050C65 /* Vision+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD66F3D32044858B00050C65 /* Vision+Convenience.m */; };
 		CD8157B42059757E007EAEC6 /* UIImagePickerController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8157B32059757D007EAEC6 /* UIImagePickerController+Convenience.m */; };
+		CD822B8B206D602700F2112F /* AVCaptureSession+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD822B8A206D602700F2112F /* AVCaptureSession+Convenience.m */; };
 		CDC08DE72045C07C009C6AD0 /* VNTextPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */; };
 		CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */; };
 		CDC08E0220475436009C6AD0 /* ScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08E0120475436009C6AD0 /* ScanController.m */; };
@@ -249,6 +250,8 @@
 		CD66F3D32044858B00050C65 /* Vision+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Vision+Convenience.m"; path = "../Objective Sea/Vision+Convenience.m"; sourceTree = "<group>"; };
 		CD8157B22059757D007EAEC6 /* UIImagePickerController+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImagePickerController+Convenience.h"; path = "../Objective Sea/UIImagePickerController+Convenience.h"; sourceTree = "<group>"; };
 		CD8157B32059757D007EAEC6 /* UIImagePickerController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImagePickerController+Convenience.m"; path = "../Objective Sea/UIImagePickerController+Convenience.m"; sourceTree = "<group>"; };
+		CD822B89206D602700F2112F /* AVCaptureSession+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AVCaptureSession+Convenience.h"; path = "../Objective Sea/AVCaptureSession+Convenience.h"; sourceTree = "<group>"; };
+		CD822B8A206D602700F2112F /* AVCaptureSession+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AVCaptureSession+Convenience.m"; path = "../Objective Sea/AVCaptureSession+Convenience.m"; sourceTree = "<group>"; };
 		CDC08DE52045C07C009C6AD0 /* VNTextPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VNTextPagingController.h; sourceTree = "<group>"; };
 		CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNTextPagingController.m; sourceTree = "<group>"; };
 		CDC08DE82045E18C009C6AD0 /* PHAssetPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAssetPagingController.h; sourceTree = "<group>"; };
@@ -352,6 +355,8 @@
 				CD256D4C2042E0B60086EAAB /* Affiliates+Convenience.m */,
 				CD256D5C2042E1D90086EAAB /* Answers+Convenience.h */,
 				CD256D5B2042E1D80086EAAB /* Answers+Convenience.m */,
+				CD822B89206D602700F2112F /* AVCaptureSession+Convenience.h */,
+				CD822B8A206D602700F2112F /* AVCaptureSession+Convenience.m */,
 				CD256D532042E0DF0086EAAB /* CommonCrypto+Convenience.h */,
 				CD256D522042E0DF0086EAAB /* CommonCrypto+Convenience.m */,
 				CDE33ABF2048611300F89AD8 /* CoreData+Convenience.h */,
@@ -648,6 +653,7 @@
 				CDC08E0220475436009C6AD0 /* ScanController.m in Sources */,
 				CD36C62C2041C2B90029FA9C /* UIApplication+Convenience.m in Sources */,
 				CD04593D2049F922006D48D0 /* NSXMLDictionary.m in Sources */,
+				CD822B8B206D602700F2112F /* AVCaptureSession+Convenience.m in Sources */,
 				CD256D5D2042E1D90086EAAB /* Answers+Convenience.m in Sources */,
 				CD256D482042DFBD0086EAAB /* MessageUI+Convenience.m in Sources */,
 				CDFE017D2041F91300C5AC4E /* AboutController.m in Sources */,

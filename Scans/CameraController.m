@@ -22,12 +22,10 @@
 
 - (IBAction)cameraAction:(UIBarButtonItem *)sender {
 	VNDetectRectanglesViewController *vc = [[VNDetectRectanglesViewController alloc] init];
-
-	vc.view.tintColor = [UIColor redColor];
 	
 	vc.capturePhotoHandler = ^(AVCapturePhoto *photo) {
-		UIImage *image = [UIImage imageWithCGImage:photo.CGImageRepresentation];
-		image = [image drawImage:Nil];
+		UIImage *image = photo.image;
+//		image = [image drawImage:Nil];
 
 		[image detectRectanglesWithOptions:Nil completionHandler:^(NSArray<VNRectangleObservation *> *results) {
 			VNRectangleObservation *rectangle = results.firstObject;
@@ -60,6 +58,8 @@
 	};
 
 	[self presentViewController:vc animated:YES completion:Nil];
+
+	vc.doneButton.layer.borderColor = vc.shapeLayer.strokeColor = self.navigationController.navigationBar.tintColor.CGColor;
 }
 
 - (void)viewDidLoad {

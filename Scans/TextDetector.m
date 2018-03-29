@@ -37,10 +37,11 @@
 	CGFloat max = fmax([UIScreen mainScreen].nativeBounds.size.width, [UIScreen mainScreen].nativeBounds.size.height);
 	self.size = CGSizeMake(max, max);
 
-	PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-	options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-	options.networkAccessAllowed = YES;
-	options.synchronous = YES;
+	self.options = [[PHImageRequestOptions alloc] init];
+	self.options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+	self.options.networkAccessAllowed = YES;
+	self.options.synchronous = YES;
+
 
 	NSArray *IDs = [[self.context fetchAssetsWithAlbumIdentifier:self.album.localIdentifier] map:^id(Asset *obj) {
 		return obj.assetIdentifier;
@@ -57,7 +58,7 @@
 	PHAsset *asset = [(NSMutableArray *)self.assets fifo];
 
 	[[PHImageManager defaultManager] requestImageForAsset:asset targetSize:self.size contentMode:PHImageContentModeAspectFill options:self.options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-		[result detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
+		[result detectTextRectanglesWithOptions:@{ VNImageOptionPreferBackgroundProcessing : @YES, VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
 			if (results.count) {
 				[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:self.album completionHandler:^(BOOL success) {
 					if (completion)
