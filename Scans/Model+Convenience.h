@@ -8,9 +8,8 @@
 
 #import "Scans+CoreDataModel.h"
 
-#import <Vision/Vision.h>
-
 #import "CoreData+Convenience.h"
+#import "Vision+Convenience.h"
 
 @interface Observation (VNTextObservation)
 
@@ -24,7 +23,7 @@
 - (NSArray<Asset *> *)fetchAssetsWithAlbumIdentifier:(NSString *)albumIdentifier;
 - (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier assetIdentifier:(NSString *)assetIdentifier;
 
-- (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier creationDate:(NSDate *)creationDate;
+- (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier;
 - (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier observations:(NSArray *)observations;
 
 @end

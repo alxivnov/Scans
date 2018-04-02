@@ -12,7 +12,6 @@
 #import <Crashlytics/Crashlytics.h>
 #import <Answers/Answers.h>
 
-#import "Global.h"
 #import "TextDetector.h"
 
 @interface AppDelegate ()
@@ -26,16 +25,18 @@
 	// Override point for customization after application launch.
 	[Fabric with:@[ [Crashlytics class], [Answers class] ]];
 
-	GLOBAL;
+	[GCD global:^{
+		LIB;
+	}];
 
 	return YES;
 }
 
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-	TextDetector *detector = [[TextDetector alloc] initWithAlbum:GLOBAL.album context:GLOBAL.container.viewContext];
-	if (detector.assets.count)
-		[detector process:^(PHAsset *asset) {
+	TextDetector *detector = [[TextDetector alloc] init];
+	if (detector.count)
+		[detector process:10.0 handler:^() {
 			completionHandler(UIBackgroundFetchResultNewData);
 		}];
 	else

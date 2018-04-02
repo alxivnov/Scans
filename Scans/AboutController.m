@@ -8,8 +8,7 @@
 
 #import "AboutController.h"
 
-#import "Global.h"
-
+#import "Affiliates+Convenience.h"
 #import "Answers+Convenience.h"
 #import "MessageUI+Convenience.h"
 #import "NSBundle+Convenience.h"
@@ -25,10 +24,14 @@
 #define DEV_ID 734258593
 
 @interface AboutController ()
+@property (strong, nonatomic, readonly) NSDictionary *affiliateInfo;
+
 @property (strong, nonatomic) NSArray<AFMediaItem *> *apps;
 @end
 
 @implementation AboutController
+
+__synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvider:@"10603809" affiliate:@"1l3voBu"] dictionaryWithObject:@"write-review" forKey:@"action"])
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -118,11 +121,11 @@
 	else if (indexPath.section == 1 && indexPath.row == 0)
 		[self presentMailComposeWithRecipients:arr_(cell.detailTextLabel.text) subject:[NSBundle bundleDisplayNameAndShortVersion] body:Nil attachments:dic_(@"screenshot.jpg", [[self.presentingViewController.view snapshotImageAfterScreenUpdates:YES] jpegRepresentation]) completionHandler:Nil];
 	else if (indexPath.section == 2 && indexPath.row == 0)
-		[self presentWebActivityWithActivityItems:@[ [NSBundle bundleDisplayName], [NSURL URLForMobileAppWithIdentifier:APP_ID affiliateInfo:GLOBAL.affiliateInfo] ] excludedTypes:Nil completionHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
+		[self presentWebActivityWithActivityItems:@[ [NSBundle bundleDisplayName], [NSURL URLForMobileAppWithIdentifier:APP_ID affiliateInfo:self.affiliateInfo] ] excludedTypes:Nil completionHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
 			[Answers logInviteWithMethod:activityType customAttributes:@{ @"version" : [NSBundle bundleVersion], @"success" : completed ? @"YES" : @"NO", @"error" : [activityError debugDescription] ?: STR_EMPTY }];
 		}];
 	else if (indexPath.section == 3 && indexPath.row == 0)
-		[UIApplication openURL:[NSURL URLForMobileAppWithIdentifier:APP_ID affiliateInfo:GLOBAL.affiliateInfo] options:Nil completionHandler:^(BOOL success) {
+		[UIApplication openURL:[NSURL URLForMobileAppWithIdentifier:APP_ID affiliateInfo:self.affiliateInfo] options:Nil completionHandler:^(BOOL success) {
 
 		}];
 	else if (indexPath.section == 4)

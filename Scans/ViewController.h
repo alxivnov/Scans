@@ -8,19 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Global.h"
-
-#import "UIView+Convenience.h"
-
 @interface ViewController : UICollectionViewController
-
-@property (strong, nonatomic, readonly) UICollectionViewFlowLayout *flowLayout;
-@property (assign, nonatomic, readonly) CGSize cellSize;
-
-- (void)scrollToItem:(NSUInteger)item animated:(BOOL)animated;
-
-@property (strong, nonatomic, readonly) PHAssetCollection *album;
-@property (strong, nonatomic, readonly) PHFetchResult *fetch;
 
 @end
 

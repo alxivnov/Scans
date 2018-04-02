@@ -6,15 +6,14 @@
 //  Copyright © 2018 Alexander Ivanov. All rights reserved.
 //
 
-#import "VNDetectRectanglesViewController.h"
+#import "RectangleController.h"
 
-#warning Rectangle
 #warning Focus
 #warning Flash
 
 #define CGPointRotate(point) CGPointMake(point.y, point.x)
 
-@interface VNDetectRectanglesViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface RectangleController () <AVCaptureVideoDataOutputSampleBufferDelegate>
 @property (strong, nonatomic, readonly) AVCaptureVideoDataOutput *videoDataOutput;
 
 @property (strong, nonatomic) VNSequenceRequestHandler *handler;
@@ -25,14 +24,14 @@
 @property (strong, nonatomic) NSDate *date;
 @end
 
-@implementation VNDetectRectanglesViewController
+@implementation RectangleController
 
 __synthesize(AVCaptureVideoDataOutput *, videoDataOutput, [AVCaptureVideoDataOutput videoDataOutputWithSampleBufferDelegate:self queue:dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0)])
 
 __synthesize(VNSequenceRequestHandler *, handler, [[VNSequenceRequestHandler alloc] init])
 
 __synthesize(VNDetectRectanglesRequest *, request, ({
-	__weak VNDetectRectanglesViewController *__self = self;
+	__weak RectangleController *__self = self;
 	VNDetectRectanglesRequest *request = [VNDetectRectanglesRequest requestWithCompletionHandler:^(NSArray *results) {
 		VNRectangleObservation *rect = results.firstObject;
 		if (rect) {
@@ -100,6 +99,24 @@ __synthesize(CAShapeLayer *, shapeLayer, ({
 	CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
 
 	self.date = [self.handler performRequests:@[ self.request ] onCVPixelBuffer:pixelBuffer] ? [NSDate date] : Nil;
+}
+
+- (instancetype)initWithHandler:(void (^)(UIImage *))handler {
+	self = [self init];
+
+	if (self)
+		self.capturePhotoHandler = ^(AVCapturePhoto *photo) {
+			UIImage *image = photo.image;
+//			image = [image drawImage:Nil];
+			[image detectRectanglesWithOptions:Nil completionHandler:^(NSArray<VNRectangleObservation *> *results) {
+				UIImage *temp = [image imageWithRectangle:results.firstObject];
+
+				if (handler)
+					handler(temp);
+			}];
+		};
+
+	return self;
 }
 
 @end

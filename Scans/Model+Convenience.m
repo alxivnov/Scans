@@ -37,10 +37,13 @@
 	return [Observation executeFetchRequestInContext:self predicateWithFormat:@"albumIdentifier = %@ && assetIdentifier = %@", albumIdentifier, assetIdentifier];
 }
 
-- (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier creationDate:(NSDate *)creationDate {
+- (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier {
+	if (!albumIdentifier)
+		return Nil;
+
 	Album *album = [Album insertInContext:self];
 	album.albumIdentifier = albumIdentifier;
-	album.creationDate = creationDate;
+	album.creationDate = [NSDate date];
 
 	[self save];
 

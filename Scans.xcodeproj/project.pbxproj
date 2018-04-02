@@ -10,7 +10,6 @@
 		CD04593D2049F922006D48D0 /* NSXMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD04593B2049F922006D48D0 /* NSXMLDictionary.m */; };
 		CD045943204B0940006D48D0 /* like-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD045941204B0940006D48D0 /* like-line@2x.png */; };
 		CD045944204B0940006D48D0 /* like-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD045942204B0940006D48D0 /* like-fill@2x.png */; };
-		CD24186820585F4000AD0B59 /* CameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD24186720585F4000AD0B59 /* CameraController.m */; };
 		CD256D3F2041FFA90086EAAB /* UIGestureTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D3E2041FFA90086EAAB /* UIGestureTransition.m */; };
 		CD256D422041FFC10086EAAB /* UIInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D412041FFC00086EAAB /* UIInteractiveTransition.m */; };
 		CD256D45204200560086EAAB /* UIGestureRecognizer+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D44204200560086EAAB /* UIGestureRecognizer+Convenience.m */; };
@@ -59,6 +58,7 @@
 		CD256DA92043045F0086EAAB /* SKInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256DA62043045E0086EAAB /* SKInAppPurchase.m */; };
 		CD256DAA2043045F0086EAAB /* StoreKit+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256DA82043045E0086EAAB /* StoreKit+Convenience.m */; };
 		CD256DAD20430DD20086EAAB /* QuartzCore+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256DAC20430DD20086EAAB /* QuartzCore+Convenience.m */; };
+		CD30D8A3207000F200028C8D /* PhotoLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD30D8A2207000F200028C8D /* PhotoLibrary.m */; };
 		CD36C5FA2041BFC10029FA9C /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C5F92041BFC10029FA9C /* NavigationController.m */; };
 		CD36C6262041C2B90029FA9C /* UIAlertController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C5FD2041C2B60029FA9C /* UIAlertController+Convenience.m */; };
 		CD36C6272041C2B90029FA9C /* Photos+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C5FF2041C2B60029FA9C /* Photos+Convenience.m */; };
@@ -82,8 +82,7 @@
 		CD36C6392041C2B90029FA9C /* NSObject+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C6252041C2B90029FA9C /* NSObject+Convenience.m */; };
 		CD36C63D2041C5290029FA9C /* circle-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C63C2041C5280029FA9C /* circle-line@2x.png */; };
 		CD36C6412041DBF00029FA9C /* scans-30@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C6402041DBEF0029FA9C /* scans-30@3x.png */; };
-		CD3D70FF206AAB6D00ECF828 /* TextDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3D70FE206AAB6D00ECF828 /* TextDetector.m */; };
-		CD466436205C203B002F068A /* VNDetectRectanglesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD466435205C203B002F068A /* VNDetectRectanglesViewController.m */; };
+		CD466436205C203B002F068A /* RectangleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD466435205C203B002F068A /* RectangleController.m */; };
 		CD662FC41FC701E2002BA3F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC31FC701E2002BA3F8 /* AppDelegate.m */; };
 		CD662FC71FC701E2002BA3F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC61FC701E2002BA3F8 /* ViewController.m */; };
 		CD662FCA1FC701E2002BA3F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD662FC81FC701E2002BA3F8 /* Main.storyboard */; };
@@ -98,9 +97,9 @@
 		CD822B8B206D602700F2112F /* AVCaptureSession+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD822B8A206D602700F2112F /* AVCaptureSession+Convenience.m */; };
 		CDC08DE72045C07C009C6AD0 /* VNTextPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */; };
 		CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */; };
-		CDC08E0220475436009C6AD0 /* ScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08E0120475436009C6AD0 /* ScanController.m */; };
-		CDCAF72F203C669C00D387AC /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCAF72E203C669C00D387AC /* Global.m */; };
+		CDC92D022072824C00287A55 /* TextDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC92D012072824C00287A55 /* TextDetector.m */; };
 		CDDBBE85203F4D3100E9E325 /* UIImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDBBE84203F4D3100E9E325 /* UIImageController.m */; };
+		CDE0055E206E6BE200EA1C2F /* photos-120@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE0055D206E6BE100EA1C2F /* photos-120@3x.png */; };
 		CDE33ABD20485FA700F89AD8 /* CollectionTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33ABC20485FA700F89AD8 /* CollectionTransition.m */; };
 		CDE33AC02048611300F89AD8 /* CoreData+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33ABE2048611300F89AD8 /* CoreData+Convenience.m */; };
 		CDE33AD420486F8800F89AD8 /* Model+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33AD320486F8800F89AD8 /* Model+Convenience.m */; };
@@ -117,8 +116,6 @@
 		CD04593C2049F922006D48D0 /* NSXMLDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSXMLDictionary.h; path = "../Objective Sea/NSXMLDictionary.h"; sourceTree = "<group>"; };
 		CD045941204B0940006D48D0 /* like-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-line@2x.png"; path = "../Frameworks/Images/like-line@2x.png"; sourceTree = "<group>"; };
 		CD045942204B0940006D48D0 /* like-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-fill@2x.png"; path = "../Frameworks/Images/like-fill@2x.png"; sourceTree = "<group>"; };
-		CD24186620585F4000AD0B59 /* CameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraController.h; sourceTree = "<group>"; };
-		CD24186720585F4000AD0B59 /* CameraController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraController.m; sourceTree = "<group>"; };
 		CD256D3D2041FFA90086EAAB /* UIGestureTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIGestureTransition.h; path = "../Objective Sea/UIGestureTransition.h"; sourceTree = "<group>"; };
 		CD256D3E2041FFA90086EAAB /* UIGestureTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIGestureTransition.m; path = "../Objective Sea/UIGestureTransition.m"; sourceTree = "<group>"; };
 		CD256D402041FFC00086EAAB /* UIInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIInteractiveTransition.h; path = "../Objective Sea/UIInteractiveTransition.h"; sourceTree = "<group>"; };
@@ -182,6 +179,8 @@
 		CD256DA82043045E0086EAAB /* StoreKit+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StoreKit+Convenience.m"; path = "../Objective Sea/StoreKit+Convenience.m"; sourceTree = "<group>"; };
 		CD256DAB20430DD10086EAAB /* QuartzCore+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QuartzCore+Convenience.h"; path = "../Objective Sea/QuartzCore+Convenience.h"; sourceTree = "<group>"; };
 		CD256DAC20430DD20086EAAB /* QuartzCore+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QuartzCore+Convenience.m"; path = "../Objective Sea/QuartzCore+Convenience.m"; sourceTree = "<group>"; };
+		CD30D8A1207000F200028C8D /* PhotoLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoLibrary.h; sourceTree = "<group>"; };
+		CD30D8A2207000F200028C8D /* PhotoLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoLibrary.m; sourceTree = "<group>"; };
 		CD36C5F82041BFC10029FA9C /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		CD36C5F92041BFC10029FA9C /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		CD36C5FD2041C2B60029FA9C /* UIAlertController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertController+Convenience.m"; path = "../Objective Sea/UIAlertController+Convenience.m"; sourceTree = "<group>"; };
@@ -227,10 +226,8 @@
 		CD36C6252041C2B90029FA9C /* NSObject+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Convenience.m"; path = "../Objective Sea/NSObject+Convenience.m"; sourceTree = "<group>"; };
 		CD36C63C2041C5280029FA9C /* circle-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-line@2x.png"; path = "../Frameworks/Images/circle-line@2x.png"; sourceTree = "<group>"; };
 		CD36C6402041DBEF0029FA9C /* scans-30@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scans-30@3x.png"; path = "Images/scans-30@3x.png"; sourceTree = "<group>"; };
-		CD3D70FD206AAB6D00ECF828 /* TextDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
-		CD3D70FE206AAB6D00ECF828 /* TextDetector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextDetector.m; sourceTree = "<group>"; };
-		CD466434205C203B002F068A /* VNDetectRectanglesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VNDetectRectanglesViewController.h; sourceTree = "<group>"; };
-		CD466435205C203B002F068A /* VNDetectRectanglesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNDetectRectanglesViewController.m; sourceTree = "<group>"; };
+		CD466434205C203B002F068A /* RectangleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RectangleController.h; sourceTree = "<group>"; };
+		CD466435205C203B002F068A /* RectangleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RectangleController.m; sourceTree = "<group>"; };
 		CD662FBF1FC701E1002BA3F8 /* Scans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scans.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD662FC21FC701E1002BA3F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CD662FC31FC701E2002BA3F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -256,12 +253,11 @@
 		CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNTextPagingController.m; sourceTree = "<group>"; };
 		CDC08DE82045E18C009C6AD0 /* PHAssetPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAssetPagingController.h; sourceTree = "<group>"; };
 		CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHAssetPagingController.m; sourceTree = "<group>"; };
-		CDC08E0020475436009C6AD0 /* ScanController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanController.h; sourceTree = "<group>"; };
-		CDC08E0120475436009C6AD0 /* ScanController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanController.m; sourceTree = "<group>"; };
-		CDCAF72D203C669C00D387AC /* Global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
-		CDCAF72E203C669C00D387AC /* Global.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
+		CDC92D002072824C00287A55 /* TextDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
+		CDC92D012072824C00287A55 /* TextDetector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextDetector.m; sourceTree = "<group>"; };
 		CDDBBE83203F4D3100E9E325 /* UIImageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIImageController.h; sourceTree = "<group>"; };
 		CDDBBE84203F4D3100E9E325 /* UIImageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIImageController.m; sourceTree = "<group>"; };
+		CDE0055D206E6BE100EA1C2F /* photos-120@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photos-120@3x.png"; path = "Images/photos-120@3x.png"; sourceTree = "<group>"; };
 		CDE33ABB20485FA700F89AD8 /* CollectionTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionTransition.h; sourceTree = "<group>"; };
 		CDE33ABC20485FA700F89AD8 /* CollectionTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionTransition.m; sourceTree = "<group>"; };
 		CDE33ABE2048611300F89AD8 /* CoreData+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CoreData+Convenience.m"; path = "../Objective Sea/CoreData+Convenience.m"; sourceTree = "<group>"; };
@@ -306,6 +302,7 @@
 		CD36C5FB2041C2130029FA9C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CDE0055D206E6BE100EA1C2F /* photos-120@3x.png */,
 				CD36C6402041DBEF0029FA9C /* scans-30@3x.png */,
 				CDFE017E2041FD5A00C5AC4E /* chat-fill@2x.png */,
 				CDFE017F2041FD5A00C5AC4E /* envelope-fill@2x.png */,
@@ -460,27 +457,23 @@
 		CD662FC11FC701E1002BA3F8 /* Scans */ = {
 			isa = PBXGroup;
 			children = (
-				CD466434205C203B002F068A /* VNDetectRectanglesViewController.h */,
-				CD466435205C203B002F068A /* VNDetectRectanglesViewController.m */,
+				CDE33ABB20485FA700F89AD8 /* CollectionTransition.h */,
+				CDE33ABC20485FA700F89AD8 /* CollectionTransition.m */,
+				CD466434205C203B002F068A /* RectangleController.h */,
+				CD466435205C203B002F068A /* RectangleController.m */,
 				CDE33AD220486F8800F89AD8 /* Model+Convenience.h */,
 				CDE33AD320486F8800F89AD8 /* Model+Convenience.m */,
-				CD3D70FD206AAB6D00ECF828 /* TextDetector.h */,
-				CD3D70FE206AAB6D00ECF828 /* TextDetector.m */,
-				CDCAF72D203C669C00D387AC /* Global.h */,
-				CDCAF72E203C669C00D387AC /* Global.m */,
+				CD30D8A1207000F200028C8D /* PhotoLibrary.h */,
+				CD30D8A2207000F200028C8D /* PhotoLibrary.m */,
+				CDC92D002072824C00287A55 /* TextDetector.h */,
+				CDC92D012072824C00287A55 /* TextDetector.m */,
 				CDE33AC12048640800F89AD8 /* Scans.entitlements */,
 				CD662FC21FC701E1002BA3F8 /* AppDelegate.h */,
 				CD662FC31FC701E2002BA3F8 /* AppDelegate.m */,
 				CD662FC51FC701E2002BA3F8 /* ViewController.h */,
 				CD662FC61FC701E2002BA3F8 /* ViewController.m */,
-				CDC08E0020475436009C6AD0 /* ScanController.h */,
-				CDC08E0120475436009C6AD0 /* ScanController.m */,
-				CD24186620585F4000AD0B59 /* CameraController.h */,
-				CD24186720585F4000AD0B59 /* CameraController.m */,
 				CD36C5F82041BFC10029FA9C /* NavigationController.h */,
 				CD36C5F92041BFC10029FA9C /* NavigationController.m */,
-				CDE33ABB20485FA700F89AD8 /* CollectionTransition.h */,
-				CDE33ABC20485FA700F89AD8 /* CollectionTransition.m */,
 				CDFE017B2041F91300C5AC4E /* AboutController.h */,
 				CDFE017C2041F91300C5AC4E /* AboutController.m */,
 				CD662FC81FC701E2002BA3F8 /* Main.storyboard */,
@@ -530,7 +523,7 @@
 		CD662FB71FC701E1002BA3F8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Alexander Ivanov";
 				TargetAttributes = {
 					CD662FBE1FC701E1002BA3F8 = {
@@ -584,6 +577,7 @@
 				CD662FD21FC701E2002BA3F8 /* LaunchScreen.storyboard in Resources */,
 				CD256D8B2042E7740086EAAB /* Google+-76@2x.png in Resources */,
 				CD36C6412041DBF00029FA9C /* scans-30@3x.png in Resources */,
+				CDE0055E206E6BE200EA1C2F /* photos-120@3x.png in Resources */,
 				CD256D822042E7740086EAAB /* iCloud-60@2x.png in Resources */,
 				CD256D7D2042E7740086EAAB /* Google+-76.png in Resources */,
 				CD256D8C2042E7740086EAAB /* Google+-76@3x.png in Resources */,
@@ -637,20 +631,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD24186820585F4000AD0B59 /* CameraController.m in Sources */,
 				CD256D4B2042DFCE0086EAAB /* MobileCoreServices+Convenience.m in Sources */,
 				CD256D542042E0DF0086EAAB /* CommonCrypto+Convenience.m in Sources */,
 				CD36C6282041C2B90029FA9C /* UIImage+Convenience.m in Sources */,
 				CD36C62A2041C2B90029FA9C /* NSArray+Convenience.m in Sources */,
 				CD662FC71FC701E2002BA3F8 /* ViewController.m in Sources */,
 				CD256D4E2042E0B60086EAAB /* Affiliates+Convenience.m in Sources */,
+				CD30D8A3207000F200028C8D /* PhotoLibrary.m in Sources */,
 				CD662FEA1FC70ECD002BA3F8 /* PHAssetController.m in Sources */,
 				CD36C62E2041C2B90029FA9C /* NSLayoutConstraint+Convenience.m in Sources */,
 				CD36C6372041C2B90029FA9C /* NSURL+Convenience.m in Sources */,
 				CD256D572042E0F80086EAAB /* NSData+Convenience.m in Sources */,
 				CD36C6382041C2B90029FA9C /* NSFileManager+Convenience.m in Sources */,
 				CDE33AC02048611300F89AD8 /* CoreData+Convenience.m in Sources */,
-				CDC08E0220475436009C6AD0 /* ScanController.m in Sources */,
 				CD36C62C2041C2B90029FA9C /* UIApplication+Convenience.m in Sources */,
 				CD04593D2049F922006D48D0 /* NSXMLDictionary.m in Sources */,
 				CD822B8B206D602700F2112F /* AVCaptureSession+Convenience.m in Sources */,
@@ -671,13 +664,14 @@
 				CD256D422041FFC10086EAAB /* UIInteractiveTransition.m in Sources */,
 				CD36C6272041C2B90029FA9C /* Photos+Convenience.m in Sources */,
 				CD36C6342041C2B90029FA9C /* UIViewController+Convenience.m in Sources */,
-				CD466436205C203B002F068A /* VNDetectRectanglesViewController.m in Sources */,
+				CD466436205C203B002F068A /* RectangleController.m in Sources */,
 				CD256DA92043045F0086EAAB /* SKInAppPurchase.m in Sources */,
 				CD662FF61FC73B27002BA3F8 /* VNTextCollectionController.m in Sources */,
 				CD36C62B2041C2B90029FA9C /* Dispatch+Convenience.m in Sources */,
 				CDC08DE72045C07C009C6AD0 /* VNTextPagingController.m in Sources */,
 				CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */,
 				CD36C6262041C2B90029FA9C /* UIAlertController+Convenience.m in Sources */,
+				CDC92D022072824C00287A55 /* TextDetector.m in Sources */,
 				CD36C6392041C2B90029FA9C /* NSObject+Convenience.m in Sources */,
 				CD36C6352041C2B90029FA9C /* NSFormatter+Convenience.m in Sources */,
 				CD662FC41FC701E2002BA3F8 /* AppDelegate.m in Sources */,
@@ -686,8 +680,6 @@
 				CD36C6312041C2B90029FA9C /* CoreImage+Convenience.m in Sources */,
 				CD36C5FA2041BFC10029FA9C /* NavigationController.m in Sources */,
 				CD256D512042E0CC0086EAAB /* NSURLSession+Convenience.m in Sources */,
-				CD3D70FF206AAB6D00ECF828 /* TextDetector.m in Sources */,
-				CDCAF72F203C669C00D387AC /* Global.m in Sources */,
 				CDE33B3F2049936000F89AD8 /* UIPageViewController+Convenience.m in Sources */,
 				CD256D45204200560086EAAB /* UIGestureRecognizer+Convenience.m in Sources */,
 				CD662FCD1FC701E2002BA3F8 /* Scans.xcdatamodeld in Sources */,
@@ -735,6 +727,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -742,6 +735,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -790,6 +784,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -797,6 +792,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

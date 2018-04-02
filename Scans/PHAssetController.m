@@ -8,15 +8,12 @@
 
 #import "PHAssetController.h"
 
-#import "Global.h"
-
 #import "Dispatch+Convenience.h"
 #import "NSArray+Convenience.h"
 #import "NSFormatter+Convenience.h"
 #import "UIAlertController+Convenience.h"
 #import "UIImage+Convenience.h"
 #import "UINavigationController+Convenience.h"
-#import "Vision+Convenience.h"
 
 @interface PHAssetController () <PHPhotoLibraryChangeObserver>
 @property (strong, nonatomic) NSArray<VNTextObservation *> *observations;
@@ -48,17 +45,8 @@
 
 	if (self.image)
 		return;
-
-	PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-	options.networkAccessAllowed = YES;
-	options.progressHandler = ^(double progress, NSError * _Nullable error, BOOL * _Nonnull stop, NSDictionary * _Nullable info) {
-		[GCD main:^{
-			[self.navigationController.navigationBar setProgress:progress animated:YES];
-		}];
-
-		[error log:@"progressHandler:"];
-	};
-	[GLOBAL.manager requestImageForAsset:asset targetSize:GLOBAL.screenSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+	
+	[LIB requestLargeImageForAsset:asset resultHandler:^(UIImage * _Nullable result, BOOL isDegraded) {
 		[GCD main:^{
 			if (!result)
 				return;
@@ -67,13 +55,11 @@
 
 			self.scrollView.zoomScale = self.scrollView.fitZoom;
 
-			if ([info[PHImageResultIsDegradedKey] boolValue])
+			if (isDegraded)
 				return;
 
 			[GCD global:^{
-				self.observations = [[GLOBAL.container.viewContext fetchObservationsWithAlbumIdentifier:self.album.localIdentifier assetIdentifier:self.asset.localIdentifier] map:^id(Observation *obj) {
-					return obj.observation;
-				}];
+				self.observations = [LIB fetchObservationsWithAssetIdentifier:self.asset.localIdentifier];
 
 				if (!self.observations.count)
 					return;
@@ -100,6 +86,12 @@
 				}];
 			}];
 		}];
+	} progressHandler:^(double progress, NSError * _Nullable error, BOOL * _Nonnull stop, NSDictionary * _Nullable info) {
+		[GCD main:^{
+			[self.navigationController.navigationBar setProgress:progress animated:YES];
+		}];
+
+		[error log:@"progressHandler:"];
 	}];
 
 	self.navigationItem.title = [asset.creationDate descriptionForDate:NSDateFormatterMediumStyle andTime:NSDateFormatterShortStyle];
@@ -135,20 +127,15 @@
 
 - (IBAction)trashAction:(UIBarButtonItem *)sender {
 	[self presentSheetWithTitle:Nil message:Nil cancelActionTitle:@"Cancel" destructiveActionTitle:@"Delete" otherActionTitles:@[ @"Remove from Scans" ] from:Nil completion:^(UIAlertController *instance, NSInteger index) {
-		if (index == UIAlertActionDestructive)
-			[PHPhotoLibrary deleteAssets:@[ self.asset ] completionHandler:^(BOOL success) {
-				if (success)
-					[GCD main:^{
-						[self.navigationController popViewControllerAnimated:YES];
-					}];
-			}];
-		else if (index == 0)
-			[PHPhotoLibrary removeAssets:@[ self.asset ] fromAssetCollection:self.album completionHandler:^(BOOL success) {
-				if (success)
-					[GCD main:^{
-						[self.navigationController popViewControllerAnimated:YES];
-					}];
-			}];
+		if (index == UIAlertActionCancel)
+			return;
+
+		[LIB deleteAsset:self.asset fromLibrary:index == UIAlertActionDestructive handler:^(BOOL success) {
+			if (success)
+				[GCD main:^{
+					[self.navigationController popViewControllerAnimated:YES];
+				}];
+		}];
 	}];
 }
 

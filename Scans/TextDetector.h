@@ -2,24 +2,22 @@
 //  TextDetector.h
 //  Scans
 //
-//  Created by Alexander Ivanov on 27.03.2018.
+//  Created by Alexander Ivanov on 02.04.2018.
 //  Copyright © 2018 Alexander Ivanov. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-#import "NSArray+Convenience.h"
-#import "Photos+Convenience.h"
-#import "Vision+Convenience.h"
-
-#import "Model+Convenience.h"
+#import "PhotoLibrary.h"
 
 @interface TextDetector : NSObject
+- (void)startProcessing:(void(^)(PHAsset *asset))handler;
+- (void)stopProcessing;
 
-@property (strong, nonatomic, readonly) NSArray<PHAsset *> *assets;
+- (void)process:(NSTimeInterval)seconds handler:(void(^)(void))handler;
 
-- (instancetype)initWithAlbum:(PHAssetCollection *)album context:(NSManagedObjectContext *)context;
+@property (assign, nonatomic, readonly) NSUInteger count;
+@property (assign, nonatomic, readonly) NSUInteger index;
 
-- (void)process:(void(^)(PHAsset *asset))completion;
-
+@property (assign, nonatomic, readonly) BOOL isProcessing;
 @end

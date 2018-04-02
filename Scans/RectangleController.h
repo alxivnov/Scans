@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-#import <AVFoundation/AVFoundation.h>
-
+#import "AVCaptureSession+Convenience.h"
 #import "CoreGraphics+Convenience.h"
+#import "CoreImage+Convenience.h"
 #import "Dispatch+Convenience.h"
 #import "QuartzCore+Convenience.h"
 #import "Vision+Convenience.h"
-#import "AVCaptureSession+Convenience.h"
 
-@interface VNDetectRectanglesViewController : AVCapturePhotoViewController
+@interface RectangleController : AVCapturePhotoViewController
+
+- (instancetype)initWithHandler:(void (^)(UIImage *image))handler;
 
 @property (strong, nonatomic, readonly) CAShapeLayer *shapeLayer;
 

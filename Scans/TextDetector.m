@@ -2,78 +2,88 @@
 //  TextDetector.m
 //  Scans
 //
-//  Created by Alexander Ivanov on 27.03.2018.
+//  Created by Alexander Ivanov on 02.04.2018.
 //  Copyright © 2018 Alexander Ivanov. All rights reserved.
 //
 
 #import "TextDetector.h"
 
 @interface TextDetector ()
-@property (strong, nonatomic) PHAssetCollection *album;
-@property (strong, nonatomic) NSManagedObjectContext *context;
-
-@property (assign, nonatomic) CGSize size;
-@property (strong, nonatomic) PHImageRequestOptions *options;
-
 @property (strong, nonatomic) NSMutableArray<PHAsset *> *assets;
+
+@property (assign, nonatomic) NSUInteger count;
+
+@property (assign, nonatomic) BOOL isProcessing;
 @end
 
 @implementation TextDetector
 
-- (instancetype)initWithAlbum:(PHAssetCollection *)album context:(NSManagedObjectContext *)context {
+- (instancetype)init {
 	self = [super init];
 
-	if (self) {
-		self.album = album;
-		self.context = context;
-
+	if (self)
 		[self prepare];
-	}
 
 	return self;
 }
 
 - (void)prepare {
-	CGFloat max = fmax([UIScreen mainScreen].nativeBounds.size.width, [UIScreen mainScreen].nativeBounds.size.height);
-	self.size = CGSizeMake(max, max);
+	NSArray *assets = [LIB fetchAssetsToDetect];
 
-	self.options = [[PHImageRequestOptions alloc] init];
-	self.options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-	self.options.networkAccessAllowed = YES;
-	self.options.synchronous = YES;
+	self.assets = [assets mutableCopy];
 
-
-	NSArray *IDs = [[self.context fetchAssetsWithAlbumIdentifier:self.album.localIdentifier] map:^id(Asset *obj) {
-		return obj.assetIdentifier;
-	}];
-	PHFetchResult *fetch = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
-	NSArray *array = [fetch.array query:^BOOL(PHAsset *obj) {
-		return ![IDs containsObject:obj.localIdentifier];
-	}];
-
-	self.assets = array.count ? [array mutableCopy] : Nil;
+	self.count = assets.count;
 }
 
-- (void)process:(void(^)(PHAsset *asset))completion {
+- (void)process:(void(^)(PHAsset *asset))handler {
 	PHAsset *asset = [(NSMutableArray *)self.assets fifo];
+	if (!asset)
+		return;
 
-	[[PHImageManager defaultManager] requestImageForAsset:asset targetSize:self.size contentMode:PHImageContentModeAspectFill options:self.options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-		[result detectTextRectanglesWithOptions:@{ VNImageOptionPreferBackgroundProcessing : @YES, VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
-			if (results.count) {
-				[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:self.album completionHandler:^(BOOL success) {
-					if (completion)
-						completion(asset);
+	[LIB detectTextRectanglesForAsset:asset handler:handler];
+}
 
-					[self.context saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results];
-				}];
-			} else {
-				if (completion)
-					completion(Nil);
+- (void)startProcessing:(void(^)(PHAsset *asset))handler {
+	if (self.isProcessing)
+		return;
 
-				[self.context saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results];
-			}
-		}];
+	self.isProcessing = self.assets.count > 0;
+
+	[GCD global:^{
+		while (self.isProcessing && self.assets.count)
+			[self process:^(PHAsset *asset) {
+				if (!self.assets.count)
+					self.isProcessing = NO;
+
+				if (handler)
+					handler(asset);
+			}];
 	}];
+}
+
+- (void)stopProcessing {
+	if (!self.isProcessing)
+		return;
+
+	self.isProcessing = NO;
+
+	[self prepare];
+}
+
+- (void)process:(NSTimeInterval)seconds handler:(void (^)(void))handler {
+	NSDate *date = [NSDate dateWithTimeIntervalSinceNow:seconds];
+
+	[GCD global:^{
+		while (date.timeIntervalSinceNow > 0.0 && self.assets.count)
+			[self process:Nil];
+
+		if (handler)
+			handler();
+	}];
+}
+
+- (NSUInteger)index {
+	return self.isProcessing ? self.count - self.assets.count : NSNotFound;
 }
 
 @end
