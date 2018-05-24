@@ -57,6 +57,22 @@
 		CD256DA92043045F0086EAAB /* SKInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256DA62043045E0086EAAB /* SKInAppPurchase.m */; };
 		CD256DAA2043045F0086EAAB /* StoreKit+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256DA82043045E0086EAAB /* StoreKit+Convenience.m */; };
 		CD256DAD20430DD20086EAAB /* QuartzCore+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256DAC20430DD20086EAAB /* QuartzCore+Convenience.m */; };
+		CD25C6C620B6AE4300D979FB /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6BF20B6AE4200D979FB /* FirebaseNanoPB.framework */; };
+		CD25C6C720B6AE4300D979FB /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6C020B6AE4200D979FB /* FirebaseInstanceID.framework */; };
+		CD25C6C820B6AE4300D979FB /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6C120B6AE4200D979FB /* GoogleToolboxForMac.framework */; };
+		CD25C6C920B6AE4300D979FB /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6C220B6AE4200D979FB /* nanopb.framework */; };
+		CD25C6CA20B6AE4300D979FB /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6C320B6AE4300D979FB /* FirebaseCoreDiagnostics.framework */; };
+		CD25C6CB20B6AE4300D979FB /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6C420B6AE4300D979FB /* FirebaseCore.framework */; };
+		CD25C6CC20B6AE4300D979FB /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6C520B6AE4300D979FB /* FirebaseAnalytics.framework */; };
+		CD25C6D220B6AEA900D979FB /* FirebaseMLVisionLabelModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6CD20B6AEA900D979FB /* FirebaseMLVisionLabelModel.framework */; };
+		CD25C6D320B6AEA900D979FB /* LabelDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6CE20B6AEA900D979FB /* LabelDetector.framework */; };
+		CD25C6D420B6AEA900D979FB /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6CF20B6AEA900D979FB /* GTMSessionFetcher.framework */; };
+		CD25C6D520B6AEA900D979FB /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6D020B6AEA900D979FB /* Protobuf.framework */; };
+		CD25C6D620B6AEA900D979FB /* GoogleMobileVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6D120B6AEA900D979FB /* GoogleMobileVision.framework */; };
+		CD25C6D920B6B16F00D979FB /* FIRVision+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD25C6D820B6B16F00D979FB /* FIRVision+Convenience.m */; };
+		CD25C6DD20B6BC3B00D979FB /* FirebaseMLCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6DA20B6BC3B00D979FB /* FirebaseMLCommon.framework */; };
+		CD25C6DE20B6BC3B00D979FB /* GoogleAPIClientForREST.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6DB20B6BC3B00D979FB /* GoogleAPIClientForREST.framework */; };
+		CD25C6DF20B6BC3B00D979FB /* FirebaseMLVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6DC20B6BC3B00D979FB /* FirebaseMLVision.framework */; };
 		CD30D8A3207000F200028C8D /* PhotoLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD30D8A2207000F200028C8D /* PhotoLibrary.m */; };
 		CD36C5FA2041BFC10029FA9C /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C5F92041BFC10029FA9C /* NavigationController.m */; };
 		CD36C6262041C2B90029FA9C /* UIAlertController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C5FD2041C2B60029FA9C /* UIAlertController+Convenience.m */; };
@@ -178,6 +194,23 @@
 		CD256DA82043045E0086EAAB /* StoreKit+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StoreKit+Convenience.m"; path = "../Objective Sea/StoreKit+Convenience.m"; sourceTree = "<group>"; };
 		CD256DAB20430DD10086EAAB /* QuartzCore+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QuartzCore+Convenience.h"; path = "../Objective Sea/QuartzCore+Convenience.h"; sourceTree = "<group>"; };
 		CD256DAC20430DD20086EAAB /* QuartzCore+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QuartzCore+Convenience.m"; path = "../Objective Sea/QuartzCore+Convenience.m"; sourceTree = "<group>"; };
+		CD25C6BF20B6AE4200D979FB /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseNanoPB.framework; path = ../Frameworks/Firebase/Analytics/FirebaseNanoPB.framework; sourceTree = "<group>"; };
+		CD25C6C020B6AE4200D979FB /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = ../Frameworks/Firebase/Analytics/FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		CD25C6C120B6AE4200D979FB /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = ../Frameworks/Firebase/Analytics/GoogleToolboxForMac.framework; sourceTree = "<group>"; };
+		CD25C6C220B6AE4200D979FB /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = nanopb.framework; path = ../Frameworks/Firebase/Analytics/nanopb.framework; sourceTree = "<group>"; };
+		CD25C6C320B6AE4300D979FB /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCoreDiagnostics.framework; path = ../Frameworks/Firebase/Analytics/FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
+		CD25C6C420B6AE4300D979FB /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = ../Frameworks/Firebase/Analytics/FirebaseCore.framework; sourceTree = "<group>"; };
+		CD25C6C520B6AE4300D979FB /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = ../Frameworks/Firebase/Analytics/FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		CD25C6CD20B6AEA900D979FB /* FirebaseMLVisionLabelModel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMLVisionLabelModel.framework; path = ../Frameworks/Firebase/MLVisionLabelModel/FirebaseMLVisionLabelModel.framework; sourceTree = "<group>"; };
+		CD25C6CE20B6AEA900D979FB /* LabelDetector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LabelDetector.framework; path = ../Frameworks/Firebase/MLVisionLabelModel/LabelDetector.framework; sourceTree = "<group>"; };
+		CD25C6CF20B6AEA900D979FB /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GTMSessionFetcher.framework; path = ../Frameworks/Firebase/MLVision/GTMSessionFetcher.framework; sourceTree = "<group>"; };
+		CD25C6D020B6AEA900D979FB /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = ../Frameworks/Firebase/MLVision/Protobuf.framework; sourceTree = "<group>"; };
+		CD25C6D120B6AEA900D979FB /* GoogleMobileVision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileVision.framework; path = ../Frameworks/Firebase/MLVision/GoogleMobileVision.framework; sourceTree = "<group>"; };
+		CD25C6D720B6B16F00D979FB /* FIRVision+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "FIRVision+Convenience.h"; path = "../Objective Sea/FIRVision+Convenience.h"; sourceTree = "<group>"; };
+		CD25C6D820B6B16F00D979FB /* FIRVision+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "FIRVision+Convenience.m"; path = "../Objective Sea/FIRVision+Convenience.m"; sourceTree = "<group>"; };
+		CD25C6DA20B6BC3B00D979FB /* FirebaseMLCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMLCommon.framework; path = ../Frameworks/Firebase/MLVision/FirebaseMLCommon.framework; sourceTree = "<group>"; };
+		CD25C6DB20B6BC3B00D979FB /* GoogleAPIClientForREST.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAPIClientForREST.framework; path = ../Frameworks/Firebase/MLVision/GoogleAPIClientForREST.framework; sourceTree = "<group>"; };
+		CD25C6DC20B6BC3B00D979FB /* FirebaseMLVision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMLVision.framework; path = ../Frameworks/Firebase/MLVision/FirebaseMLVision.framework; sourceTree = "<group>"; };
 		CD30D8A1207000F200028C8D /* PhotoLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoLibrary.h; sourceTree = "<group>"; };
 		CD30D8A2207000F200028C8D /* PhotoLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoLibrary.m; sourceTree = "<group>"; };
 		CD36C5F82041BFC10029FA9C /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -283,6 +316,21 @@
 			files = (
 				CD256D632042E45F0086EAAB /* Crashlytics.framework in Frameworks */,
 				CD256D652042E45F0086EAAB /* Fabric.framework in Frameworks */,
+				CD25C6C620B6AE4300D979FB /* FirebaseNanoPB.framework in Frameworks */,
+				CD25C6C720B6AE4300D979FB /* FirebaseInstanceID.framework in Frameworks */,
+				CD25C6C820B6AE4300D979FB /* GoogleToolboxForMac.framework in Frameworks */,
+				CD25C6C920B6AE4300D979FB /* nanopb.framework in Frameworks */,
+				CD25C6CA20B6AE4300D979FB /* FirebaseCoreDiagnostics.framework in Frameworks */,
+				CD25C6CB20B6AE4300D979FB /* FirebaseCore.framework in Frameworks */,
+				CD25C6CC20B6AE4300D979FB /* FirebaseAnalytics.framework in Frameworks */,
+				CD25C6D220B6AEA900D979FB /* FirebaseMLVisionLabelModel.framework in Frameworks */,
+				CD25C6DD20B6BC3B00D979FB /* FirebaseMLCommon.framework in Frameworks */,
+				CD25C6D320B6AEA900D979FB /* LabelDetector.framework in Frameworks */,
+				CD25C6D420B6AEA900D979FB /* GTMSessionFetcher.framework in Frameworks */,
+				CD25C6D520B6AEA900D979FB /* Protobuf.framework in Frameworks */,
+				CD25C6DF20B6BC3B00D979FB /* FirebaseMLVision.framework in Frameworks */,
+				CD25C6DE20B6BC3B00D979FB /* GoogleAPIClientForREST.framework in Frameworks */,
+				CD25C6D620B6AEA900D979FB /* GoogleMobileVision.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +340,21 @@
 		CD256D5F2042E45E0086EAAB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD25C6CD20B6AEA900D979FB /* FirebaseMLVisionLabelModel.framework */,
+				CD25C6CE20B6AEA900D979FB /* LabelDetector.framework */,
+				CD25C6DA20B6BC3B00D979FB /* FirebaseMLCommon.framework */,
+				CD25C6DC20B6BC3B00D979FB /* FirebaseMLVision.framework */,
+				CD25C6DB20B6BC3B00D979FB /* GoogleAPIClientForREST.framework */,
+				CD25C6D120B6AEA900D979FB /* GoogleMobileVision.framework */,
+				CD25C6CF20B6AEA900D979FB /* GTMSessionFetcher.framework */,
+				CD25C6D020B6AEA900D979FB /* Protobuf.framework */,
+				CD25C6C520B6AE4300D979FB /* FirebaseAnalytics.framework */,
+				CD25C6C420B6AE4300D979FB /* FirebaseCore.framework */,
+				CD25C6C320B6AE4300D979FB /* FirebaseCoreDiagnostics.framework */,
+				CD25C6C020B6AE4200D979FB /* FirebaseInstanceID.framework */,
+				CD25C6BF20B6AE4200D979FB /* FirebaseNanoPB.framework */,
+				CD25C6C120B6AE4200D979FB /* GoogleToolboxForMac.framework */,
+				CD25C6C220B6AE4200D979FB /* nanopb.framework */,
 				CD256D602042E45F0086EAAB /* Crashlytics.framework */,
 				CD256D622042E45F0086EAAB /* Fabric.framework */,
 			);
@@ -430,6 +493,8 @@
 				CD36C6182041C2B80029FA9C /* UIViewController+Convenience.m */,
 				CD66F3D22044858B00050C65 /* Vision+Convenience.h */,
 				CD66F3D32044858B00050C65 /* Vision+Convenience.m */,
+				CD25C6D720B6B16F00D979FB /* FIRVision+Convenience.h */,
+				CD25C6D820B6B16F00D979FB /* FIRVision+Convenience.m */,
 			);
 			name = "Objective Sea";
 			sourceTree = "<group>";
@@ -666,6 +731,7 @@
 				CD256D422041FFC10086EAAB /* UIInteractiveTransition.m in Sources */,
 				CD36C6272041C2B90029FA9C /* Photos+Convenience.m in Sources */,
 				CD36C6342041C2B90029FA9C /* UIViewController+Convenience.m in Sources */,
+				CD25C6D920B6B16F00D979FB /* FIRVision+Convenience.m in Sources */,
 				CD466436205C203B002F068A /* RectangleController.m in Sources */,
 				CD256DA92043045F0086EAAB /* SKInAppPurchase.m in Sources */,
 				CD662FF61FC73B27002BA3F8 /* VNTextCollectionController.m in Sources */,
@@ -835,6 +901,7 @@
 				INFOPLIST_FILE = Scans/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "../Frameworks/**";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexivanov.scans;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -853,6 +920,7 @@
 				INFOPLIST_FILE = Scans/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "../Frameworks/**";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexivanov.scans;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

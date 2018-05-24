@@ -11,7 +11,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
-//#import "Firebase.h"
+#import "Firebase.h"
 
 #import "TextDetector.h"
 
@@ -27,7 +27,7 @@
 
 	[Fabric with:@[[Crashlytics class]]];
 
-//	[FIRApp configure];
+	[FIRApp configure];
 
 //	[GCD global:^{
 		LIB;

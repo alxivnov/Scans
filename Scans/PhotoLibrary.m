@@ -8,6 +8,8 @@
 
 #import "PhotoLibrary.h"
 
+#import "FIRVision+Convenience.h"
+
 #import "Model+Convenience.h"
 
 @interface PhotoLibrary ()
@@ -115,13 +117,14 @@
 		if (!asset)
 			return;
 
+		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector defaultDetector] detectInImage:image];
 		[image detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
 			if (results)
 				[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:self.album completionHandler:^(BOOL success) {
-					[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results];
+					[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results labels:labels];
 				}];
 			else
-				[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results];
+				[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results labels:labels];
 		}];
 	}];
 }
@@ -162,6 +165,7 @@
 
 	NSString *assetIdentifier = asset.localIdentifier;
 	return [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:LIB.largeSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector defaultDetector] detectInImage:result];
 		NSArray<VNTextObservation *> *results = [result detectTextRectanglesWithOptions:@{ VNImageOptionPreferBackgroundProcessing : @YES, VNImageOptionReportCharacterBoxes : @YES }];
 
 		if (results.count) {
@@ -169,13 +173,15 @@
 				if (handler)
 					handler(results);
 
-				[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier observations:results];
+				if (result)
+					[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier observations:results labels:labels];
 			}];
 		} else {
 			if (handler)
 				handler(results);
 
-			[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier observations:results];
+			if (result)
+				[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier observations:results labels:labels];
 		}
 	}];
 }

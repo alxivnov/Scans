@@ -11,9 +11,17 @@
 #import "CoreData+Convenience.h"
 #import "Vision+Convenience.h"
 
+#import "FIRVision+Convenience.h"
+
 @interface Observation (VNTextObservation)
 
 @property (strong, nonatomic) VNTextObservation *observation;
+
+@end
+
+@interface Label (FIRVisionLabel)
+
+@property (assign, nonatomic) CGRect frame;
 
 @end
 
@@ -24,6 +32,6 @@
 - (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier assetIdentifier:(NSString *)assetIdentifier;
 
 - (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier;
-- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier observations:(NSArray *)observations;
+- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier observations:(NSArray<VNTextObservation *> *)observations labels:(NSArray<FIRVisionLabel *> *)labels;
 
 @end
