@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@import Vision;
+#import "Model+Convenience.h"
 
 @interface VNTextCollectionController : UICollectionViewController
 
 @property (strong, nonatomic) UIImage *image;
-@property (strong, nonatomic) NSArray<VNTextObservation *> *observations;
+@property (strong, nonatomic) NSArray<Observation *> *observations;
 
 @end

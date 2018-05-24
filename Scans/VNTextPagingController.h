@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@import Vision;
+#import "Model+Convenience.h"
 
 #import "UIPageViewController+Convenience.h"
 
 @interface VNTextPagingController : UIPagingController
 
 @property (strong, nonatomic) UIImage *image;
-@property (strong, nonatomic) NSArray<VNTextObservation *> *observations;
+@property (strong, nonatomic) NSArray<Observation *> *observations;
 @property (assign, nonatomic) NSIndexPath *indexPath;
 
 @end

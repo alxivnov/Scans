@@ -23,13 +23,17 @@
 @implementation VNTextPagingController
 
 - (UIViewController *)viewControllerForIndex:(NSUInteger)index {
-	VNTextObservation *observation = idx(self.observations, index);
+	Observation *observation = idx(self.observations, index);
 	if (!observation)
 		return Nil;
 
 	UIImageController *vc = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"UIImageController"];
-	vc.image = [self.image imageWithObservation:observation];
+	vc.image = [self.image imageWithObservation:observation.observation];
 	vc.view.tag = index;
+
+	Label *label = cls(Label, observation);
+	vc.navigationItem.title = label.label ?: @"";
+
 	return vc;
 }
 

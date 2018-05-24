@@ -67,7 +67,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     // Configure the cell
 	UIImageView *imageView = cell.contentView.subviews.firstObject;
-	imageView.image = [self.image imageWithObservation:self.observations[indexPath.item]];
+	imageView.image = [self.image imageWithObservation:self.observations[indexPath.item].observation];
     
     return cell;
 }

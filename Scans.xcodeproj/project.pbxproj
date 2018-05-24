@@ -111,6 +111,8 @@
 		CD66F3D42044858B00050C65 /* Vision+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD66F3D32044858B00050C65 /* Vision+Convenience.m */; };
 		CD8157B42059757E007EAEC6 /* UIImagePickerController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8157B32059757D007EAEC6 /* UIImagePickerController+Convenience.m */; };
 		CD822B8B206D602700F2112F /* AVCaptureSession+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD822B8A206D602700F2112F /* AVCaptureSession+Convenience.m */; };
+		CDA87A1320B750AC00FBA978 /* FirebaseMLVisionTextModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA87A1120B750AC00FBA978 /* FirebaseMLVisionTextModel.framework */; };
+		CDA87A1420B750AC00FBA978 /* TextDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA87A1220B750AC00FBA978 /* TextDetector.framework */; };
 		CDC08DE72045C07C009C6AD0 /* VNTextPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */; };
 		CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */; };
 		CDC92D022072824C00287A55 /* TextDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC92D012072824C00287A55 /* TextDetector.m */; };
@@ -283,6 +285,8 @@
 		CD8157B32059757D007EAEC6 /* UIImagePickerController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImagePickerController+Convenience.m"; path = "../Objective Sea/UIImagePickerController+Convenience.m"; sourceTree = "<group>"; };
 		CD822B89206D602700F2112F /* AVCaptureSession+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AVCaptureSession+Convenience.h"; path = "../Objective Sea/AVCaptureSession+Convenience.h"; sourceTree = "<group>"; };
 		CD822B8A206D602700F2112F /* AVCaptureSession+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AVCaptureSession+Convenience.m"; path = "../Objective Sea/AVCaptureSession+Convenience.m"; sourceTree = "<group>"; };
+		CDA87A1120B750AC00FBA978 /* FirebaseMLVisionTextModel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMLVisionTextModel.framework; path = ../Frameworks/Firebase/MLVisionTextModel/FirebaseMLVisionTextModel.framework; sourceTree = "<group>"; };
+		CDA87A1220B750AC00FBA978 /* TextDetector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TextDetector.framework; path = ../Frameworks/Firebase/MLVisionTextModel/TextDetector.framework; sourceTree = "<group>"; };
 		CDC08DE52045C07C009C6AD0 /* VNTextPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VNTextPagingController.h; sourceTree = "<group>"; };
 		CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNTextPagingController.m; sourceTree = "<group>"; };
 		CDC08DE82045E18C009C6AD0 /* PHAssetPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAssetPagingController.h; sourceTree = "<group>"; };
@@ -324,11 +328,13 @@
 				CD25C6CB20B6AE4300D979FB /* FirebaseCore.framework in Frameworks */,
 				CD25C6CC20B6AE4300D979FB /* FirebaseAnalytics.framework in Frameworks */,
 				CD25C6D220B6AEA900D979FB /* FirebaseMLVisionLabelModel.framework in Frameworks */,
+				CDA87A1420B750AC00FBA978 /* TextDetector.framework in Frameworks */,
 				CD25C6DD20B6BC3B00D979FB /* FirebaseMLCommon.framework in Frameworks */,
 				CD25C6D320B6AEA900D979FB /* LabelDetector.framework in Frameworks */,
 				CD25C6D420B6AEA900D979FB /* GTMSessionFetcher.framework in Frameworks */,
 				CD25C6D520B6AEA900D979FB /* Protobuf.framework in Frameworks */,
 				CD25C6DF20B6BC3B00D979FB /* FirebaseMLVision.framework in Frameworks */,
+				CDA87A1320B750AC00FBA978 /* FirebaseMLVisionTextModel.framework in Frameworks */,
 				CD25C6DE20B6BC3B00D979FB /* GoogleAPIClientForREST.framework in Frameworks */,
 				CD25C6D620B6AEA900D979FB /* GoogleMobileVision.framework in Frameworks */,
 			);
@@ -340,6 +346,8 @@
 		CD256D5F2042E45E0086EAAB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CDA87A1120B750AC00FBA978 /* FirebaseMLVisionTextModel.framework */,
+				CDA87A1220B750AC00FBA978 /* TextDetector.framework */,
 				CD25C6CD20B6AEA900D979FB /* FirebaseMLVisionLabelModel.framework */,
 				CD25C6CE20B6AEA900D979FB /* LabelDetector.framework */,
 				CD25C6DA20B6BC3B00D979FB /* FirebaseMLCommon.framework */,

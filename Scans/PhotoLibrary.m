@@ -10,8 +10,6 @@
 
 #import "FIRVision+Convenience.h"
 
-#import "Model+Convenience.h"
-
 @interface PhotoLibrary ()
 @property (strong, nonatomic) NSPersistentContainer *db;
 
@@ -117,7 +115,7 @@
 		if (!asset)
 			return;
 
-		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector defaultDetector] detectInImage:image];
+		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector labelDetector] detectInImage:image];
 		[image detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
 			if (results)
 				[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:self.album completionHandler:^(BOOL success) {
@@ -165,7 +163,9 @@
 
 	NSString *assetIdentifier = asset.localIdentifier;
 	return [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:LIB.largeSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
-		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector defaultDetector] detectInImage:result];
+		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector labelDetector] detectInImage:result];
+//		NSArray *texts = [[FIRVisionTextDetector textDetector] detectInImage:result];
+//		[texts log:@"texts:"];
 		NSArray<VNTextObservation *> *results = [result detectTextRectanglesWithOptions:@{ VNImageOptionPreferBackgroundProcessing : @YES, VNImageOptionReportCharacterBoxes : @YES }];
 
 		if (results.count) {
@@ -196,10 +196,8 @@
 	}];
 }
 
-- (NSArray<VNTextObservation *> *)fetchObservationsWithAssetIdentifier:(NSString *)assetIdentifier {
-	return assetIdentifier ? [[self.db.viewContext fetchObservationsWithAlbumIdentifier:self.album.localIdentifier assetIdentifier:assetIdentifier] map:^id(Observation *obj) {
-		return obj.observation;
-	}] : Nil;
+- (NSArray<Observation *> *)fetchObservationsWithAssetIdentifier:(NSString *)assetIdentifier {
+	return assetIdentifier ? [self.db.viewContext fetchObservationsWithAlbumIdentifier:self.album.localIdentifier assetIdentifier:assetIdentifier] : Nil;
 }
 
 - (void)deleteAsset:(PHAsset *)asset fromLibrary:(BOOL)fromLibrary handler:(void (^)(BOOL))handler {

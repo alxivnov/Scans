@@ -18,7 +18,7 @@
 #import "UINavigationController+Convenience.h"
 
 @interface PHAssetController () <PHPhotoLibraryChangeObserver>
-@property (strong, nonatomic) NSArray<VNTextObservation *> *observations;
+@property (strong, nonatomic) NSArray<Observation *> *observations;
 @end
 
 @implementation PHAssetController
@@ -72,10 +72,10 @@
 					self.navigationItem.rightBarButtonItem.image = image;
 					self.navigationItem.rightBarButtonItem.enabled = self.observations.count > 0;
 
-					for (VNTextObservation *observation in self.observations) {
+					for (Observation *observation in self.observations) {
 						CGFloat width = 2.0 / self.scrollView.zoomScale;
 
-						CGRect bounds = observation.bounds;
+						CGRect bounds = observation.observation.bounds;
 						bounds = CGRectScale(bounds, self.contentView.bounds.size.width, self.contentView.bounds.size.height);
 						bounds = CGRectOffsetOrigin(bounds, self.imageView.frame.origin);
 						bounds = CGRectInset(bounds, -width, -width);

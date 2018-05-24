@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Model+Convenience.h"
+
 #import "CoreGraphics+Convenience.h"
 #import "Photos+Convenience.h"
 #import "Vision+Convenience.h"
@@ -28,7 +30,7 @@
 - (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset handler:(void (^)(NSArray<VNTextObservation *> *results))handler;
 - (NSArray<PHAsset *> *)fetchAssetsToDetect;
 
-- (NSArray<VNTextObservation *> *)fetchObservationsWithAssetIdentifier:(NSString *)assetIdentifier;
+- (NSArray<Observation *> *)fetchObservationsWithAssetIdentifier:(NSString *)assetIdentifier;
 - (void)deleteAsset:(PHAsset *)asset fromLibrary:(BOOL)fromLibrary handler:(void (^)(BOOL success))handler;
 
 - (PHFetchResultChangeDetails *)performFetchResultChanges:(PHChange *)changeInstance;
