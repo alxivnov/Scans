@@ -10,7 +10,8 @@
 
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import <Answers/Answers.h>
+
+//#import "Firebase.h"
 
 #import "TextDetector.h"
 
@@ -23,17 +24,24 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.
-	[Fabric with:@[ [Crashlytics class], [Answers class] ]];
 
-	[GCD global:^{
+	[Fabric with:@[[Crashlytics class]]];
+
+//	[FIRApp configure];
+
+//	[GCD global:^{
 		LIB;
-	}];
+//	}];
+
+	[application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
 	return YES;
 }
 
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+	[Answers logCustomEventWithName:@"Background fetch" customAttributes:@{ @"backgroundRefreshStatus" : application.backgroundRefreshStatus == UIBackgroundRefreshStatusRestricted ? @"UIBackgroundRefreshStatusRestricted" : application.backgroundRefreshStatus == UIBackgroundRefreshStatusDenied ? @"UIBackgroundRefreshStatusDenied" : application.backgroundRefreshStatus == UIBackgroundRefreshStatusAvailable ? @"UIBackgroundRefreshStatusAvailable" : @"" }];
+
 	TextDetector *detector = [[TextDetector alloc] init];
 	if (detector.count)
 		[detector process:10.0 handler:^() {

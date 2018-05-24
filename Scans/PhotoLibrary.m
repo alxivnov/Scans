@@ -154,28 +154,29 @@
 	}];
 }
 
-- (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset handler:(void (^)(PHAsset *))handler {
+- (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset handler:(void (^)(NSArray<VNTextObservation *> *))handler {
 	PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
 	options.networkAccessAllowed = YES;
 	options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-//	options.synchronous = YES;
+	options.synchronous = YES;
 
-	return [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:LIB.largeSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-		[result detectTextRectanglesWithOptions:@{ VNImageOptionPreferBackgroundProcessing : @YES, VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
-			if (results.count) {
-				[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:LIB.album completionHandler:^(BOOL success) {
-					if (handler)
-						handler(results.count ? asset : Nil);
+	NSString *assetIdentifier = asset.localIdentifier;
+	return [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:LIB.largeSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+		NSArray<VNTextObservation *> *results = [result detectTextRectanglesWithOptions:@{ VNImageOptionPreferBackgroundProcessing : @YES, VNImageOptionReportCharacterBoxes : @YES }];
 
-					[LIB.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:LIB.album.localIdentifier observations:results];
-				}];
-			} else {
+		if (results.count) {
+			[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:LIB.album completionHandler:^(BOOL success) {
 				if (handler)
-					handler(Nil);
+					handler(results);
 
-				[LIB.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:LIB.album.localIdentifier observations:results];
-			}
-		}];
+				[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier observations:results];
+			}];
+		} else {
+			if (handler)
+				handler(results);
+
+			[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier observations:results];
+		}
 	}];
 }
 
@@ -207,12 +208,11 @@
 
 - (PHFetchResultChangeDetails *)performFetchResultChanges:(PHChange *)changeInstance {
 	PHFetchResultChangeDetails *changes = [changeInstance changeDetailsForFetchResult:self.fetch];
-	if (!changes)
-		return Nil;
+	if (changes)
+		self.fetch = changes.fetchResultAfterChanges;
 
-	self.fetch = changes.fetchResultAfterChanges;
-
-	[self.cache startCachingImagesForAssets:changes.insertedObjects targetSize:self.smallSize contentMode:PHImageContentModeAspectFill options:Nil];
+	if (changes.insertedIndexes.count)
+		[self.cache startCachingImagesForAssets:changes.insertedObjects targetSize:self.smallSize contentMode:PHImageContentModeAspectFill options:Nil];
 
 	return changes;
 }

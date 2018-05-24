@@ -22,7 +22,6 @@
 		CD256D5A2042E12E0086EAAB /* NSString+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D592042E12E0086EAAB /* NSString+Convenience.m */; };
 		CD256D5D2042E1D90086EAAB /* Answers+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D5B2042E1D80086EAAB /* Answers+Convenience.m */; };
 		CD256D632042E45F0086EAAB /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD256D602042E45F0086EAAB /* Crashlytics.framework */; };
-		CD256D642042E45F0086EAAB /* Answers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD256D612042E45F0086EAAB /* Answers.framework */; };
 		CD256D652042E45F0086EAAB /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD256D622042E45F0086EAAB /* Fabric.framework */; };
 		CD256D682042E5D70086EAAB /* NSDictionary+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D672042E5D60086EAAB /* NSDictionary+Convenience.m */; };
 		CD256D7B2042E7740086EAAB /* iCloud-60.png in Resources */ = {isa = PBXBuildFile; fileRef = CD256D692042E7710086EAAB /* iCloud-60.png */; };
@@ -82,6 +81,7 @@
 		CD36C6392041C2B90029FA9C /* NSObject+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C6252041C2B90029FA9C /* NSObject+Convenience.m */; };
 		CD36C63D2041C5290029FA9C /* circle-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C63C2041C5280029FA9C /* circle-line@2x.png */; };
 		CD36C6412041DBF00029FA9C /* scans-30@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C6402041DBEF0029FA9C /* scans-30@3x.png */; };
+		CD438C6720B0B6B600189B71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */; };
 		CD466436205C203B002F068A /* RectangleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD466435205C203B002F068A /* RectangleController.m */; };
 		CD662FC41FC701E2002BA3F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC31FC701E2002BA3F8 /* AppDelegate.m */; };
 		CD662FC71FC701E2002BA3F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC61FC701E2002BA3F8 /* ViewController.m */; };
@@ -139,7 +139,6 @@
 		CD256D5B2042E1D80086EAAB /* Answers+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Answers+Convenience.m"; path = "../Objective Sea/Answers+Convenience.m"; sourceTree = "<group>"; };
 		CD256D5C2042E1D90086EAAB /* Answers+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Answers+Convenience.h"; path = "../Objective Sea/Answers+Convenience.h"; sourceTree = "<group>"; };
 		CD256D602042E45F0086EAAB /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ../Frameworks/Fabric/Crashlytics.framework; sourceTree = "<group>"; };
-		CD256D612042E45F0086EAAB /* Answers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Answers.framework; path = ../Frameworks/Fabric/Answers.framework; sourceTree = "<group>"; };
 		CD256D622042E45F0086EAAB /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ../Frameworks/Fabric/Fabric.framework; sourceTree = "<group>"; };
 		CD256D662042E5D60086EAAB /* NSDictionary+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Convenience.h"; path = "../Objective Sea/NSDictionary+Convenience.h"; sourceTree = "<group>"; };
 		CD256D672042E5D60086EAAB /* NSDictionary+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Convenience.m"; path = "../Objective Sea/NSDictionary+Convenience.m"; sourceTree = "<group>"; };
@@ -226,6 +225,8 @@
 		CD36C6252041C2B90029FA9C /* NSObject+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Convenience.m"; path = "../Objective Sea/NSObject+Convenience.m"; sourceTree = "<group>"; };
 		CD36C63C2041C5280029FA9C /* circle-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-line@2x.png"; path = "../Frameworks/Images/circle-line@2x.png"; sourceTree = "<group>"; };
 		CD36C6402041DBEF0029FA9C /* scans-30@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scans-30@3x.png"; path = "Images/scans-30@3x.png"; sourceTree = "<group>"; };
+		CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CD438C6820B0B6CB00189B71 /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Firebase.h; path = ../../Frameworks/Firebase/Firebase.h; sourceTree = "<group>"; };
 		CD466434205C203B002F068A /* RectangleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RectangleController.h; sourceTree = "<group>"; };
 		CD466435205C203B002F068A /* RectangleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RectangleController.m; sourceTree = "<group>"; };
 		CD662FBF1FC701E1002BA3F8 /* Scans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scans.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -281,7 +282,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD256D632042E45F0086EAAB /* Crashlytics.framework in Frameworks */,
-				CD256D642042E45F0086EAAB /* Answers.framework in Frameworks */,
 				CD256D652042E45F0086EAAB /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +292,6 @@
 		CD256D5F2042E45E0086EAAB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CD256D612042E45F0086EAAB /* Answers.framework */,
 				CD256D602042E45F0086EAAB /* Crashlytics.framework */,
 				CD256D622042E45F0086EAAB /* Fabric.framework */,
 			);
@@ -492,6 +491,8 @@
 				CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */,
 				CD662FF41FC73B27002BA3F8 /* VNTextCollectionController.h */,
 				CD662FF51FC73B27002BA3F8 /* VNTextCollectionController.m */,
+				CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */,
+				CD438C6820B0B6CB00189B71 /* Firebase.h */,
 			);
 			path = Scans;
 			sourceTree = "<group>";
@@ -573,6 +574,7 @@
 				CD256D872042E7740086EAAB /* iCloud-76@2x.png in Resources */,
 				CD256D9E2042E7810086EAAB /* VK-60@3x.png in Resources */,
 				CD36C63D2041C5290029FA9C /* circle-line@2x.png in Resources */,
+				CD438C6720B0B6B600189B71 /* GoogleService-Info.plist in Resources */,
 				CD256D9F2042E7810086EAAB /* VK-76@2x.png in Resources */,
 				CD662FD21FC701E2002BA3F8 /* LaunchScreen.storyboard in Resources */,
 				CD256D8B2042E7740086EAAB /* Google+-76@2x.png in Resources */,
@@ -832,6 +834,7 @@
 				FRAMEWORK_SEARCH_PATHS = "../Frameworks/**";
 				INFOPLIST_FILE = Scans/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "../Frameworks/**";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexivanov.scans;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -849,6 +852,7 @@
 				FRAMEWORK_SEARCH_PATHS = "../Frameworks/**";
 				INFOPLIST_FILE = Scans/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "../Frameworks/**";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexivanov.scans;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

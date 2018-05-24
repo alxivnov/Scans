@@ -20,6 +20,8 @@
 @property (strong, nonatomic) TextDetector *detector;
 
 @property (strong, nonatomic) NSIndexPath *indexPath;
+
+@property (strong, nonatomic, readonly) UICollectionViewFlowLayout *flowLayout;
 @end
 
 @implementation ViewController
@@ -30,28 +32,30 @@ static NSString * const reuseIdentifier = @"Cell";
 	return cls(UICollectionViewFlowLayout, self.collectionView.collectionViewLayout);
 }
 
-- (void)updateHeader:(UICollectionReusableView *)header footer:(UICollectionReusableView *)footer {
-	if (self.detector.count) {
+- (void)updateFooter:(UICollectionReusableView *)footer {
+	if (!footer)
+		footer = [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+
+	[[footer subview:UIViewIsKindOfClass(UILabel)] setText:LIB.count ? [NSString stringWithFormat:@"%lu %@", LIB.count, self.navigationItem.title.lowercaseString] : Nil];
+}
+
+- (void)updateHeader:(UICollectionReusableView *)header {
+	if (self.detector.isProcessing || self.detector.count) {
 		if (!header)
 			header = [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
 
-		[[header subview:UIViewSubview(UILabel)] setText:self.detector.isProcessing ? [NSString stringWithFormat:@"%lu / %lu", self.detector.index, self.detector.count] : [NSString stringWithFormat:@"Scan %lu new photos from Library", self.detector.count]];
-		[[header subview:UIViewSubview(UIButton)] setTitle:self.detector.isProcessing ? @"Stop" : @"Scan" forState:UIControlStateNormal];
-		[[header subview:UIViewSubview(UIProgressView)] setProgress:self.detector.isProcessing ? (1.0 + self.detector.index) / self.detector.count : 0.0 animated:self.detector.isProcessing];
+		[[header subview:UIViewIsKindOfClass(UILabel)] setText:self.detector.isProcessing ? [NSString stringWithFormat:@"%lu / %lu", self.detector.index, self.detector.count] : [NSString stringWithFormat:@"Scan %lu new photos from Library", self.detector.count]];
+		[[header subview:UIViewIsKindOfClass(UIButton)] setTitle:self.detector.isProcessing ? @"Stop" : @"Scan" forState:UIControlStateNormal];
+		[[header subview:UIViewIsKindOfClass(UIProgressView)] setProgress:self.detector.isProcessing ? (float)self.detector.index / (float)self.detector.count : 0.0 animated:self.detector.isProcessing];
 
 		self.flowLayout.headerReferenceSize = self.flowLayout.footerReferenceSize;
 	} else {
 		self.flowLayout.headerReferenceSize = CGSizeZero;
 	}
-
-	if (!footer)
-		footer = [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-	[[footer subview:UIViewSubview(UILabel)] setText:LIB.count ? [NSString stringWithFormat:@"%lu %@", LIB.count, self.navigationItem.title.lowercaseString] : Nil];
 }
 
 - (void)reloadData:(PHAuthorizationStatus)status {
 	self.collectionView.backgroundView = PHPhotoLibraryAuthorized(status) ? Nil : self.emptyState;
-
 	if (self.collectionView.backgroundView)
 		return;
 
@@ -64,7 +68,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 	self.detector = [[TextDetector alloc] init];
 
-	[self updateHeader:Nil footer:Nil];
+	[self updateFooter:Nil];
+	[self updateHeader:Nil];
 }
 
 - (void)viewDidLoad {
@@ -134,9 +139,9 @@ static NSString * const reuseIdentifier = @"Cell";
 	UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:[kind isEqualToString:UICollectionElementKindSectionHeader] ? @"header" : @"footer" forIndexPath:indexPath];
 
 	if ([kind isEqualToString:UICollectionElementKindSectionHeader])
-		[self updateHeader:view footer:Nil];
+		[self updateHeader:view];
 	else
-		[self updateHeader:Nil footer:view];
+		[self updateFooter:view];
 
 	return view;
 }
@@ -153,13 +158,13 @@ static NSString * const reuseIdentifier = @"Cell";
 	if (self.detector.isProcessing)
 		[self.detector stopProcessing];
 	else
-		[self.detector startProcessing:^(PHAsset *asset) {
+		[self.detector startProcessing:^(BOOL success) {
 			[GCD main:^{
-				[self updateHeader:Nil footer:Nil];
+				[self updateHeader:Nil];
 			}];
 		}];
 
-	[self updateHeader:Nil footer:Nil];
+	[self updateHeader:Nil];
 }
 
 - (IBAction)cameraAction:(UIBarButtonItem *)sender {
@@ -176,12 +181,15 @@ static NSString * const reuseIdentifier = @"Cell";
 	[GCD main:^{
 		@synchronized(self) {
 			PHFetchResultChangeDetails *changes = [LIB performFetchResultChanges:changeInstance];
-			
-			[self.collectionView performFetchResultChanges:changes inSection:0];
-		}
 
-		if (changes.insertedIndexes.count)
-			[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:changes.insertedIndexes.firstIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+			[self.collectionView performFetchResultChanges:changes inSection:0 completion:^(BOOL finished) {
+				if (changes.insertedIndexes.count)
+					[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:changes.insertedIndexes.firstIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+
+//				[self updateHeader:Nil];
+				[self updateFooter:Nil];
+			}];
+		}
 	}];
 }
 
@@ -218,7 +226,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UIView *)transitionViewForView:(UIView *)view {
 	UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:view ? [NSIndexPath indexPathForItem:view.tag inSection:0] : self.indexPath];
-	UIImageView *imageView = [cell subview:UIViewSubview(UIImageView)];
+	UIImageView *imageView = [cell subview:UIViewIsKindOfClass(UIImageView)];
 	imageView.tag = self.indexPath.item;
 	return imageView;
 }

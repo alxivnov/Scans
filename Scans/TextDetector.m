@@ -8,12 +8,14 @@
 
 #import "TextDetector.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 @interface TextDetector ()
 @property (strong, nonatomic) NSMutableArray<PHAsset *> *assets;
 
 @property (assign, nonatomic) NSUInteger count;
 
-@property (assign, nonatomic) BOOL isProcessing;
+@property (assign, nonatomic) BOOL processing;
 @end
 
 @implementation TextDetector
@@ -22,41 +24,59 @@
 	self = [super init];
 
 	if (self)
-		[self prepare];
+		self.assets = [[LIB fetchAssetsToDetect] mutableCopy];
 
 	return self;
 }
 
-- (void)prepare {
-	NSArray *assets = [LIB fetchAssetsToDetect];
-
-	self.assets = [assets mutableCopy];
-
-	self.count = assets.count;
+- (NSUInteger)count {
+	return self.isProcessing ? _count : self.assets.count;
 }
 
-- (void)process:(void(^)(PHAsset *asset))handler {
-	PHAsset *asset = [(NSMutableArray *)self.assets fifo];
+- (NSUInteger)index {
+	return self.isProcessing ? _count - self.assets.count : NSNotFound;
+}
+
+- (BOOL)isProcessing {
+	return self.processing;
+}
+
+- (void)setProcessing:(BOOL)processing {
+	if (_processing == processing)
+		return;
+
+	_processing = processing;
+
+	_count = self.assets.count;
+}
+
+- (void)process:(void(^)(BOOL))handler {
+	PHAsset *asset = [self.assets fifo];
 	if (!asset)
 		return;
 
-	[LIB detectTextRectanglesForAsset:asset handler:handler];
+	[LIB detectTextRectanglesForAsset:asset handler:^(NSArray *results) {
+		if (handler)
+			handler(results.count > 0);
+
+		[Answers logCustomEventWithName:@"Detect text" customAttributes:@{ @"count" : @(results.count) }];
+	}];
 }
 
-- (void)startProcessing:(void(^)(PHAsset *asset))handler {
+- (void)startProcessing:(void(^)(BOOL success))handler {
 	if (self.isProcessing)
 		return;
 
-	self.isProcessing = self.assets.count > 0;
+	self.processing = self.assets.count > 0;
 
 	[GCD global:^{
-		while (self.isProcessing && self.assets.count)
-			[self process:^(PHAsset *asset) {
-				if (!self.assets.count)
-					self.isProcessing = NO;
+		while (self.isProcessing)
+			[self process:^(BOOL success) {
+				if (self.assets.count == 0)
+					self.processing = NO;
 
 				if (handler)
-					handler(asset);
+					handler(success);
 			}];
 	}];
 }
@@ -65,9 +85,7 @@
 	if (!self.isProcessing)
 		return;
 
-	self.isProcessing = NO;
-
-	[self prepare];
+	self.processing = NO;
 }
 
 - (void)process:(NSTimeInterval)seconds handler:(void (^)(void))handler {
@@ -80,10 +98,6 @@
 		if (handler)
 			handler();
 	}];
-}
-
-- (NSUInteger)index {
-	return self.isProcessing ? self.count - self.assets.count : NSNotFound;
 }
 
 @end

@@ -11,13 +11,13 @@
 #import "PhotoLibrary.h"
 
 @interface TextDetector : NSObject
-- (void)startProcessing:(void(^)(PHAsset *asset))handler;
-- (void)stopProcessing;
-
-- (void)process:(NSTimeInterval)seconds handler:(void(^)(void))handler;
-
 @property (assign, nonatomic, readonly) NSUInteger count;
 @property (assign, nonatomic, readonly) NSUInteger index;
 
 @property (assign, nonatomic, readonly) BOOL isProcessing;
+
+- (void)process:(NSTimeInterval)seconds handler:(void(^)(void))handler;
+
+- (void)startProcessing:(void(^)(BOOL success))handler;
+- (void)stopProcessing;
 @end

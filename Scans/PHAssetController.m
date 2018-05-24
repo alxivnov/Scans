@@ -8,6 +8,8 @@
 
 #import "PHAssetController.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 #import "Dispatch+Convenience.h"
 #import "NSArray+Convenience.h"
 #import "NSFormatter+Convenience.h"
@@ -97,6 +99,8 @@
 	self.navigationItem.title = [asset.creationDate descriptionForDate:NSDateFormatterMediumStyle andTime:NSDateFormatterShortStyle];
 
 	idx(self.toolbarItems, 2).image = [UIImage image:self.asset.isFavorite ? @"like-fill" : @"like-line"];
+
+	[Answers logContentViewWithName:@"PHAsset" contentType:@"PHAssetMediaTypeImage" contentId:asset.localIdentifier customAttributes:Nil];
 }
 
 #pragma mark - Navigation

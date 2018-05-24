@@ -75,7 +75,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
 	UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"footer" forIndexPath:indexPath];
 	
-	UILabel *label = [view subview:UIViewSubview(UILabel)];
+	UILabel *label = [view subview:UIViewIsKindOfClass(UILabel)];
 	label.text = [NSString stringWithFormat:@"%lu %@", self.observations.count, self.navigationItem.title.lowercaseString];
 	return view;
 }
@@ -113,7 +113,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UIView *)transitionViewForView:(UIView *)view {
 	UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:view ? [NSIndexPath indexPathForItem:view.tag inSection:0] : self.indexPath];
-	UIImageView *imageView = [cell subview:UIViewSubview(UIImageView)];
+	UIImageView *imageView = [cell subview:UIViewIsKindOfClass(UIImageView)];
 	imageView.tag = self.indexPath.item;
 	return imageView;
 }
