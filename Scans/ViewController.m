@@ -12,9 +12,10 @@
 #import "TextDetector.h"
 #import "RectangleController.h"
 
+#import "UISearchController+Convenience.h"
 #import "UIView+Convenience.h"
 
-@interface ViewController () <PHPhotoLibraryChangeObserver, CollectionTransitionDelegate>
+@interface ViewController () <PHPhotoLibraryChangeObserver, UISearchResultsUpdating, CollectionTransitionDelegate>
 @property (strong, nonatomic) IBOutlet UIView *emptyState;
 
 @property (strong, nonatomic) TextDetector *detector;
@@ -30,6 +31,14 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionViewFlowLayout *)flowLayout {
 	return cls(UICollectionViewFlowLayout, self.collectionView.collectionViewLayout);
+}
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+	LIB.search = searchController.searchBar.text;
+
+	[self.collectionView reloadData];
+
+	[self updateFooter:Nil];
 }
 
 - (void)updateFooter:(UICollectionReusableView *)footer {
@@ -67,6 +76,8 @@ static NSString * const reuseIdentifier = @"Cell";
 	[[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 
 	self.detector = [[TextDetector alloc] init];
+
+	self.searchResultsUpdater = self;
 
 	[self updateFooter:Nil];
 	[self updateHeader:Nil];

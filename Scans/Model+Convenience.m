@@ -52,6 +52,10 @@
 	return [Observation executeFetchRequestInContext:self predicateWithFormat:@"albumIdentifier = %@ && assetIdentifier = %@", albumIdentifier, assetIdentifier];
 }
 
+- (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier label:(NSString *)label {
+	return [Observation executeFetchRequestInContext:self predicateWithFormat:@"(albumIdentifier = %@) && (label like %@)", albumIdentifier, [NSString stringWithFormat:@"*%@*", label]];
+}
+
 - (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier {
 	if (!albumIdentifier)
 		return Nil;

@@ -99,6 +99,7 @@
 		CD36C6412041DBF00029FA9C /* scans-30@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C6402041DBEF0029FA9C /* scans-30@3x.png */; };
 		CD438C6720B0B6B600189B71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */; };
 		CD466436205C203B002F068A /* RectangleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD466435205C203B002F068A /* RectangleController.m */; };
+		CD538BF120B88E8C004956D1 /* UISearchController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */; };
 		CD662FC41FC701E2002BA3F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC31FC701E2002BA3F8 /* AppDelegate.m */; };
 		CD662FC71FC701E2002BA3F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC61FC701E2002BA3F8 /* ViewController.m */; };
 		CD662FCA1FC701E2002BA3F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD662FC81FC701E2002BA3F8 /* Main.storyboard */; };
@@ -264,6 +265,8 @@
 		CD438C6820B0B6CB00189B71 /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Firebase.h; path = ../../Frameworks/Firebase/Firebase.h; sourceTree = "<group>"; };
 		CD466434205C203B002F068A /* RectangleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RectangleController.h; sourceTree = "<group>"; };
 		CD466435205C203B002F068A /* RectangleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RectangleController.m; sourceTree = "<group>"; };
+		CD538BEF20B88E8C004956D1 /* UISearchController+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UISearchController+Convenience.h"; path = "../Objective Sea/UISearchController+Convenience.h"; sourceTree = "<group>"; };
+		CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UISearchController+Convenience.m"; path = "../Objective Sea/UISearchController+Convenience.m"; sourceTree = "<group>"; };
 		CD662FBF1FC701E1002BA3F8 /* Scans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scans.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD662FC21FC701E1002BA3F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CD662FC31FC701E2002BA3F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -493,6 +496,8 @@
 				CD36C61C2041C2B80029FA9C /* UINavigationController+Convenience.m */,
 				CDE33B3E2049936000F89AD8 /* UIPageViewController+Convenience.h */,
 				CDE33B3D2049936000F89AD8 /* UIPageViewController+Convenience.m */,
+				CD538BEF20B88E8C004956D1 /* UISearchController+Convenience.h */,
+				CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */,
 				CD36C60E2041C2B70029FA9C /* UIScrollView+Convenience.h */,
 				CD36C60B2041C2B70029FA9C /* UIScrollView+Convenience.m */,
 				CD36C6162041C2B80029FA9C /* UIView+Convenience.h */,
@@ -738,6 +743,7 @@
 				CD66F3D42044858B00050C65 /* Vision+Convenience.m in Sources */,
 				CD256D422041FFC10086EAAB /* UIInteractiveTransition.m in Sources */,
 				CD36C6272041C2B90029FA9C /* Photos+Convenience.m in Sources */,
+				CD538BF120B88E8C004956D1 /* UISearchController+Convenience.m in Sources */,
 				CD36C6342041C2B90029FA9C /* UIViewController+Convenience.m in Sources */,
 				CD25C6D920B6B16F00D979FB /* FIRVision+Convenience.m in Sources */,
 				CD466436205C203B002F068A /* RectangleController.m in Sources */,

@@ -19,6 +19,8 @@
 
 @property (assign, nonatomic) CGSize largeSize;
 @property (assign, nonatomic) CGSize smallSize;
+
+@property (strong, nonatomic) NSArray<Observation *> *observations;
 @end
 
 @implementation PhotoLibrary
@@ -85,12 +87,18 @@
 	return self;
 }
 
+- (void)setSearch:(NSString *)search {
+	_search = search;
+
+	self.observations = search.length ? [self.db.viewContext fetchObservationsWithAlbumIdentifier:self.album.localIdentifier label:search] : Nil;
+}
+
 - (NSUInteger)count {
-	return self.fetch.count;
+	return self.observations ? self.observations.count : self.fetch.count;
 }
 
 - (PHAsset *)assetAtIndex:(NSUInteger)index {
-	return idx(self.fetch, index);
+	return self.observations ? [PHAsset fetchAssetWithLocalIdentifier:idx(self.observations, index).assetIdentifier options:Nil] : idx(self.fetch, index);
 }
 
 - (void)requestAuthorization:(void (^)(PHAuthorizationStatus))handler {
@@ -111,7 +119,7 @@
 		return;
 
 	[PHPhotoLibrary createAssetWithImage:image completionHandler:^(NSString *localIdentifier) {
-		PHAsset *asset = [PHAsset fetchAssetsWithLocalIdentifier:localIdentifier options:Nil].firstObject;
+		PHAsset *asset = [PHAsset fetchAssetWithLocalIdentifier:localIdentifier options:Nil];
 		if (!asset)
 			return;
 
@@ -128,7 +136,7 @@
 }
 
 - (PHImageRequestID)requestSmallImageAtIndex:(NSUInteger)index resultHandler:(void (^)(UIImage *, PHImageRequestID))resultHandler {
-	PHAsset *asset = idx(self.fetch, index);
+	PHAsset *asset = [self assetAtIndex:index];
 	if (!asset)
 		return PHInvalidImageRequestID;
 

@@ -30,6 +30,7 @@
 - (Album *)fetchLastAlbum;
 - (NSArray<Asset *> *)fetchAssetsWithAlbumIdentifier:(NSString *)albumIdentifier;
 - (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier assetIdentifier:(NSString *)assetIdentifier;
+- (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier label:(NSString *)label;
 
 - (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier;
 - (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier observations:(NSArray<VNTextObservation *> *)observations labels:(NSArray<FIRVisionLabel *> *)labels;

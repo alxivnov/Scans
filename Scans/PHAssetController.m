@@ -50,6 +50,8 @@
 	
 	[LIB requestLargeImageForAsset:asset resultHandler:^(UIImage * _Nullable result, BOOL isDegraded) {
 		[GCD main:^{
+			self.navigationController.navigationBar.progress = 0.0;
+			
 			if (!result)
 				return;
 

@@ -17,6 +17,7 @@
 #define LIB [PhotoLibrary instance]
 
 @interface PhotoLibrary : NSObject
+@property (strong, nonatomic) NSString *search;
 @property (assign, nonatomic, readonly) NSUInteger count;
 - (PHAsset *)assetAtIndex:(NSUInteger)index;
 
