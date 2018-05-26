@@ -113,6 +113,8 @@ static NSString * const reuseIdentifier = @"Cell";
 		self.indexPath = [self.collectionView indexPathForCell:sender];
 
 		[segue.destinationViewController forwardSelector:@selector(setIndexPath:) withObject:self.indexPath nextTarget:UIViewControllerNextTarget(NO)];
+
+		segue.destinationViewController.transitioningDelegate = [self.navigationController forwardSelector:@selector(collectionTransition) nextTarget:Nil];
 	}
 }
 

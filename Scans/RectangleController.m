@@ -81,6 +81,9 @@ __synthesize(CAShapeLayer *, shapeLayer, ({
 	[self.previewLayer.session addOutput:self.videoDataOutput];
 
 	[self.view.layer addSublayer:self.shapeLayer];
+
+	[self.doneButton removeFromSuperview];
+	[self.cancelButton removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -117,6 +120,10 @@ __synthesize(CAShapeLayer *, shapeLayer, ({
 		};
 
 	return self;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+	return UIStatusBarStyleLightContent;
 }
 
 @end

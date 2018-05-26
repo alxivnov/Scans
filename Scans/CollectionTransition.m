@@ -20,15 +20,23 @@
 - (void)startInteractiveTransition {
 	[super startInteractiveTransition];
 
-	UIView *fromView = ret_(self.fromViewController, transitionViewForView:, Nil);
-	if ([self.fromViewController respondsToSelector:@selector(transitionFrameForView:)])
-		self.fromFrame = [(id<CollectionTransitionDelegate>)self.fromViewController transitionFrameForView:Nil];
+	BOOL unwind = self.fromViewController.presentingViewController == self.toViewController;
+
+	UIView *fromView = [self.fromViewController forwardSelector:@selector(transitionViewForView:) withObject:Nil nextTarget:UIViewControllerNextTarget(YES)];
+	UIViewController *fromVC = [self.fromViewController firstViewControllerRespondingToSelector:@selector(transitionFrameForView:) next:^UIViewController *(UIViewController *viewController) {
+		return unwind ? viewController.nextViewController : viewController.prevViewController;
+	}];
+	if (fromVC)
+		self.fromFrame = [(id<CollectionTransitionDelegate>)fromVC transitionFrameForView:Nil];
 	if (CGRectIsEmpty(self.fromFrame) && fromView)
 		self.fromFrame = [self.containerView convertRect:fromView.frame fromView:fromView.superview];
 
-	UIView *toView = ret_(self.toViewController, transitionViewForView:, fromView);
-	if ([self.toViewController respondsToSelector:@selector(transitionFrameForView:)])
-		self.toFrame = [(id<CollectionTransitionDelegate>)self.toViewController transitionFrameForView:fromView];
+	UIView *toView = [self.toViewController forwardSelector:@selector(transitionViewForView:) withObject:fromView nextTarget:UIViewControllerNextTarget(YES)];
+	UIViewController *toVC = [self.toViewController firstViewControllerRespondingToSelector:@selector(transitionFrameForView:) next:^UIViewController *(UIViewController *viewController) {
+		return unwind ? viewController.prevViewController : viewController.nextViewController;
+	}];
+	if (toVC)
+		self.toFrame = [(id<CollectionTransitionDelegate>)toVC transitionFrameForView:fromView];
 	if (CGRectIsEmpty(self.toFrame) && toView)
 		self.toFrame = [self.containerView convertRect:toView.frame fromView:toView.superview];
 
@@ -43,10 +51,10 @@
 - (void)endInteractiveTransition:(BOOL)didComplete {
 	[super endInteractiveTransition:didComplete];
 
-	UIView *fromView = ret_(self.fromViewController, transitionViewForView:, Nil);
+	UIView *fromView = [self.fromViewController forwardSelector:@selector(transitionViewForView:) withObject:Nil nextTarget:UIViewControllerNextTarget(YES)];
 	fromView.hidden = NO;
 
-	UIView *toView = ret_(self.toViewController, transitionViewForView:, fromView);
+	UIView *toView = [self.toViewController forwardSelector:@selector(transitionViewForView:) withObject:fromView nextTarget:UIViewControllerNextTarget(YES)];
 	toView.hidden = NO;
 
 	[self.scaleView removeFromSuperview];

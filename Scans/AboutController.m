@@ -74,21 +74,21 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 4 + (self.apps.count ? 1 : 0);
+	return 5 + (self.apps.count ? 1 : 0);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return section == 4 ? self.apps.count : 1;
+	return section == 5 ? self.apps.count : section == 1 ? 2 : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str(indexPath.section) forIndexPath:indexPath];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indexPath.section == 1 ? str(indexPath.section * 10 + indexPath.row) : str(indexPath.section) forIndexPath:indexPath];
     
     // Configure the cell...
 	if (indexPath.section == 0 && indexPath.row == 0) {
 		cell.textLabel.text = [NSBundle bundleDisplayName];
 		cell.detailTextLabel.text = [NSBundle bundleShortVersionString];
-	} else if (indexPath.section == 4) {
+	} else if (indexPath.section == 5) {
 		AFMediaItem *app = self.apps[indexPath.row];
 
 		NSArray *titles = [app.trackName componentsSeparatedByString:@" - "];
@@ -114,24 +114,24 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 
 	if (indexPath.section == 0 && indexPath.row == 0)
 		cell.detailTextLabel.text = [cell.detailTextLabel.text isEqualToString:[NSBundle bundleVersion]] ? [NSBundle bundleShortVersionString] : [NSBundle bundleVersion];
-	else if (indexPath.section == 1 && indexPath.row == 0)
-		[self presentMailComposeWithRecipients:arr_(cell.detailTextLabel.text) subject:[NSBundle bundleDisplayNameAndShortVersion] body:Nil attachments:dic_(@"screenshot.jpg", [[self.presentingViewController.view snapshotImageAfterScreenUpdates:YES] jpegRepresentation]) completionHandler:Nil];
 	else if (indexPath.section == 2 && indexPath.row == 0)
+		[self presentMailComposeWithRecipients:arr_(cell.detailTextLabel.text) subject:[NSBundle bundleDisplayNameAndShortVersion] body:Nil attachments:dic_(@"screenshot.jpg", [[self.presentingViewController.view snapshotImageAfterScreenUpdates:YES] jpegRepresentation]) completionHandler:Nil];
+	else if (indexPath.section == 3 && indexPath.row == 0)
 		[self presentWebActivityWithActivityItems:@[ [NSBundle bundleDisplayName], [NSURL URLForMobileAppWithIdentifier:APP_ID affiliateInfo:self.affiliateInfo] ] excludedTypes:Nil completionHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
 			[Answers logInviteWithMethod:activityType customAttributes:@{ @"version" : [NSBundle bundleVersion], @"success" : completed ? @"YES" : @"NO", @"error" : [activityError debugDescription] ?: STR_EMPTY }];
 		}];
-	else if (indexPath.section == 3 && indexPath.row == 0)
+	else if (indexPath.section == 4 && indexPath.row == 0)
 		[UIApplication openURL:[NSURL URLForMobileAppWithIdentifier:APP_ID affiliateInfo:self.affiliateInfo] options:Nil completionHandler:^(BOOL success) {
 
 		}];
-	else if (indexPath.section == 4)
+	else if (indexPath.section == 5)
 		[self presentProductWithIdentifier:[self.apps[indexPath.row].trackId integerValue] parameters:Nil];
 
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return section == 1 ? @"FEEDBACK" : section == 2 ? @"SHARE" : section == 3 ? @"RATE" : section == 4 ? @"APPS" : Nil;
+	return section == 1 ? @"SUBSCRIPTIONS" : section == 2 ? @"FEEDBACK" : section == 3 ? @"SHARE" : section == 4 ? @"RATE" : section == 5 ? @"APPS" : Nil;
 }
 
 /*

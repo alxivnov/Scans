@@ -16,14 +16,14 @@
 @interface NavigationController () <UINavigationControllerDelegate>
 @property (assign, nonatomic) BOOL statusBarHidden;
 
-@property (strong, nonatomic, readonly) UIPanTransition *modalTransition;
+//@property (strong, nonatomic, readonly) UIPanTransition *modalTransition;
 
 @property (strong, nonatomic, readonly) CollectionTransition *collectionTransition;
 @end
 
 @implementation NavigationController
 
-__synthesize(UIPanTransition *, modalTransition, [UIPanTransition gestureTransition:Nil])
+//__synthesize(UIPanTransition *, modalTransition, [UIPanTransition gestureTransition:Nil])
 __synthesize(CollectionTransition *, collectionTransition, [CollectionTransition gestureTransition:Nil])
 
 - (void)viewDidLoad {
@@ -33,7 +33,7 @@ __synthesize(CollectionTransition *, collectionTransition, [CollectionTransition
 	self.delegate = self;
 
 //	[self.barHideOnTapGestureRecognizer addTarget:self action:@selector(hideBarsTap:)];
-
+/*
 	if (self.modalPresentationStyle == UIModalPresentationFullScreen) {
 		self.containingViewController.transitioningDelegate = self.modalTransition;
 
@@ -43,13 +43,14 @@ __synthesize(CollectionTransition *, collectionTransition, [CollectionTransition
 
 		self.delegate = self;
 	}
+*/
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+/*
 - (void)panAction:(UIPanGestureRecognizer *)sender {
 	if (sender.state == UIGestureRecognizerStateBegan && 0.0 - cls(UIScrollView, sender.view).contentOffset.y >= cls(UIScrollView, sender.view).contentInset.top) {
 		__block id <UIViewControllerTransitioningDelegate> transition = self.containingViewController.transitioningDelegate = [UIPanTransition gestureTransition:sender];
@@ -59,7 +60,7 @@ __synthesize(CollectionTransition *, collectionTransition, [CollectionTransition
 		}];
 	}
 }
-
+*/
 /*
 #pragma mark - Navigation
 

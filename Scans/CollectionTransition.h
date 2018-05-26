@@ -9,6 +9,7 @@
 #import "UIGestureTransition.h"
 
 #import "CoreGraphics+Convenience.h"
+#import "UIViewController+Convenience.h"
 
 @protocol CollectionTransitionDelegate
 
