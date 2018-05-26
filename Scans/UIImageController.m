@@ -97,7 +97,10 @@ __synthesize(UIImageView *, imageView, ({
 	if (fabs(translation.x) >= translation.y)
 		return;
 
-	[self.navigationController popViewControllerAnimated:YES];
+	if (self.navigationController.viewControllers.count > 1)
+		[self.navigationController popViewControllerAnimated:YES];
+	else
+		[self.presentingViewController dismissViewControllerAnimated:YES completion:Nil];
 }
 
 - (IBAction)pinchAction:(UIPinchGestureRecognizer *)sender {

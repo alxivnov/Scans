@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VRl-dj-cxC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Icb-rQ-8X3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -167,26 +166,28 @@
                             <outlet property="delegate" destination="R4I-KR-NUg" id="TYI-1F-ZZl"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="About" id="SLC-Tw-icI">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="m29-Fh-n4z">
-                            <connections>
-                                <segue destination="f6m-Wf-kQB" kind="unwind" unwindAction="done:" id="ep1-FR-H0r"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="About" id="SLC-Tw-icI"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vmE-WS-1jd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="f6m-Wf-kQB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1614" y="902"/>
         </scene>
         <!--Asset Paging Controller-->
         <scene sceneID="fTb-g4-Drt">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="40" navigationOrientation="horizontal" spineLocation="none" id="UFK-T2-VuH" customClass="PHAssetPagingController" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="40" navigationOrientation="horizontal" spineLocation="none" id="UFK-T2-VuH" customClass="PHAssetPagingController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="QFk-OC-3iH">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="eoE-QJ-WW5">
+                            <connections>
+                                <segue destination="FZl-kp-lS9" kind="unwind" unwindAction="done:" id="uf5-zK-R7O"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aoC-mV-BK1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="FZl-kp-lS9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2390" y="133"/>
+            <point key="canvasLocation" x="3328.8000000000002" y="132.68365817091455"/>
         </scene>
         <!--Text Paging Controller-->
         <scene sceneID="Syn-A4-jnC">
@@ -194,7 +195,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="40" navigationOrientation="horizontal" spineLocation="none" id="hsc-cF-eaV" customClass="VNTextPagingController" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KQh-rD-6fM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3910" y="133"/>
+            <point key="canvasLocation" x="4848.8000000000002" y="132.68365817091455"/>
         </scene>
         <!--Scans-->
         <scene sceneID="q7W-Ze-HPa">
@@ -230,7 +231,7 @@
                                     <constraint firstAttribute="bottom" secondItem="Mui-C1-ZUB" secondAttribute="bottom" id="tTc-3l-2N0"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="UFK-T2-VuH" kind="show" identifier="asset" id="JGy-f0-lez"/>
+                                    <segue destination="7wX-XG-wgn" kind="presentation" identifier="asset" id="JGy-f0-lez"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -306,18 +307,7 @@
                             <outlet property="delegate" destination="YMh-Kf-QJE" id="Qwr-KU-nmD"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Scans" id="AnZ-75-009">
-                        <barButtonItem key="leftBarButtonItem" image="scans-30.png" id="ub8-gR-atk">
-                            <connections>
-                                <segue destination="fLl-8j-y24" kind="show" id="y3J-fw-Jc1"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="eKB-UG-vQZ">
-                            <connections>
-                                <action selector="cameraAction:" destination="YMh-Kf-QJE" id="443-nM-hx8"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Scans" id="AnZ-75-009"/>
                     <connections>
                         <outlet property="emptyState" destination="abw-Q5-eQx" id="6LF-ra-5ht"/>
                     </connections>
@@ -394,33 +384,31 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="GUk-JM-1na">
-                        <rightBarButtonItems>
-                            <barButtonItem enabled="NO" image="circle-line.png" id="Ku2-i5-8Db">
-                                <connections>
-                                    <segue destination="7CA-9z-xdx" kind="show" identifier="observations" id="SSl-80-FvI"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem enabled="NO" image="circle-line.png" id="icf-Qt-bnb"/>
-                        </rightBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" image="circle-line.png" id="Ku2-i5-8Db">
+                            <connections>
+                                <segue destination="7CA-9z-xdx" kind="show" identifier="observations" id="SSl-80-FvI"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iCH-Lc-E6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2390" y="902"/>
+            <point key="canvasLocation" x="3329" y="902"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Scans-->
         <scene sceneID="6AS-qy-eeA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="VRl-dj-cxC" customClass="NavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Scans" image="scans-30.png" id="Hp7-tI-8DQ"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="SDk-oc-6tg">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" largeTitles="YES" id="SDk-oc-6tg">
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="FdL-GI-TkE">
-                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="574" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -496,7 +484,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDz-61-H1c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3152.8000000000002" y="132.68365817091455"/>
+            <point key="canvasLocation" x="4114" y="133"/>
         </scene>
         <!--Image Controller-->
         <scene sceneID="oVw-co-Qtx">
@@ -519,15 +507,36 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WpM-5p-2RC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3910" y="902"/>
+            <point key="canvasLocation" x="4092" y="902"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Tab Bar Controller-->
+        <scene sceneID="2UW-ki-cq6">
+            <objects>
+                <tabBarController id="Icb-rQ-8X3" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="FMs-bc-uYY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="1" green="0.83529412749999998" blue="0.15686275059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="VRl-dj-cxC" kind="relationship" relationship="viewControllers" id="jXc-vj-FgL"/>
+                        <segue destination="J0u-nS-vsJ" kind="relationship" relationship="viewControllers" id="KMt-Xc-xk6"/>
+                        <segue destination="fLl-8j-y24" kind="relationship" relationship="viewControllers" id="hsh-dN-4Cd"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RnZ-0h-Agk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-78" y="505"/>
+        </scene>
+        <!--About-->
         <scene sceneID="bmd-2n-8ZE">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fLl-8j-y24" customClass="NavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="About" image="info-fill.png" id="RRM-GS-5fd"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="MKP-fS-1U7">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" largeTitles="YES" id="MKP-fS-1U7">
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -539,11 +548,51 @@
             </objects>
             <point key="canvasLocation" x="826" y="902"/>
         </scene>
+        <!--Camera-->
+        <scene sceneID="Xzw-fB-Ljh">
+            <objects>
+                <viewController id="J0u-nS-vsJ" customClass="RectangleController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lQg-CD-72m" customClass="rect">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="whU-ry-UCH"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Camera" image="camera-fill.png" id="0kV-p8-w8A"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HYO-WG-zcC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-79" y="-293"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fuo-GT-zUK">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="7wX-XG-wgn" customClass="NavigationController" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="yMl-24-nPW">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="Huz-le-wIF">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="UFK-T2-VuH" kind="relationship" relationship="rootViewController" id="Uv2-wg-w81"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fp1-fz-koI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2389.5999999999999" y="132.68365817091455"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="camera-fill.png" width="30" height="30"/>
         <image name="chat-fill.png" width="30" height="30"/>
         <image name="circle-line.png" width="30" height="30"/>
         <image name="envelope-fill.png" width="30" height="30"/>
+        <image name="info-fill.png" width="30" height="30"/>
         <image name="like-line.png" width="30" height="30"/>
         <image name="photos-120.png" width="120" height="120"/>
         <image name="scans-30.png" width="30" height="30"/>

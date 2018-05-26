@@ -14,6 +14,7 @@
 
 #import "UISearchController+Convenience.h"
 #import "UIView+Convenience.h"
+#import "UIViewController+Convenience.h"
 
 @interface ViewController () <PHPhotoLibraryChangeObserver, UISearchResultsUpdating, CollectionTransitionDelegate>
 @property (strong, nonatomic) IBOutlet UIView *emptyState;
@@ -111,7 +112,7 @@ static NSString * const reuseIdentifier = @"Cell";
 	if ([segue.identifier isEqualToString:@"asset"]) {
 		self.indexPath = [self.collectionView indexPathForCell:sender];
 
-		[segue.destinationViewController forwardSelector:@selector(setIndexPath:) withObject:self.indexPath nextTarget:Nil];
+		[segue.destinationViewController forwardSelector:@selector(setIndexPath:) withObject:self.indexPath nextTarget:UIViewControllerNextTarget(NO)];
 	}
 }
 

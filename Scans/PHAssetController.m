@@ -71,8 +71,8 @@
 				UIImage *image = [self imageWithCount:self.observations.count];
 
 				[GCD main:^{
-					self.navigationItem.rightBarButtonItem.image = image;
-					self.navigationItem.rightBarButtonItem.enabled = self.observations.count > 0;
+					self.navigationItem.leftBarButtonItem.image = image;
+					self.navigationItem.leftBarButtonItem.enabled = self.observations.count > 0;
 
 					for (Observation *observation in self.observations) {
 						CGFloat width = 2.0 / self.scrollView.zoomScale;

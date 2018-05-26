@@ -97,6 +97,8 @@
 		CD36C6392041C2B90029FA9C /* NSObject+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C6252041C2B90029FA9C /* NSObject+Convenience.m */; };
 		CD36C63D2041C5290029FA9C /* circle-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C63C2041C5280029FA9C /* circle-line@2x.png */; };
 		CD36C6412041DBF00029FA9C /* scans-30@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36C6402041DBEF0029FA9C /* scans-30@3x.png */; };
+		CD3F267420B9A7D30016C2F0 /* info-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD3F267320B9A7D20016C2F0 /* info-fill@2x.png */; };
+		CD3F267620B9A8DE0016C2F0 /* camera-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD3F267520B9A8DE0016C2F0 /* camera-fill@2x.png */; };
 		CD438C6720B0B6B600189B71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */; };
 		CD466436205C203B002F068A /* RectangleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD466435205C203B002F068A /* RectangleController.m */; };
 		CD538BF120B88E8C004956D1 /* UISearchController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */; };
@@ -261,6 +263,8 @@
 		CD36C6252041C2B90029FA9C /* NSObject+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Convenience.m"; path = "../Objective Sea/NSObject+Convenience.m"; sourceTree = "<group>"; };
 		CD36C63C2041C5280029FA9C /* circle-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-line@2x.png"; path = "../Frameworks/Images/circle-line@2x.png"; sourceTree = "<group>"; };
 		CD36C6402041DBEF0029FA9C /* scans-30@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scans-30@3x.png"; path = "Images/scans-30@3x.png"; sourceTree = "<group>"; };
+		CD3F267320B9A7D20016C2F0 /* info-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "info-fill@2x.png"; path = "../Frameworks/Images/info-fill@2x.png"; sourceTree = "<group>"; };
+		CD3F267520B9A8DE0016C2F0 /* camera-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-fill@2x.png"; path = "../Frameworks/Images/camera-fill@2x.png"; sourceTree = "<group>"; };
 		CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CD438C6820B0B6CB00189B71 /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Firebase.h; path = ../../Frameworks/Firebase/Firebase.h; sourceTree = "<group>"; };
 		CD466434205C203B002F068A /* RectangleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RectangleController.h; sourceTree = "<group>"; };
@@ -377,6 +381,8 @@
 			children = (
 				CDE0055D206E6BE100EA1C2F /* photos-120@3x.png */,
 				CD36C6402041DBEF0029FA9C /* scans-30@3x.png */,
+				CD3F267520B9A8DE0016C2F0 /* camera-fill@2x.png */,
+				CD3F267320B9A7D20016C2F0 /* info-fill@2x.png */,
 				CDFE017E2041FD5A00C5AC4E /* chat-fill@2x.png */,
 				CDFE017F2041FD5A00C5AC4E /* envelope-fill@2x.png */,
 				CDFE01802041FD5A00C5AC4E /* moneybox-fill@2x.png */,
@@ -651,6 +657,8 @@
 				CD256D882042E7740086EAAB /* Facebook-60@3x.png in Resources */,
 				CD256D872042E7740086EAAB /* iCloud-76@2x.png in Resources */,
 				CD256D9E2042E7810086EAAB /* VK-60@3x.png in Resources */,
+				CD3F267620B9A8DE0016C2F0 /* camera-fill@2x.png in Resources */,
+				CD3F267420B9A7D30016C2F0 /* info-fill@2x.png in Resources */,
 				CD36C63D2041C5290029FA9C /* circle-line@2x.png in Resources */,
 				CD438C6720B0B6B600189B71 /* GoogleService-Info.plist in Resources */,
 				CD256D9F2042E7810086EAAB /* VK-76@2x.png in Resources */,
