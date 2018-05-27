@@ -110,7 +110,10 @@ __synthesize(UIImageView *, imageView, ({
 	if (sender.scale > 1.0)
 		return;
 
-	[self.navigationController popViewControllerAnimated:YES];
+	if (self.navigationController.viewControllers.count > 1)
+		[self.navigationController popViewControllerAnimated:YES];
+	else
+		[self.presentingViewController dismissViewControllerAnimated:YES completion:Nil];
 }
 
 - (IBAction)shareAction:(UIBarButtonItem *)sender {

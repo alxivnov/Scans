@@ -139,7 +139,10 @@
 		[LIB deleteAsset:self.asset fromLibrary:index == UIAlertActionDestructive handler:^(BOOL success) {
 			if (success)
 				[GCD main:^{
-					[self.navigationController popViewControllerAnimated:YES];
+					if (self.navigationController.viewControllers.count > 1)
+						[self.navigationController popViewControllerAnimated:YES];
+					else
+						[self.presentingViewController dismissViewControllerAnimated:YES completion:Nil];
 				}];
 		}];
 	}];
