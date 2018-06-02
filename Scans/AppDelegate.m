@@ -11,7 +11,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
-#import "Firebase.h"
+@import Firebase;
 
 #import "TextDetector.h"
 

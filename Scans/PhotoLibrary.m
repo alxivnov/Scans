@@ -163,7 +163,7 @@
 	}];
 }
 
-- (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset handler:(void (^)(NSArray<VNTextObservation *> *))handler {
+- (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset handler:(void (^)(NSArray<id<FIRVisionText>> *))handler {
 	PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
 	options.networkAccessAllowed = YES;
 	options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
@@ -171,25 +171,24 @@
 
 	NSString *assetIdentifier = asset.localIdentifier;
 	return [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:LIB.largeSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+		NSArray<id<FIRVisionText>> *texts = [[FIRVisionTextDetector textDetector] detectInImage:result];
 		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector labelDetector] detectInImage:result];
-//		NSArray *texts = [[FIRVisionTextDetector textDetector] detectInImage:result];
-//		[texts log:@"texts:"];
-		NSArray<VNTextObservation *> *results = [result detectTextRectanglesWithOptions:@{ VNImageOptionPreferBackgroundProcessing : @YES, VNImageOptionReportCharacterBoxes : @YES }];
+//		NSArray<VNTextObservation *> *results = [result detectTextRectanglesWithOptions:@{ VNImageOptionPreferBackgroundProcessing : @YES, VNImageOptionReportCharacterBoxes : @YES }];
 
-		if (results.count) {
+		if (texts.count) {
 			[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:LIB.album completionHandler:^(BOOL success) {
 				if (handler)
-					handler(results);
+					handler(texts);
 
 				if (result)
-					[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier observations:results labels:labels];
+					[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier texts:texts labels:labels size:result.size];
 			}];
 		} else {
 			if (handler)
-				handler(results);
+				handler(texts);
 
 			if (result)
-				[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier observations:results labels:labels];
+				[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier texts:texts labels:labels size:result.size];
 		}
 	}];
 }

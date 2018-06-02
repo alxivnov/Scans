@@ -94,17 +94,18 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 		NSArray *titles = [app.trackName componentsSeparatedByString:@" - "];
 		cell.textLabel.text = titles.count > 1 ? titles.firstObject : app.trackName;
 		cell.detailTextLabel.text = titles.count > 1 ? titles.lastObject : [app.dictionary[@"genres"] firstObject];
-		if (URL_CACHE(app.artworkUrl100).isExistingFile)
-			cell.imageView.image = [[UIImage image:URL_CACHE(app.artworkUrl100)] imageWithSize:CGSizeMake(30.0, 30.0) mode:UIImageScaleAspectFit];
+/*		NSURL *url = URL_CACHE(app.artworkUrl100);
+		if (url.isExistingFile)
+			cell.imageView.image = [[UIImage image:url] imageWithSize:CGSizeMake(30.0, 30.0) mode:UIImageScaleAspectFit];
 		else
-			[app.artworkUrl100 cache:^(NSURL *url) {
+*/			[app.artworkUrl100 cache:^(NSURL *url) {
 				[GCD main:^{
 					cell.imageView.image = [[UIImage image:url] imageWithSize:CGSizeMake(30.0, 30.0) mode:UIImageScaleAspectFit];
 				}];
 			}];
 	}
 
-	[cell.imageView.layer roundCorners:indexPath.section == 4 ? 6.0 : 0.0];
+	[cell.imageView.layer roundCorners:indexPath.section == 5 ? 6.0 : 0.0];
     
     return cell;
 }
@@ -125,7 +126,7 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 
 		}];
 	else if (indexPath.section == 5)
-		[self presentProductWithIdentifier:[self.apps[indexPath.row].trackId integerValue] parameters:Nil];
+		[self presentProductWithIdentifier:[self.apps[indexPath.row].trackId integerValue] parameters:self.affiliateInfo];
 
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

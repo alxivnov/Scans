@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		822D7C178839E9C792CE9FA9 /* libPods-Scans.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9359D7DDE193717C3AE91735 /* libPods-Scans.a */; };
 		CD04593D2049F922006D48D0 /* NSXMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD04593B2049F922006D48D0 /* NSXMLDictionary.m */; };
 		CD045943204B0940006D48D0 /* like-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD045941204B0940006D48D0 /* like-line@2x.png */; };
 		CD045944204B0940006D48D0 /* like-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD045942204B0940006D48D0 /* like-fill@2x.png */; };
@@ -21,8 +22,6 @@
 		CD256D572042E0F80086EAAB /* NSData+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D562042E0F80086EAAB /* NSData+Convenience.m */; };
 		CD256D5A2042E12E0086EAAB /* NSString+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D592042E12E0086EAAB /* NSString+Convenience.m */; };
 		CD256D5D2042E1D90086EAAB /* Answers+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D5B2042E1D80086EAAB /* Answers+Convenience.m */; };
-		CD256D632042E45F0086EAAB /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD256D602042E45F0086EAAB /* Crashlytics.framework */; };
-		CD256D652042E45F0086EAAB /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD256D622042E45F0086EAAB /* Fabric.framework */; };
 		CD256D682042E5D70086EAAB /* NSDictionary+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D672042E5D60086EAAB /* NSDictionary+Convenience.m */; };
 		CD256D7B2042E7740086EAAB /* iCloud-60.png in Resources */ = {isa = PBXBuildFile; fileRef = CD256D692042E7710086EAAB /* iCloud-60.png */; };
 		CD256D7C2042E7740086EAAB /* iCloud-76@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD256D6A2042E7720086EAAB /* iCloud-76@3x.png */; };
@@ -57,22 +56,7 @@
 		CD256DA92043045F0086EAAB /* SKInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256DA62043045E0086EAAB /* SKInAppPurchase.m */; };
 		CD256DAA2043045F0086EAAB /* StoreKit+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256DA82043045E0086EAAB /* StoreKit+Convenience.m */; };
 		CD256DAD20430DD20086EAAB /* QuartzCore+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256DAC20430DD20086EAAB /* QuartzCore+Convenience.m */; };
-		CD25C6C620B6AE4300D979FB /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6BF20B6AE4200D979FB /* FirebaseNanoPB.framework */; };
-		CD25C6C720B6AE4300D979FB /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6C020B6AE4200D979FB /* FirebaseInstanceID.framework */; };
-		CD25C6C820B6AE4300D979FB /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6C120B6AE4200D979FB /* GoogleToolboxForMac.framework */; };
-		CD25C6C920B6AE4300D979FB /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6C220B6AE4200D979FB /* nanopb.framework */; };
-		CD25C6CA20B6AE4300D979FB /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6C320B6AE4300D979FB /* FirebaseCoreDiagnostics.framework */; };
-		CD25C6CB20B6AE4300D979FB /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6C420B6AE4300D979FB /* FirebaseCore.framework */; };
-		CD25C6CC20B6AE4300D979FB /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6C520B6AE4300D979FB /* FirebaseAnalytics.framework */; };
-		CD25C6D220B6AEA900D979FB /* FirebaseMLVisionLabelModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6CD20B6AEA900D979FB /* FirebaseMLVisionLabelModel.framework */; };
-		CD25C6D320B6AEA900D979FB /* LabelDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6CE20B6AEA900D979FB /* LabelDetector.framework */; };
-		CD25C6D420B6AEA900D979FB /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6CF20B6AEA900D979FB /* GTMSessionFetcher.framework */; };
-		CD25C6D520B6AEA900D979FB /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6D020B6AEA900D979FB /* Protobuf.framework */; };
-		CD25C6D620B6AEA900D979FB /* GoogleMobileVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6D120B6AEA900D979FB /* GoogleMobileVision.framework */; };
 		CD25C6D920B6B16F00D979FB /* FIRVision+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD25C6D820B6B16F00D979FB /* FIRVision+Convenience.m */; };
-		CD25C6DD20B6BC3B00D979FB /* FirebaseMLCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6DA20B6BC3B00D979FB /* FirebaseMLCommon.framework */; };
-		CD25C6DE20B6BC3B00D979FB /* GoogleAPIClientForREST.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6DB20B6BC3B00D979FB /* GoogleAPIClientForREST.framework */; };
-		CD25C6DF20B6BC3B00D979FB /* FirebaseMLVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD25C6DC20B6BC3B00D979FB /* FirebaseMLVision.framework */; };
 		CD30D8A3207000F200028C8D /* PhotoLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD30D8A2207000F200028C8D /* PhotoLibrary.m */; };
 		CD36C5FA2041BFC10029FA9C /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C5F92041BFC10029FA9C /* NavigationController.m */; };
 		CD36C6262041C2B90029FA9C /* UIAlertController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C5FD2041C2B60029FA9C /* UIAlertController+Convenience.m */; };
@@ -114,8 +98,6 @@
 		CD66F3D42044858B00050C65 /* Vision+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD66F3D32044858B00050C65 /* Vision+Convenience.m */; };
 		CD8157B42059757E007EAEC6 /* UIImagePickerController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8157B32059757D007EAEC6 /* UIImagePickerController+Convenience.m */; };
 		CD822B8B206D602700F2112F /* AVCaptureSession+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD822B8A206D602700F2112F /* AVCaptureSession+Convenience.m */; };
-		CDA87A1320B750AC00FBA978 /* FirebaseMLVisionTextModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA87A1120B750AC00FBA978 /* FirebaseMLVisionTextModel.framework */; };
-		CDA87A1420B750AC00FBA978 /* TextDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA87A1220B750AC00FBA978 /* TextDetector.framework */; };
 		CDC08DE72045C07C009C6AD0 /* VNTextPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */; };
 		CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */; };
 		CDC92D022072824C00287A55 /* TextDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC92D012072824C00287A55 /* TextDetector.m */; };
@@ -133,6 +115,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		76D341700BFF3A52D1DF6D6C /* Pods-Scans.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scans.release.xcconfig"; path = "Pods/Target Support Files/Pods-Scans/Pods-Scans.release.xcconfig"; sourceTree = "<group>"; };
+		9359D7DDE193717C3AE91735 /* libPods-Scans.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Scans.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9B5A858E256402FEE551B8F /* Pods-Scans.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scans.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scans/Pods-Scans.debug.xcconfig"; sourceTree = "<group>"; };
 		CD04593B2049F922006D48D0 /* NSXMLDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSXMLDictionary.m; path = "../Objective Sea/NSXMLDictionary.m"; sourceTree = "<group>"; };
 		CD04593C2049F922006D48D0 /* NSXMLDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSXMLDictionary.h; path = "../Objective Sea/NSXMLDictionary.h"; sourceTree = "<group>"; };
 		CD045941204B0940006D48D0 /* like-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-line@2x.png"; path = "../Frameworks/Images/like-line@2x.png"; sourceTree = "<group>"; };
@@ -159,8 +144,6 @@
 		CD256D592042E12E0086EAAB /* NSString+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Convenience.m"; path = "../Objective Sea/NSString+Convenience.m"; sourceTree = "<group>"; };
 		CD256D5B2042E1D80086EAAB /* Answers+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Answers+Convenience.m"; path = "../Objective Sea/Answers+Convenience.m"; sourceTree = "<group>"; };
 		CD256D5C2042E1D90086EAAB /* Answers+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Answers+Convenience.h"; path = "../Objective Sea/Answers+Convenience.h"; sourceTree = "<group>"; };
-		CD256D602042E45F0086EAAB /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ../Frameworks/Fabric/Crashlytics.framework; sourceTree = "<group>"; };
-		CD256D622042E45F0086EAAB /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ../Frameworks/Fabric/Fabric.framework; sourceTree = "<group>"; };
 		CD256D662042E5D60086EAAB /* NSDictionary+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Convenience.h"; path = "../Objective Sea/NSDictionary+Convenience.h"; sourceTree = "<group>"; };
 		CD256D672042E5D60086EAAB /* NSDictionary+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Convenience.m"; path = "../Objective Sea/NSDictionary+Convenience.m"; sourceTree = "<group>"; };
 		CD256D692042E7710086EAAB /* iCloud-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iCloud-60.png"; path = "../Frameworks/Images/iCloud-60.png"; sourceTree = "<group>"; };
@@ -199,23 +182,8 @@
 		CD256DA82043045E0086EAAB /* StoreKit+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StoreKit+Convenience.m"; path = "../Objective Sea/StoreKit+Convenience.m"; sourceTree = "<group>"; };
 		CD256DAB20430DD10086EAAB /* QuartzCore+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QuartzCore+Convenience.h"; path = "../Objective Sea/QuartzCore+Convenience.h"; sourceTree = "<group>"; };
 		CD256DAC20430DD20086EAAB /* QuartzCore+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QuartzCore+Convenience.m"; path = "../Objective Sea/QuartzCore+Convenience.m"; sourceTree = "<group>"; };
-		CD25C6BF20B6AE4200D979FB /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseNanoPB.framework; path = ../Frameworks/Firebase/Analytics/FirebaseNanoPB.framework; sourceTree = "<group>"; };
-		CD25C6C020B6AE4200D979FB /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = ../Frameworks/Firebase/Analytics/FirebaseInstanceID.framework; sourceTree = "<group>"; };
-		CD25C6C120B6AE4200D979FB /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = ../Frameworks/Firebase/Analytics/GoogleToolboxForMac.framework; sourceTree = "<group>"; };
-		CD25C6C220B6AE4200D979FB /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = nanopb.framework; path = ../Frameworks/Firebase/Analytics/nanopb.framework; sourceTree = "<group>"; };
-		CD25C6C320B6AE4300D979FB /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCoreDiagnostics.framework; path = ../Frameworks/Firebase/Analytics/FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
-		CD25C6C420B6AE4300D979FB /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = ../Frameworks/Firebase/Analytics/FirebaseCore.framework; sourceTree = "<group>"; };
-		CD25C6C520B6AE4300D979FB /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = ../Frameworks/Firebase/Analytics/FirebaseAnalytics.framework; sourceTree = "<group>"; };
-		CD25C6CD20B6AEA900D979FB /* FirebaseMLVisionLabelModel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMLVisionLabelModel.framework; path = ../Frameworks/Firebase/MLVisionLabelModel/FirebaseMLVisionLabelModel.framework; sourceTree = "<group>"; };
-		CD25C6CE20B6AEA900D979FB /* LabelDetector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LabelDetector.framework; path = ../Frameworks/Firebase/MLVisionLabelModel/LabelDetector.framework; sourceTree = "<group>"; };
-		CD25C6CF20B6AEA900D979FB /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GTMSessionFetcher.framework; path = ../Frameworks/Firebase/MLVision/GTMSessionFetcher.framework; sourceTree = "<group>"; };
-		CD25C6D020B6AEA900D979FB /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = ../Frameworks/Firebase/MLVision/Protobuf.framework; sourceTree = "<group>"; };
-		CD25C6D120B6AEA900D979FB /* GoogleMobileVision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileVision.framework; path = ../Frameworks/Firebase/MLVision/GoogleMobileVision.framework; sourceTree = "<group>"; };
 		CD25C6D720B6B16F00D979FB /* FIRVision+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "FIRVision+Convenience.h"; path = "../Objective Sea/FIRVision+Convenience.h"; sourceTree = "<group>"; };
 		CD25C6D820B6B16F00D979FB /* FIRVision+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "FIRVision+Convenience.m"; path = "../Objective Sea/FIRVision+Convenience.m"; sourceTree = "<group>"; };
-		CD25C6DA20B6BC3B00D979FB /* FirebaseMLCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMLCommon.framework; path = ../Frameworks/Firebase/MLVision/FirebaseMLCommon.framework; sourceTree = "<group>"; };
-		CD25C6DB20B6BC3B00D979FB /* GoogleAPIClientForREST.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAPIClientForREST.framework; path = ../Frameworks/Firebase/MLVision/GoogleAPIClientForREST.framework; sourceTree = "<group>"; };
-		CD25C6DC20B6BC3B00D979FB /* FirebaseMLVision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMLVision.framework; path = ../Frameworks/Firebase/MLVision/FirebaseMLVision.framework; sourceTree = "<group>"; };
 		CD30D8A1207000F200028C8D /* PhotoLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoLibrary.h; sourceTree = "<group>"; };
 		CD30D8A2207000F200028C8D /* PhotoLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoLibrary.m; sourceTree = "<group>"; };
 		CD36C5F82041BFC10029FA9C /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -266,7 +234,6 @@
 		CD3F267320B9A7D20016C2F0 /* info-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "info-fill@2x.png"; path = "../Frameworks/Images/info-fill@2x.png"; sourceTree = "<group>"; };
 		CD3F267520B9A8DE0016C2F0 /* camera-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-fill@2x.png"; path = "../Frameworks/Images/camera-fill@2x.png"; sourceTree = "<group>"; };
 		CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		CD438C6820B0B6CB00189B71 /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Firebase.h; path = ../../Frameworks/Firebase/Firebase.h; sourceTree = "<group>"; };
 		CD466434205C203B002F068A /* RectangleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RectangleController.h; sourceTree = "<group>"; };
 		CD466435205C203B002F068A /* RectangleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RectangleController.m; sourceTree = "<group>"; };
 		CD538BEF20B88E8C004956D1 /* UISearchController+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UISearchController+Convenience.h"; path = "../Objective Sea/UISearchController+Convenience.h"; sourceTree = "<group>"; };
@@ -292,8 +259,6 @@
 		CD8157B32059757D007EAEC6 /* UIImagePickerController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImagePickerController+Convenience.m"; path = "../Objective Sea/UIImagePickerController+Convenience.m"; sourceTree = "<group>"; };
 		CD822B89206D602700F2112F /* AVCaptureSession+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AVCaptureSession+Convenience.h"; path = "../Objective Sea/AVCaptureSession+Convenience.h"; sourceTree = "<group>"; };
 		CD822B8A206D602700F2112F /* AVCaptureSession+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AVCaptureSession+Convenience.m"; path = "../Objective Sea/AVCaptureSession+Convenience.m"; sourceTree = "<group>"; };
-		CDA87A1120B750AC00FBA978 /* FirebaseMLVisionTextModel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMLVisionTextModel.framework; path = ../Frameworks/Firebase/MLVisionTextModel/FirebaseMLVisionTextModel.framework; sourceTree = "<group>"; };
-		CDA87A1220B750AC00FBA978 /* TextDetector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TextDetector.framework; path = ../Frameworks/Firebase/MLVisionTextModel/TextDetector.framework; sourceTree = "<group>"; };
 		CDC08DE52045C07C009C6AD0 /* VNTextPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VNTextPagingController.h; sourceTree = "<group>"; };
 		CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNTextPagingController.m; sourceTree = "<group>"; };
 		CDC08DE82045E18C009C6AD0 /* PHAssetPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAssetPagingController.h; sourceTree = "<group>"; };
@@ -325,53 +290,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD256D632042E45F0086EAAB /* Crashlytics.framework in Frameworks */,
-				CD256D652042E45F0086EAAB /* Fabric.framework in Frameworks */,
-				CD25C6C620B6AE4300D979FB /* FirebaseNanoPB.framework in Frameworks */,
-				CD25C6C720B6AE4300D979FB /* FirebaseInstanceID.framework in Frameworks */,
-				CD25C6C820B6AE4300D979FB /* GoogleToolboxForMac.framework in Frameworks */,
-				CD25C6C920B6AE4300D979FB /* nanopb.framework in Frameworks */,
-				CD25C6CA20B6AE4300D979FB /* FirebaseCoreDiagnostics.framework in Frameworks */,
-				CD25C6CB20B6AE4300D979FB /* FirebaseCore.framework in Frameworks */,
-				CD25C6CC20B6AE4300D979FB /* FirebaseAnalytics.framework in Frameworks */,
-				CD25C6D220B6AEA900D979FB /* FirebaseMLVisionLabelModel.framework in Frameworks */,
-				CDA87A1420B750AC00FBA978 /* TextDetector.framework in Frameworks */,
-				CD25C6DD20B6BC3B00D979FB /* FirebaseMLCommon.framework in Frameworks */,
-				CD25C6D320B6AEA900D979FB /* LabelDetector.framework in Frameworks */,
-				CD25C6D420B6AEA900D979FB /* GTMSessionFetcher.framework in Frameworks */,
-				CD25C6D520B6AEA900D979FB /* Protobuf.framework in Frameworks */,
-				CD25C6DF20B6BC3B00D979FB /* FirebaseMLVision.framework in Frameworks */,
-				CDA87A1320B750AC00FBA978 /* FirebaseMLVisionTextModel.framework in Frameworks */,
-				CD25C6DE20B6BC3B00D979FB /* GoogleAPIClientForREST.framework in Frameworks */,
-				CD25C6D620B6AEA900D979FB /* GoogleMobileVision.framework in Frameworks */,
+				822D7C178839E9C792CE9FA9 /* libPods-Scans.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB7BD18B7E1B516130D19ED3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C9B5A858E256402FEE551B8F /* Pods-Scans.debug.xcconfig */,
+				76D341700BFF3A52D1DF6D6C /* Pods-Scans.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		CD256D5F2042E45E0086EAAB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CDA87A1120B750AC00FBA978 /* FirebaseMLVisionTextModel.framework */,
-				CDA87A1220B750AC00FBA978 /* TextDetector.framework */,
-				CD25C6CD20B6AEA900D979FB /* FirebaseMLVisionLabelModel.framework */,
-				CD25C6CE20B6AEA900D979FB /* LabelDetector.framework */,
-				CD25C6DA20B6BC3B00D979FB /* FirebaseMLCommon.framework */,
-				CD25C6DC20B6BC3B00D979FB /* FirebaseMLVision.framework */,
-				CD25C6DB20B6BC3B00D979FB /* GoogleAPIClientForREST.framework */,
-				CD25C6D120B6AEA900D979FB /* GoogleMobileVision.framework */,
-				CD25C6CF20B6AEA900D979FB /* GTMSessionFetcher.framework */,
-				CD25C6D020B6AEA900D979FB /* Protobuf.framework */,
-				CD25C6C520B6AE4300D979FB /* FirebaseAnalytics.framework */,
-				CD25C6C420B6AE4300D979FB /* FirebaseCore.framework */,
-				CD25C6C320B6AE4300D979FB /* FirebaseCoreDiagnostics.framework */,
-				CD25C6C020B6AE4200D979FB /* FirebaseInstanceID.framework */,
-				CD25C6BF20B6AE4200D979FB /* FirebaseNanoPB.framework */,
-				CD25C6C120B6AE4200D979FB /* GoogleToolboxForMac.framework */,
-				CD25C6C220B6AE4200D979FB /* nanopb.framework */,
-				CD256D602042E45F0086EAAB /* Crashlytics.framework */,
-				CD256D622042E45F0086EAAB /* Fabric.framework */,
+				9359D7DDE193717C3AE91735 /* libPods-Scans.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -526,6 +464,7 @@
 				CD662FC11FC701E1002BA3F8 /* Scans */,
 				CD662FC01FC701E1002BA3F8 /* Products */,
 				CD256D5F2042E45E0086EAAB /* Frameworks */,
+				AB7BD18B7E1B516130D19ED3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -576,7 +515,6 @@
 				CD662FF41FC73B27002BA3F8 /* VNTextCollectionController.h */,
 				CD662FF51FC73B27002BA3F8 /* VNTextCollectionController.m */,
 				CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */,
-				CD438C6820B0B6CB00189B71 /* Firebase.h */,
 			);
 			path = Scans;
 			sourceTree = "<group>";
@@ -588,10 +526,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD662FD81FC701E2002BA3F8 /* Build configuration list for PBXNativeTarget "Scans" */;
 			buildPhases = (
+				A87638487CC339089672DC08 /* [CP] Check Pods Manifest.lock */,
 				CD662FBB1FC701E1002BA3F8 /* Sources */,
 				CD662FBC1FC701E1002BA3F8 /* Frameworks */,
 				CD662FBD1FC701E1002BA3F8 /* Resources */,
 				CD256D5E2042E36A0086EAAB /* ShellScript */,
+				55B2AA0A2471CB67F582E69F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -699,6 +639,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		55B2AA0A2471CB67F582E69F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Scans/Pods-Scans-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleMobileVision/GoogleMVTextDetectorResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMVTextDetectorResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Scans/Pods-Scans-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A87638487CC339089672DC08 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Scans-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CD256D5E2042E36A0086EAAB /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -710,7 +686,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "../Frameworks/Fabric/Fabric.framework/run 9c7a9aee279608464bee25c72371121e09e0819f 394736f643de36cff4106b6e436cd026f69b5b8c786eb129a0e06c49204967ad";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 9c7a9aee279608464bee25c72371121e09e0819f 394736f643de36cff4106b6e436cd026f69b5b8c786eb129a0e06c49204967ad";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -913,17 +889,15 @@
 		};
 		CD662FD91FC701E2002BA3F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9B5A858E256402FEE551B8F /* Pods-Scans.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Scans/Scans.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VRBB8HL9RV;
-				FRAMEWORK_SEARCH_PATHS = "../Frameworks/**";
 				INFOPLIST_FILE = Scans/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "../Frameworks/**";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexivanov.scans;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -932,17 +906,15 @@
 		};
 		CD662FDA1FC701E2002BA3F8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 76D341700BFF3A52D1DF6D6C /* Pods-Scans.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Scans/Scans.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VRBB8HL9RV;
-				FRAMEWORK_SEARCH_PATHS = "../Frameworks/**";
 				INFOPLIST_FILE = Scans/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "../Frameworks/**";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexivanov.scans;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

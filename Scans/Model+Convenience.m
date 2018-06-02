@@ -49,11 +49,11 @@
 }
 
 - (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier assetIdentifier:(NSString *)assetIdentifier {
-	return [Observation executeFetchRequestInContext:self predicateWithFormat:@"albumIdentifier = %@ && assetIdentifier = %@", albumIdentifier, assetIdentifier];
+	return [Observation executeFetchRequestInContext:self predicateWithFormat:@"(albumIdentifier = %@) && (assetIdentifier = %@)", albumIdentifier, assetIdentifier];
 }
 
 - (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier label:(NSString *)label {
-	return [Observation executeFetchRequestInContext:self predicateWithFormat:@"(albumIdentifier = %@) && (label like %@)", albumIdentifier, [NSString stringWithFormat:@"*%@*", label]];
+	return [Observation executeFetchRequestInContext:self predicateWithFormat:@"(albumIdentifier = %@) && (text like %@)", albumIdentifier, [NSString stringWithFormat:@"*%@*", label]];
 }
 
 - (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier {
@@ -90,7 +90,48 @@
 		obj.frame = label.frame;
 		obj.confidence = label.confidence;
 		obj.entityID = label.entityID;
-		obj.label = label.label;
+		obj.text = label.label;
+	}
+
+	[self save];
+
+	return asset;
+}
+
+- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier texts:(NSArray<id<FIRVisionText>> *)texts labels:(NSArray<FIRVisionLabel *> *)labels size:(CGSize)size {
+	Asset *asset = [Asset insertInContext:self];
+	asset.assetIdentifier = assetIdentifier;
+	asset.albumIdentifier = albumIdentifier;
+	asset.numberOfObservations = texts.count;
+	asset.numberOfLabels = labels.count;
+
+	for (id<FIRVisionText> text in texts) {
+		NSArray<id<FIRVisionText>> *lines = ret(text, lines);
+		if (!lines)
+			lines = @[ text ];
+
+		for (id<FIRVisionText> line in lines) {
+			Label *obj = [Label insertInContext:self];
+			obj.albumIdentifier = albumIdentifier;
+			obj.assetIdentifier = assetIdentifier;
+			CGRect frame = line.frame;
+			frame.origin.x /= size.width;
+			frame.origin.y = 1.0 - (frame.origin.y + frame.size.height) / size.height;
+			frame.size.width /= size.width;
+			frame.size.height /= size.height;
+			obj.frame = frame;
+			obj.text = line.text;
+		}
+	}
+
+	for (FIRVisionLabel *label in labels) {
+		Label *obj = [Label insertInContext:self];
+		obj.albumIdentifier = albumIdentifier;
+		obj.assetIdentifier = assetIdentifier;
+		obj.frame = label.frame;
+		obj.confidence = label.confidence;
+		obj.entityID = label.entityID;
+		obj.text = label.label;
 	}
 
 	[self save];

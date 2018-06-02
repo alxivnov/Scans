@@ -32,7 +32,7 @@
 	vc.view.tag = index;
 
 	Label *label = cls(Label, observation);
-	vc.navigationItem.title = label.label ?: @"";
+	vc.navigationItem.title = label.text ?: @"";
 
 	return vc;
 }
