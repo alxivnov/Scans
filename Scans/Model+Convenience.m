@@ -49,7 +49,7 @@
 }
 
 - (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier assetIdentifier:(NSString *)assetIdentifier {
-	return [Observation executeFetchRequestInContext:self predicateWithFormat:@"(albumIdentifier = %@) && (assetIdentifier = %@)", albumIdentifier, assetIdentifier];
+	return [Observation executeFetchRequestInContext:self predicate:[NSPredicate predicateWithFormat:@"(albumIdentifier = %@) && (assetIdentifier = %@)", albumIdentifier, assetIdentifier] sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"y" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"x" ascending:YES] ]];
 }
 
 - (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier label:(NSString *)label {

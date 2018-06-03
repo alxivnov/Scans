@@ -14,7 +14,7 @@
 #import "UIView+Convenience.h"
 #import "Vision+Convenience.h"
 
-@interface VNTextCollectionController () <CollectionTransitionDelegate>
+@interface VNTextCollectionController () <UIGestureRecognizerDelegate, CollectionTransitionDelegate>
 @property (strong, nonatomic) NSIndexPath *indexPath;
 @end
 
@@ -37,6 +37,22 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
+	self.navigationController.interactivePopGestureRecognizer.delegate = self;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+
+	self.navigationController.interactivePopGestureRecognizer.delegate = Nil;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(nonnull UIGestureRecognizer *)otherGestureRecognizer {
+	return otherGestureRecognizer == self.navigationController.interactivePopGestureRecognizer;
 }
 
 #pragma mark - Navigation
