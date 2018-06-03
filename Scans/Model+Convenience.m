@@ -53,7 +53,7 @@
 }
 
 - (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier label:(NSString *)label {
-	return [Observation executeFetchRequestInContext:self predicateWithFormat:@"(albumIdentifier = %@) && (text like %@)", albumIdentifier, [NSString stringWithFormat:@"*%@*", label]];
+	return [Observation executeFetchRequestInContext:self predicateWithFormat:@"(albumIdentifier = %@) && (text like[cd] %@)", albumIdentifier, [NSString stringWithFormat:@"*%@*", label]];
 }
 
 - (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier {

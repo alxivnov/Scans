@@ -13,6 +13,8 @@
 
 @import Firebase;
 
+#import "Reachability.h"
+
 #import "TextDetector.h"
 
 @interface AppDelegate ()
@@ -40,15 +42,21 @@
 
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-	[Answers logCustomEventWithName:@"Background fetch" customAttributes:@{ @"backgroundRefreshStatus" : application.backgroundRefreshStatus == UIBackgroundRefreshStatusRestricted ? @"UIBackgroundRefreshStatusRestricted" : application.backgroundRefreshStatus == UIBackgroundRefreshStatusDenied ? @"UIBackgroundRefreshStatusDenied" : application.backgroundRefreshStatus == UIBackgroundRefreshStatusAvailable ? @"UIBackgroundRefreshStatusAvailable" : @"" }];
+	NetworkStatus status = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
 
-	TextDetector *detector = [[TextDetector alloc] init];
-	if (detector.count)
-		[detector process:10.0 handler:^() {
-			completionHandler(UIBackgroundFetchResultNewData);
-		}];
-	else
-		completionHandler(UIBackgroundFetchResultNoData);
+	[Answers logCustomEventWithName:@"Background fetch" customAttributes:@{ @"Reachability" : status == ReachableViaWiFi ? @"WiFi" : status == ReachableViaWWAN ? @"WWAN" : @"None" }];
+
+	if (status == ReachableViaWiFi) {
+		TextDetector *detector = [[TextDetector alloc] init];
+		if (detector.count)
+			[detector process:10.0 handler:^() {
+				completionHandler(UIBackgroundFetchResultNewData);
+			}];
+		else
+			completionHandler(UIBackgroundFetchResultNoData);
+	} else {
+		completionHandler(UIBackgroundFetchResultFailed);
+	}
 }
 
 

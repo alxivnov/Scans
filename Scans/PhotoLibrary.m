@@ -90,7 +90,9 @@
 - (void)setSearch:(NSString *)search {
 	_search = search;
 
-	self.observations = search.length ? [self.db.viewContext fetchObservationsWithAlbumIdentifier:self.album.localIdentifier label:search] : Nil;
+	self.observations = search.length ? [[self.db.viewContext fetchObservationsWithAlbumIdentifier:self.album.localIdentifier label:search] dictionaryWithKey:^id<NSCopying>(Observation *obj) {
+		return obj.assetIdentifier;
+	}].allValues : Nil;
 }
 
 - (NSUInteger)count {

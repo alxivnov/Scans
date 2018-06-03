@@ -98,6 +98,7 @@
 		CD66F3D42044858B00050C65 /* Vision+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD66F3D32044858B00050C65 /* Vision+Convenience.m */; };
 		CD8157B42059757E007EAEC6 /* UIImagePickerController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8157B32059757D007EAEC6 /* UIImagePickerController+Convenience.m */; };
 		CD822B8B206D602700F2112F /* AVCaptureSession+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD822B8A206D602700F2112F /* AVCaptureSession+Convenience.m */; };
+		CD84E14920C2C9DC00286E27 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CD84E14820C2C9DC00286E27 /* Reachability.m */; };
 		CDC08DE72045C07C009C6AD0 /* VNTextPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */; };
 		CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */; };
 		CDC92D022072824C00287A55 /* TextDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC92D012072824C00287A55 /* TextDetector.m */; };
@@ -259,6 +260,8 @@
 		CD8157B32059757D007EAEC6 /* UIImagePickerController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImagePickerController+Convenience.m"; path = "../Objective Sea/UIImagePickerController+Convenience.m"; sourceTree = "<group>"; };
 		CD822B89206D602700F2112F /* AVCaptureSession+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AVCaptureSession+Convenience.h"; path = "../Objective Sea/AVCaptureSession+Convenience.h"; sourceTree = "<group>"; };
 		CD822B8A206D602700F2112F /* AVCaptureSession+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AVCaptureSession+Convenience.m"; path = "../Objective Sea/AVCaptureSession+Convenience.m"; sourceTree = "<group>"; };
+		CD84E14720C2C9DC00286E27 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ../Frameworks/Source/Reachability/Reachability/Reachability.h; sourceTree = "<group>"; };
+		CD84E14820C2C9DC00286E27 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../Frameworks/Source/Reachability/Reachability/Reachability.m; sourceTree = "<group>"; };
 		CDC08DE52045C07C009C6AD0 /* VNTextPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VNTextPagingController.h; sourceTree = "<group>"; };
 		CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNTextPagingController.m; sourceTree = "<group>"; };
 		CDC08DE82045E18C009C6AD0 /* PHAssetPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAssetPagingController.h; sourceTree = "<group>"; };
@@ -459,6 +462,7 @@
 		CD662FB61FC701E1002BA3F8 = {
 			isa = PBXGroup;
 			children = (
+				CD84E14620C2C9B800286E27 /* External */,
 				CD36C5FC2041C2190029FA9C /* Objective Sea */,
 				CD36C5FB2041C2130029FA9C /* Images */,
 				CD662FC11FC701E1002BA3F8 /* Scans */,
@@ -517,6 +521,15 @@
 				CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */,
 			);
 			path = Scans;
+			sourceTree = "<group>";
+		};
+		CD84E14620C2C9B800286E27 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				CD84E14720C2C9DC00286E27 /* Reachability.h */,
+				CD84E14820C2C9DC00286E27 /* Reachability.m */,
+			);
+			name = External;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -729,6 +742,7 @@
 				CD36C6272041C2B90029FA9C /* Photos+Convenience.m in Sources */,
 				CD538BF120B88E8C004956D1 /* UISearchController+Convenience.m in Sources */,
 				CD36C6342041C2B90029FA9C /* UIViewController+Convenience.m in Sources */,
+				CD84E14920C2C9DC00286E27 /* Reachability.m in Sources */,
 				CD25C6D920B6B16F00D979FB /* FIRVision+Convenience.m in Sources */,
 				CD466436205C203B002F068A /* RectangleController.m in Sources */,
 				CD256DA92043045F0086EAAB /* SKInAppPurchase.m in Sources */,
