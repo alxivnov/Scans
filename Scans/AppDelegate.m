@@ -13,8 +13,6 @@
 
 @import Firebase;
 
-#import "Reachability.h"
-
 #import "TextDetector.h"
 
 @interface AppDelegate ()
@@ -42,21 +40,15 @@
 
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-	NetworkStatus status = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
+	[Answers logCustomEventWithName:@"Background fetch" customAttributes:Nil];
 
-	[Answers logCustomEventWithName:@"Background fetch" customAttributes:@{ @"Reachability" : status == ReachableViaWiFi ? @"WiFi" : status == ReachableViaWWAN ? @"WWAN" : @"None" }];
-
-	if (status == ReachableViaWiFi) {
-		TextDetector *detector = [[TextDetector alloc] init];
-		if (detector.count)
-			[detector process:10.0 handler:^() {
-				completionHandler(UIBackgroundFetchResultNewData);
-			}];
-		else
-			completionHandler(UIBackgroundFetchResultNoData);
-	} else {
-		completionHandler(UIBackgroundFetchResultFailed);
-	}
+	TextDetector *detector = [[TextDetector alloc] init];
+	if (detector.count)
+		[detector process:20.0 handler:^() {
+			completionHandler(UIBackgroundFetchResultNewData);
+		}];
+	else
+		completionHandler(UIBackgroundFetchResultNoData);
 }
 
 

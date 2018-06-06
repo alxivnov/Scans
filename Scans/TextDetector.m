@@ -8,6 +8,8 @@
 
 #import "TextDetector.h"
 
+#import "Reachability.h"
+
 #import <Crashlytics/Crashlytics.h>
 
 @interface TextDetector ()
@@ -55,7 +57,9 @@
 	if (!asset)
 		return;
 
-	[LIB detectTextRectanglesForAsset:asset handler:^(NSArray *results) {
+	BOOL networkAccessAllowed = [UIApplication sharedApplication].isActive || [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWiFi;
+	
+	[LIB detectTextRectanglesForAsset:asset networkAccessAllowed:networkAccessAllowed handler:^(NSArray *results) {
 		if (handler)
 			handler(results.count > 0);
 

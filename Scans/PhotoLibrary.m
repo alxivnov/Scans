@@ -165,9 +165,9 @@
 	}];
 }
 
-- (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset handler:(void (^)(NSArray<id<FIRVisionText>> *))handler {
+- (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset networkAccessAllowed:(BOOL)networkAccessAllowed handler:(void (^)(NSArray<id<FIRVisionText>> *))handler {
 	PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-	options.networkAccessAllowed = YES;
+	options.networkAccessAllowed = networkAccessAllowed;
 	options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
 	options.synchronous = YES;
 

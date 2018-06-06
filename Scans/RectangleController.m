@@ -26,7 +26,7 @@
 
 @implementation RectangleController
 
-__synthesize(AVCaptureVideoDataOutput *, videoDataOutput, [AVCaptureVideoDataOutput videoDataOutputWithSampleBufferDelegate:self queue:dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0)])
+__synthesize(AVCaptureVideoDataOutput *, videoDataOutput, [AVCaptureVideoDataOutput videoDataOutputWithSampleBufferDelegate:self queue:Nil])
 
 __synthesize(VNSequenceRequestHandler *, handler, [[VNSequenceRequestHandler alloc] init])
 
@@ -94,8 +94,8 @@ __synthesize(CAShapeLayer *, shapeLayer, ({
 }
 
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-	// Doherty Threshold 0.4
-	// HPM Eye movement time 0.2
+//	Doherty Threshold 0.4
+//	HPM Eye movement time 0.2
 	if (self.date && [self.date timeIntervalSinceNow] > -0.2)
 		return;
 
