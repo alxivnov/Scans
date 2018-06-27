@@ -181,14 +181,10 @@ static NSString * const reuseIdentifier = @"Cell";
 	[self updateHeader:Nil];
 }
 
-- (IBAction)cameraAction:(UIBarButtonItem *)sender {
-	RectangleController *vc = [[RectangleController alloc] initWithHandler:^(UIImage *image) {
-		[LIB createAssetWithImage:image];
-	}];
+- (IBAction)searchAction:(UIBarButtonItem *)sender {
+//	self.navigationItem.searchController.active = YES;
 
-	[self presentViewController:vc animated:YES completion:Nil];
-
-	vc.doneButton.layer.borderColor = vc.shapeLayer.strokeColor = self.navigationController.navigationBar.tintColor.CGColor;
+	[self.navigationItem.searchController.searchBar becomeFirstResponder];
 }
 
 - (void)photoLibraryDidChange:(PHChange *)changeInstance {
@@ -196,13 +192,17 @@ static NSString * const reuseIdentifier = @"Cell";
 		@synchronized(self) {
 			PHFetchResultChangeDetails *changes = [LIB performFetchResultChanges:changeInstance];
 
-			[self.collectionView performFetchResultChanges:changes inSection:0 completion:^(BOOL finished) {
-				if (changes.insertedIndexes.count)
-					[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:changes.insertedIndexes.firstIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+			if (LIB.search) {
+				[self.collectionView reloadData];
+			} else {
+				[self.collectionView performFetchResultChanges:changes inSection:0 completion:^(BOOL finished) {
+					if (changes.insertedIndexes.count)
+						[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:changes.insertedIndexes.firstIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
 
-//				[self updateHeader:Nil];
-				[self updateFooter:Nil];
-			}];
+	//				[self updateHeader:Nil];
+					[self updateFooter:Nil];
+				}];
+			}
 		}
 	}];
 }

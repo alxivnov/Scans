@@ -86,6 +86,7 @@
 		CD438C6720B0B6B600189B71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */; };
 		CD466436205C203B002F068A /* RectangleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD466435205C203B002F068A /* RectangleController.m */; };
 		CD538BF120B88E8C004956D1 /* UISearchController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */; };
+		CD64F03B20E3CB8A0017FCCF /* search-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD64F03A20E3CB8A0017FCCF /* search-line@2x.png */; };
 		CD662FC41FC701E2002BA3F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC31FC701E2002BA3F8 /* AppDelegate.m */; };
 		CD662FC71FC701E2002BA3F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC61FC701E2002BA3F8 /* ViewController.m */; };
 		CD662FCA1FC701E2002BA3F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD662FC81FC701E2002BA3F8 /* Main.storyboard */; };
@@ -239,6 +240,7 @@
 		CD466435205C203B002F068A /* RectangleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RectangleController.m; sourceTree = "<group>"; };
 		CD538BEF20B88E8C004956D1 /* UISearchController+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UISearchController+Convenience.h"; path = "../Objective Sea/UISearchController+Convenience.h"; sourceTree = "<group>"; };
 		CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UISearchController+Convenience.m"; path = "../Objective Sea/UISearchController+Convenience.m"; sourceTree = "<group>"; };
+		CD64F03A20E3CB8A0017FCCF /* search-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search-line@2x.png"; path = "../Frameworks/Images/search-line@2x.png"; sourceTree = "<group>"; };
 		CD662FBF1FC701E1002BA3F8 /* Scans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scans.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD662FC21FC701E1002BA3F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CD662FC31FC701E2002BA3F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				CDE0055D206E6BE100EA1C2F /* photos-120@3x.png */,
+				CD64F03A20E3CB8A0017FCCF /* search-line@2x.png */,
 				CD36C6402041DBEF0029FA9C /* scans-30@3x.png */,
 				CD3F267520B9A8DE0016C2F0 /* camera-fill@2x.png */,
 				CD3F267320B9A7D20016C2F0 /* info-fill@2x.png */,
@@ -613,6 +616,7 @@
 				CD3F267620B9A8DE0016C2F0 /* camera-fill@2x.png in Resources */,
 				CD3F267420B9A7D30016C2F0 /* info-fill@2x.png in Resources */,
 				CD36C63D2041C5290029FA9C /* circle-line@2x.png in Resources */,
+				CD64F03B20E3CB8A0017FCCF /* search-line@2x.png in Resources */,
 				CD438C6720B0B6B600189B71 /* GoogleService-Info.plist in Resources */,
 				CD256D9F2042E7810086EAAB /* VK-76@2x.png in Resources */,
 				CD662FD21FC701E2002BA3F8 /* LaunchScreen.storyboard in Resources */,

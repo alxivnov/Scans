@@ -90,9 +90,24 @@
 - (void)setSearch:(NSString *)search {
 	_search = search;
 
-	self.observations = search.length ? [[self.db.viewContext fetchObservationsWithAlbumIdentifier:self.album.localIdentifier label:search] dictionaryWithKey:^id<NSCopying>(Observation *obj) {
-		return obj.assetIdentifier;
-	}].allValues : Nil;
+	if (search.length) {
+		NSArray<Observation *> *arr = [self.db.viewContext fetchObservationsWithAlbumIdentifier:self.album.localIdentifier label:search];
+		NSDictionary *dic = [arr dictionaryWithKey:^id<NSCopying>(Observation *obj) {
+			return obj.assetIdentifier;
+		} value:^id(Observation *obj, id<NSCopying> key, id val) {
+			if (val)
+				return val;
+
+			for (PHObject *asset in self.fetch)
+				if ([obj.assetIdentifier isEqualToString:asset.localIdentifier])
+					return obj;
+
+			return Nil;
+		}];
+		self.observations = dic.allValues;
+	} else {
+		self.observations = Nil;
+	}
 }
 
 - (NSUInteger)count {
@@ -174,7 +189,7 @@
 	NSString *assetIdentifier = asset.localIdentifier;
 	return [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:LIB.largeSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
 		NSArray<id<FIRVisionText>> *texts = [[FIRVisionTextDetector textDetector] detectInImage:result];
-		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector labelDetector] detectInImage:result];
+		NSArray<FIRVisionLabel *> *labels = Nil;//[[FIRVisionLabelDetector labelDetector] detectInImage:result];
 //		NSArray<VNTextObservation *> *results = [result detectTextRectanglesWithOptions:@{ VNImageOptionPreferBackgroundProcessing : @YES, VNImageOptionReportCharacterBoxes : @YES }];
 
 		if (texts.count) {
@@ -226,6 +241,13 @@
 
 	if (changes.insertedIndexes.count)
 		[self.cache startCachingImagesForAssets:changes.insertedObjects targetSize:self.smallSize contentMode:PHImageContentModeAspectFill options:Nil];
+
+	if (self.search)
+		self.observations = [self.observations query:^BOOL(Observation *observation) {
+			return ![changes.removedObjects any:^BOOL(PHObject *obj) {
+				return [obj.localIdentifier isEqualToString:observation.assetIdentifier];
+			}];
+		}];
 
 	return changes;
 }
