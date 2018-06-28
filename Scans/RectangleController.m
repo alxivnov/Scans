@@ -8,12 +8,25 @@
 
 #import "RectangleController.h"
 
+#import "PhotoLibrary.h"
+
 #warning Focus
 #warning Flash
 
 #define CGPointRotate(point) CGPointMake(point.y, point.x)
 
-@interface RectangleController () <AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface RectangleController () <AVCapturePhotoCaptureDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
+@property (weak, nonatomic) IBOutlet UIView *previewView;
+@property (weak, nonatomic) IBOutlet UIButton *captureButton;
+
+@property (strong, nonatomic, readonly) AVCaptureSession *session;
+
+@property (strong, nonatomic, readonly) AVCaptureDeviceInput *deviceInput;
+@property (strong, nonatomic, readonly) AVCapturePhotoOutput *photoOutput;
+
+@property (strong, nonatomic, readonly) AVCaptureVideoPreviewLayer *previewLayer;
+
+
 @property (strong, nonatomic, readonly) AVCaptureVideoDataOutput *videoDataOutput;
 
 @property (strong, nonatomic) VNSequenceRequestHandler *handler;
@@ -26,10 +39,20 @@
 
 @implementation RectangleController
 
+__synthesize(AVCaptureSession *, session, [AVCaptureSession sessionWithPreset:AVCaptureSessionPresetPhoto])
+__synthesize(AVCaptureDeviceInput *, deviceInput, [AVCaptureDeviceInput deviceInputWithMediaType:AVMediaTypeVideo])
+__synthesize(AVCapturePhotoOutput *, photoOutput, [[AVCapturePhotoOutput alloc] init])
+
+__synthesize(AVCaptureVideoPreviewLayer *, previewLayer, ({
+	AVCaptureVideoPreviewLayer *layer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
+	layer.frame = self.view.bounds;
+	layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+	layer;
+}))
+
 __synthesize(AVCaptureVideoDataOutput *, videoDataOutput, [AVCaptureVideoDataOutput videoDataOutputWithSampleBufferDelegate:self queue:Nil])
 
 __synthesize(VNSequenceRequestHandler *, handler, [[VNSequenceRequestHandler alloc] init])
-
 __synthesize(VNDetectRectanglesRequest *, request, ({
 	__weak RectangleController *__self = self;
 	VNDetectRectanglesRequest *request = [VNDetectRectanglesRequest requestWithCompletionHandler:^(NSArray *results) {
@@ -75,22 +98,72 @@ __synthesize(CAShapeLayer *, shapeLayer, ({
 	layer;
 }))
 
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	[self.previewLayer.session addOutput:self.videoDataOutput];
+	[self.previewView.layer insertSublayer:self.previewLayer atIndex:0];
+	[self.previewView.layer insertSublayer:self.shapeLayer atIndex:1];
 
-	[self.view.layer addSublayer:self.shapeLayer];
+	self.captureButton.layer.borderColor = [UIColor grayColor].CGColor;
+	self.captureButton.layer.borderWidth = 4.0;
+	self.captureButton.layer.cornerRadius = self.captureButton.frame.size.height / 2.0;
+}
 
-	[self.doneButton removeFromSuperview];
-	[self.cancelButton removeFromSuperview];
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+
+	AVCaptureSession *session = self.session;
+	AVCaptureInput *deviceInput = self.deviceInput;
+	AVCaptureOutput *photoOutput = self.photoOutput;
+	AVCaptureOutput *videoDataOutput = self.videoDataOutput;
+
+	if (deviceInput && ![session.inputs containsObject:deviceInput])
+		[session addInput:deviceInput];
+	if (photoOutput && ![session.outputs containsObject:photoOutput])
+		[session addOutput:photoOutput];
+	if (videoDataOutput && ![session.outputs containsObject:videoDataOutput])
+		[session addOutput:videoDataOutput];
+	if (deviceInput && photoOutput && videoDataOutput && !session.isRunning)
+		[session startRunning];
+
+	self.previewLayer.frame = self.previewView.bounds;
+	self.shapeLayer.frame = self.previewView.bounds;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+
+	AVCaptureSession *session = self.session;
+	if (session.isRunning)
+		[session stopRunning];
 }
 
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
 
+	AVCaptureSession *session = self.session;
+	if (session.isRunning)
+		[session stopRunning];
+
 	self.handler = Nil;
 	self.request = Nil;
+}
+
+- (IBAction)capture:(UIButton *)sender {
+	[self.photoOutput capturePhotoWithSettings:[AVCapturePhotoSettings photoSettings] delegate:self];
+}
+
+- (void)captureOutput:(AVCapturePhotoOutput *)output didFinishProcessingPhoto:(AVCapturePhoto *)photo error:(NSError *)error {
+	UIImage *image = photo.image;
+//	image = [image drawImage:Nil];
+	[image detectRectanglesWithOptions:Nil completionHandler:^(NSArray<VNRectangleObservation *> *results) {
+		UIImage *temp = [image imageWithRectangle:results.firstObject];
+
+		[LIB createAssetWithImage:temp];
+	}];
+
+	[error log:@"didFinishProcessingPhoto:"];
 }
 
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
@@ -102,24 +175,6 @@ __synthesize(CAShapeLayer *, shapeLayer, ({
 	CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
 
 	self.date = [self.handler performRequests:@[ self.request ] onCVPixelBuffer:pixelBuffer] ? [NSDate date] : Nil;
-}
-
-- (instancetype)initWithHandler:(void (^)(UIImage *))handler {
-	self = [self init];
-
-	if (self)
-		self.capturePhotoHandler = ^(AVCapturePhoto *photo) {
-			UIImage *image = photo.image;
-//			image = [image drawImage:Nil];
-			[image detectRectanglesWithOptions:Nil completionHandler:^(NSArray<VNRectangleObservation *> *results) {
-				UIImage *temp = [image imageWithRectangle:results.firstObject];
-
-				if (handler)
-					handler(temp);
-			}];
-		};
-
-	return self;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

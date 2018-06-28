@@ -140,15 +140,16 @@
 		if (!asset)
 			return;
 
-		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector labelDetector] detectInImage:image];
-		[image detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
-			if (results)
+		NSArray<id<FIRVisionText>> *texts = [[FIRVisionTextDetector textDetector] detectInImage:image];
+		NSArray<FIRVisionLabel *> *labels = Nil;//[[FIRVisionLabelDetector labelDetector] detectInImage:image];
+//		[image detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
+			if (texts.count)
 				[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:self.album completionHandler:^(BOOL success) {
-					[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results labels:labels];
+					[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier texts:texts labels:labels size:image.size];
 				}];
 			else
-				[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results labels:labels];
-		}];
+				[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier texts:texts labels:labels size:image.size];
+//		}];
 	}];
 }
 

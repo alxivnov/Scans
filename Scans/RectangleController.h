@@ -15,10 +15,6 @@
 #import "QuartzCore+Convenience.h"
 #import "Vision+Convenience.h"
 
-@interface RectangleController : AVCapturePhotoViewController
-
-- (instancetype)initWithHandler:(void (^)(UIImage *image))handler;
-
-@property (strong, nonatomic, readonly) CAShapeLayer *shapeLayer;
+@interface RectangleController : UIViewController
 
 @end

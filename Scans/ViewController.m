@@ -199,7 +199,7 @@ static NSString * const reuseIdentifier = @"Cell";
 					if (changes.insertedIndexes.count)
 						[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:changes.insertedIndexes.firstIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
 
-	//				[self updateHeader:Nil];
+//					[self updateHeader:Nil];
 					[self updateFooter:Nil];
 				}];
 			}
