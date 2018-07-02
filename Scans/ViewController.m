@@ -42,6 +42,13 @@ static NSString * const reuseIdentifier = @"Cell";
 	[self updateFooter:Nil];
 }
 
+- (void)setDetector:(TextDetector *)detector {
+	_detector = detector;
+
+	[self updateFooter:Nil];
+	[self updateHeader:Nil];
+}
+
 - (void)updateFooter:(UICollectionReusableView *)footer {
 	if (!footer)
 		footer = [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
@@ -79,9 +86,6 @@ static NSString * const reuseIdentifier = @"Cell";
 	self.detector = [[TextDetector alloc] init];
 
 	self.searchResultsUpdater = self;
-
-	[self updateFooter:Nil];
-	[self updateHeader:Nil];
 }
 
 - (void)viewDidLoad {
