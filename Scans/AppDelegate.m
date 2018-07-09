@@ -15,9 +15,10 @@
 
 #import "TextDetector.h"
 
+#import "StoreKit+Convenience.h"
 #import "UIViewController+Convenience.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <SKPaymentTransactionObserver>
 
 @end
 
@@ -27,15 +28,19 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.
 
+	[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+
+	[application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+
+
 	[Fabric with:@[[Crashlytics class]]];
 
 	[FIRApp configure];
 
+
 //	[GCD global:^{
 		LIB;
 //	}];
-
-	[application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
 	return YES;
 }
@@ -128,6 +133,31 @@
         NSLog(@"Unresolved error %@, %@", error, error.userInfo);
         abort();
     }
+}
+
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
+	for (SKPaymentTransaction *transaction in transactions) {
+		if (transaction.transactionState == SKPaymentTransactionStatePurchased) {
+
+
+			[queue finishTransaction:transaction];
+		}
+	}
+
+	[[UIApplication sharedApplication].rootViewController forwardSelector:@selector(paymentQueue:updatedTransactions:) withObject:queue withObject:transactions nextTarget:UIViewControllerNextTarget(NO)];
+}
+
+- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
+	NSLog(@"paymentQueueRestoreCompletedTransactionsFinished:");
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
+	[error log:@"paymentQueue:restoreCompletedTransactionsFailedWithError:"];
+}
+
+- (BOOL)paymentQueue:(SKPaymentQueue *)queue shouldAddStorePayment:(SKPayment *)payment forProduct:(SKProduct *)product {
+	return YES;
 }
 
 @end

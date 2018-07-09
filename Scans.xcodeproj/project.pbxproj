@@ -97,6 +97,7 @@
 		CD662FEA1FC70ECD002BA3F8 /* PHAssetController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FE91FC70ECD002BA3F8 /* PHAssetController.m */; };
 		CD662FF61FC73B27002BA3F8 /* VNTextCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FF51FC73B27002BA3F8 /* VNTextCollectionController.m */; };
 		CD66F3D42044858B00050C65 /* Vision+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD66F3D32044858B00050C65 /* Vision+Convenience.m */; };
+		CD69A08720EB854000353B89 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD69A08620EB854000353B89 /* StoreKit.framework */; };
 		CD8157B42059757E007EAEC6 /* UIImagePickerController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8157B32059757D007EAEC6 /* UIImagePickerController+Convenience.m */; };
 		CD822B8B206D602700F2112F /* AVCaptureSession+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD822B8A206D602700F2112F /* AVCaptureSession+Convenience.m */; };
 		CD84E14920C2C9DC00286E27 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CD84E14820C2C9DC00286E27 /* Reachability.m */; };
@@ -258,6 +259,7 @@
 		CD662FF51FC73B27002BA3F8 /* VNTextCollectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNTextCollectionController.m; sourceTree = "<group>"; };
 		CD66F3D22044858B00050C65 /* Vision+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Vision+Convenience.h"; path = "../Objective Sea/Vision+Convenience.h"; sourceTree = "<group>"; };
 		CD66F3D32044858B00050C65 /* Vision+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Vision+Convenience.m"; path = "../Objective Sea/Vision+Convenience.m"; sourceTree = "<group>"; };
+		CD69A08620EB854000353B89 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		CD8157B22059757D007EAEC6 /* UIImagePickerController+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImagePickerController+Convenience.h"; path = "../Objective Sea/UIImagePickerController+Convenience.h"; sourceTree = "<group>"; };
 		CD8157B32059757D007EAEC6 /* UIImagePickerController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImagePickerController+Convenience.m"; path = "../Objective Sea/UIImagePickerController+Convenience.m"; sourceTree = "<group>"; };
 		CD822B89206D602700F2112F /* AVCaptureSession+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AVCaptureSession+Convenience.h"; path = "../Objective Sea/AVCaptureSession+Convenience.h"; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				822D7C178839E9C792CE9FA9 /* libPods-Scans.a in Frameworks */,
+				CD69A08720EB854000353B89 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +317,7 @@
 		CD256D5F2042E45E0086EAAB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD69A08620EB854000353B89 /* StoreKit.framework */,
 				9359D7DDE193717C3AE91735 /* libPods-Scans.a */,
 			);
 			name = Frameworks;
@@ -572,6 +576,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 							com.apple.iCloud = {

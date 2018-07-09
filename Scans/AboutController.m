@@ -20,18 +20,31 @@
 #import "UIApplication+Convenience.h"
 #import "UIView+Convenience.h"
 
+#define IAP_BACKGROUND_MONTHLY @"com.alexivanov.scans.background.monthly"
+#define IAP_BACKGROUND_YEARLY @"com.alexivanov.scans.background.yearly"
+
 #define APP_ID 1352799843
 #define DEV_ID 734258593
 
-@interface AboutController ()
+#define IDX_IAPS 1
+#define IDX_APPS 5
+
+@interface AboutController () <SKProductsRequestDelegate>
 @property (strong, nonatomic, readonly) NSDictionary *affiliateInfo;
 
 @property (strong, nonatomic) NSArray<AFMediaItem *> *apps;
+
+@property (strong, nonatomic, readonly) NSArray *productIdentifiers;
+@property (strong, nonatomic) SKProductsRequest *productsRequest;
+
+@property (strong, nonatomic) NSDictionary<NSString *, NSDictionary *> *iaps;
 @end
 
 @implementation AboutController
 
 __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvider:@"10603809" affiliate:@"1l3voBu"] dictionaryWithObject:@"write-review" forKey:@"action"])
+
+__synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACKGROUND_YEARLY ]))
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,11 +55,15 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
+	NSURL *caches = [NSFileManager URLForDirectory:NSCachesDirectory];
 
-	NSURL *url = [[NSFileManager URLForDirectory:NSCachesDirectory] URLByAppendingPathComponent:[NSString stringWithFormat:@"%ul.plist", DEV_ID]];
-	self.apps = [[NSArray arrayWithContentsOfURL:url] map:^id(id obj) {
+	NSURL *appsURL = [caches URLByAppendingPathComponent:[NSString stringWithFormat:@"%ul.plist", DEV_ID]];
+	self.apps = [[NSArray arrayWithContentsOfURL:appsURL] map:^id(id obj) {
 		return [[AFMediaItem alloc] initWithDictionary:obj];
 	}];
+
+	NSURL *iapsURL = [caches URLByAppendingPathComponent:@"iaps.plist"];
+	self.iaps = [NSDictionary dictionaryWithContentsOfURL:iapsURL];
 
 	[AFMediaItem lookup:@{ KEY_ID : @(DEV_ID), KEY_MEDIA : kMediaSoftware, KEY_ENTITY : kEntitySoftware } handler:^(NSArray<AFMediaItem *> *results) {
 		self.apps = [results query:^BOOL(AFMediaItem *obj) {
@@ -54,7 +71,7 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 		}];
 		[[self.apps map:^id(AFMediaItem *obj) {
 			return obj.dictionary;
-		}] writeToURL:url];
+		}] writeToURL:appsURL];
 
 		if (self.apps.count)
 			[GCD main:^{
@@ -64,6 +81,8 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 					[self.tableView insertSections:[NSIndexSet indexSetWithIndex:4] withRowAnimation:UITableViewRowAnimationAutomatic];
 			}];
 	}];
+
+	self.productsRequest = [SKProductsRequest startRequestWithProductIdentifiers:self.productIdentifiers delegate:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,21 +93,26 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 5 + (self.apps.count ? 1 : 0);
+	return IDX_APPS + (self.apps.count ? 1 : 0);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return section == 5 ? self.apps.count : section == 1 ? 2 : 1;
+	return section == IDX_APPS ? self.apps.count : section == IDX_IAPS ? (self.iaps.count + 1) : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indexPath.section == 1 ? str(indexPath.section * 10 + indexPath.row) : str(indexPath.section) forIndexPath:indexPath];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indexPath.section == IDX_IAPS && indexPath.row == self.iaps.count ? @"1*" : str(indexPath.section) forIndexPath:indexPath];
     
     // Configure the cell...
 	if (indexPath.section == 0 && indexPath.row == 0) {
 		cell.textLabel.text = [NSBundle bundleDisplayName];
 		cell.detailTextLabel.text = [NSBundle bundleShortVersionString];
-	} else if (indexPath.section == 5) {
+	} else if (indexPath.section == IDX_IAPS && indexPath.row < self.iaps.count) {
+		NSDictionary *iap = self.iaps[self.productIdentifiers[indexPath.row]];
+
+		cell.textLabel.text = iap[@"localizedTitle"];
+		cell.detailTextLabel.text = iap[@"localizedPrice"];
+	} else if (indexPath.section == IDX_APPS && indexPath.row < self.apps.count) {
 		AFMediaItem *app = self.apps[indexPath.row];
 
 		NSArray *titles = [app.trackName componentsSeparatedByString:@" - "];
@@ -105,7 +129,7 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 			}];
 	}
 
-	[cell.imageView.layer roundCorners:indexPath.section == 5 ? 6.0 : 0.0];
+	[cell.imageView.layer roundCorners:indexPath.section == IDX_APPS ? 6.0 : 0.0];
     
     return cell;
 }
@@ -115,6 +139,14 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 
 	if (indexPath.section == 0 && indexPath.row == 0)
 		cell.detailTextLabel.text = [cell.detailTextLabel.text isEqualToString:[NSBundle bundleVersion]] ? [NSBundle bundleShortVersionString] : [NSBundle bundleVersion];
+	else if (indexPath.section == IDX_IAPS && indexPath.row < self.iaps.count) {
+		NSDictionary *iap = self.iaps[self.productIdentifiers[indexPath.row]];
+
+		self.productsRequest = [SKProductsRequest startRequestWithProductIdentifier:iap[@"productIdentifier"] delegate:self];
+
+		[Answers logAddToCartWithPrice:iap[@"price"] currency:iap[@"currencyCode"] itemName:iap[@"localizedTitle"] itemType:Nil itemId:iap[@"productIdentifier"] customAttributes:Nil];
+	} else if (indexPath.section == IDX_IAPS && indexPath.row == self.iaps.count)
+		[[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 	else if (indexPath.section == 2 && indexPath.row == 0)
 		[self presentMailComposeWithRecipients:arr_(cell.detailTextLabel.text) subject:[NSBundle bundleDisplayNameAndShortVersion] body:Nil attachments:dic_(@"screenshot.jpg", [[self.presentingViewController.view snapshotImageAfterScreenUpdates:YES] jpegRepresentation]) completionHandler:Nil];
 	else if (indexPath.section == 3 && indexPath.row == 0)
@@ -125,14 +157,18 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 		[UIApplication openURL:[NSURL URLForMobileAppWithIdentifier:APP_ID affiliateInfo:self.affiliateInfo] options:Nil completionHandler:^(BOOL success) {
 
 		}];
-	else if (indexPath.section == 5)
+	else if (indexPath.section == IDX_APPS && indexPath.row < self.apps.count)
 		[self presentProductWithIdentifier:[self.apps[indexPath.row].trackId integerValue] parameters:self.affiliateInfo];
 
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return section == 1 ? @"SUBSCRIPTIONS" : section == 2 ? @"FEEDBACK" : section == 3 ? @"SHARE" : section == 4 ? @"RATE" : section == 5 ? @"APPS" : Nil;
+	return section == IDX_IAPS ? @"BACKGROUND SCANNING" : section == 2 ? @"FEEDBACK" : section == 3 ? @"SHARE" : section == 4 ? @"RATE" : section == IDX_APPS ? @"APPS" : Nil;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+	return section == IDX_IAPS ? (self.iaps.allValues.firstObject[@"localizedDescription"] ?: @"Enable scanning for text in the background.") : Nil;
 }
 
 /*
@@ -178,5 +214,53 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
+	self.productsRequest = Nil;
+
+	NSUInteger count = response.products.count + response.invalidProductIdentifiers.count;
+	if (count == 1) {
+		SKProduct *product = response.products.firstObject;
+
+		[[SKPaymentQueue defaultQueue] addPaymentWithProduct:product];
+
+		[Answers logStartCheckoutWithPrice:product.price currency:product.currencyCode itemCount:Nil customAttributes:Nil];
+	} else if (count == 2) {
+		self.iaps = [response.products dictionaryWithKey:^id<NSCopying>(SKProduct *obj) {
+			return obj.productIdentifier;
+		} value:^id(SKProduct *obj, id<NSCopying> key, id val) {
+			NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:6];
+			dic[@"localizedTitle"] = obj.localizedTitle;
+			dic[@"localizedPrice"] = obj.localizedPrice;
+			dic[@"localizedDescription"] = obj.localizedDescription;
+			dic[@"productIdentifier"] = obj.productIdentifier;
+			dic[@"price"] = obj.price;
+			dic[@"currencyCode"] = obj.currencyCode;
+			return dic;
+		}];
+		[self.iaps writeToURL:[[NSFileManager URLForDirectory:NSCachesDirectory] URLByAppendingPathComponent:@"iaps.plist"]];
+
+		[GCD main:^{
+			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+		}];
+	}
+}
+
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
+	self.productsRequest = Nil;
+	
+	[error log:@"request:didFailWithError:"];
+}
+
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
+	for (SKPaymentTransaction *transaction in transactions) {
+		if (transaction.transactionState == SKPaymentTransactionStatePurchased) {
+			NSDictionary *iap = self.iaps[transaction.payment.productIdentifier];
+
+			[Answers logPurchaseWithPrice:iap[@"price"] currency:iap[@"currencyCode"] success:@YES itemName:iap[@"localizedTitle"] itemType:Nil itemId:iap[@"productIdentifier"] customAttributes:Nil];
+		}
+	}
+}
 
 @end
