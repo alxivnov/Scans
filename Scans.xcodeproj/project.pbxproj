@@ -86,6 +86,7 @@
 		CD438C6720B0B6B600189B71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */; };
 		CD466436205C203B002F068A /* RectangleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD466435205C203B002F068A /* RectangleController.m */; };
 		CD538BF120B88E8C004956D1 /* UISearchController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */; };
+		CD55A50120F3F02300BDB933 /* AppStoreReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = CD55A50020F3F02300BDB933 /* AppStoreReceipt.m */; };
 		CD64F03B20E3CB8A0017FCCF /* search-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD64F03A20E3CB8A0017FCCF /* search-line@2x.png */; };
 		CD662FC41FC701E2002BA3F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC31FC701E2002BA3F8 /* AppDelegate.m */; };
 		CD662FC71FC701E2002BA3F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC61FC701E2002BA3F8 /* ViewController.m */; };
@@ -103,6 +104,11 @@
 		CD84E14920C2C9DC00286E27 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CD84E14820C2C9DC00286E27 /* Reachability.m */; };
 		CDC08DE72045C07C009C6AD0 /* VNTextPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */; };
 		CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */; };
+		CDC5398D20F4FAD000BFCD38 /* UITableView+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC5398C20F4FAD000BFCD38 /* UITableView+Convenience.m */; };
+		CDC5399320F4FEC100BFCD38 /* UITableViewCell+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC5399220F4FEC100BFCD38 /* UITableViewCell+Convenience.m */; };
+		CDC5399720F5253500BFCD38 /* year-subscription@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDC5399420F5253500BFCD38 /* year-subscription@2x.png */; };
+		CDC5399820F5253500BFCD38 /* restore-subscriptions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDC5399520F5253500BFCD38 /* restore-subscriptions@2x.png */; };
+		CDC5399920F5253500BFCD38 /* month-subscription@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDC5399620F5253500BFCD38 /* month-subscription@2x.png */; };
 		CDC92D022072824C00287A55 /* TextDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC92D012072824C00287A55 /* TextDetector.m */; };
 		CDDBBE85203F4D3100E9E325 /* UIImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDBBE84203F4D3100E9E325 /* UIImageController.m */; };
 		CDE0055E206E6BE200EA1C2F /* photos-120@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDE0055D206E6BE100EA1C2F /* photos-120@3x.png */; };
@@ -241,6 +247,8 @@
 		CD466435205C203B002F068A /* RectangleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RectangleController.m; sourceTree = "<group>"; };
 		CD538BEF20B88E8C004956D1 /* UISearchController+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UISearchController+Convenience.h"; path = "../Objective Sea/UISearchController+Convenience.h"; sourceTree = "<group>"; };
 		CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UISearchController+Convenience.m"; path = "../Objective Sea/UISearchController+Convenience.m"; sourceTree = "<group>"; };
+		CD55A4FF20F3F02300BDB933 /* AppStoreReceipt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppStoreReceipt.h; sourceTree = "<group>"; };
+		CD55A50020F3F02300BDB933 /* AppStoreReceipt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppStoreReceipt.m; sourceTree = "<group>"; };
 		CD64F03A20E3CB8A0017FCCF /* search-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search-line@2x.png"; path = "../Frameworks/Images/search-line@2x.png"; sourceTree = "<group>"; };
 		CD662FBF1FC701E1002BA3F8 /* Scans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scans.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD662FC21FC701E1002BA3F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -270,6 +278,13 @@
 		CDC08DE62045C07C009C6AD0 /* VNTextPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VNTextPagingController.m; sourceTree = "<group>"; };
 		CDC08DE82045E18C009C6AD0 /* PHAssetPagingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PHAssetPagingController.h; sourceTree = "<group>"; };
 		CDC08DE92045E18C009C6AD0 /* PHAssetPagingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PHAssetPagingController.m; sourceTree = "<group>"; };
+		CDC5398B20F4FAD000BFCD38 /* UITableView+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+Convenience.h"; path = "../Objective Sea/UITableView+Convenience.h"; sourceTree = "<group>"; };
+		CDC5398C20F4FAD000BFCD38 /* UITableView+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+Convenience.m"; path = "../Objective Sea/UITableView+Convenience.m"; sourceTree = "<group>"; };
+		CDC5399120F4FEC100BFCD38 /* UITableViewCell+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableViewCell+Convenience.h"; path = "../Objective Sea/UITableViewCell+Convenience.h"; sourceTree = "<group>"; };
+		CDC5399220F4FEC100BFCD38 /* UITableViewCell+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableViewCell+Convenience.m"; path = "../Objective Sea/UITableViewCell+Convenience.m"; sourceTree = "<group>"; };
+		CDC5399420F5253500BFCD38 /* year-subscription@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "year-subscription@2x.png"; path = "../Frameworks/Images/year-subscription@2x.png"; sourceTree = "<group>"; };
+		CDC5399520F5253500BFCD38 /* restore-subscriptions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "restore-subscriptions@2x.png"; path = "../Frameworks/Images/restore-subscriptions@2x.png"; sourceTree = "<group>"; };
+		CDC5399620F5253500BFCD38 /* month-subscription@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "month-subscription@2x.png"; path = "../Frameworks/Images/month-subscription@2x.png"; sourceTree = "<group>"; };
 		CDC92D002072824C00287A55 /* TextDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
 		CDC92D012072824C00287A55 /* TextDetector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextDetector.m; sourceTree = "<group>"; };
 		CDDBBE83203F4D3100E9E325 /* UIImageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIImageController.h; sourceTree = "<group>"; };
@@ -326,6 +341,9 @@
 		CD36C5FB2041C2130029FA9C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CDC5399620F5253500BFCD38 /* month-subscription@2x.png */,
+				CDC5399520F5253500BFCD38 /* restore-subscriptions@2x.png */,
+				CDC5399420F5253500BFCD38 /* year-subscription@2x.png */,
 				CDE0055D206E6BE100EA1C2F /* photos-120@3x.png */,
 				CD64F03A20E3CB8A0017FCCF /* search-line@2x.png */,
 				CD36C6402041DBEF0029FA9C /* scans-30@3x.png */,
@@ -454,6 +472,10 @@
 				CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */,
 				CD36C60E2041C2B70029FA9C /* UIScrollView+Convenience.h */,
 				CD36C60B2041C2B70029FA9C /* UIScrollView+Convenience.m */,
+				CDC5398B20F4FAD000BFCD38 /* UITableView+Convenience.h */,
+				CDC5398C20F4FAD000BFCD38 /* UITableView+Convenience.m */,
+				CDC5399120F4FEC100BFCD38 /* UITableViewCell+Convenience.h */,
+				CDC5399220F4FEC100BFCD38 /* UITableViewCell+Convenience.m */,
 				CD36C6162041C2B80029FA9C /* UIView+Convenience.h */,
 				CD36C6032041C2B70029FA9C /* UIView+Convenience.m */,
 				CD36C6172041C2B80029FA9C /* UIViewController+Convenience.h */,
@@ -500,6 +522,8 @@
 				CD30D8A2207000F200028C8D /* PhotoLibrary.m */,
 				CDC92D002072824C00287A55 /* TextDetector.h */,
 				CDC92D012072824C00287A55 /* TextDetector.m */,
+				CD55A4FF20F3F02300BDB933 /* AppStoreReceipt.h */,
+				CD55A50020F3F02300BDB933 /* AppStoreReceipt.m */,
 				CDE33AC12048640800F89AD8 /* Scans.entitlements */,
 				CD662FC21FC701E1002BA3F8 /* AppDelegate.h */,
 				CD662FC31FC701E2002BA3F8 /* AppDelegate.m */,
@@ -613,9 +637,11 @@
 			files = (
 				CD256DA32042E7810086EAAB /* Twitter-76@3x.png in Resources */,
 				CD256D842042E7740086EAAB /* Google+-60@3x.png in Resources */,
+				CDC5399820F5253500BFCD38 /* restore-subscriptions@2x.png in Resources */,
 				CD256D832042E7740086EAAB /* Facebook-76@3x.png in Resources */,
 				CD256DA22042E7810086EAAB /* Twitter-76.png in Resources */,
 				CD256D8A2042E7740086EAAB /* Facebook-60.png in Resources */,
+				CDC5399720F5253500BFCD38 /* year-subscription@2x.png in Resources */,
 				CD256D862042E7740086EAAB /* Facebook-76@2x.png in Resources */,
 				CD256D882042E7740086EAAB /* Facebook-60@3x.png in Resources */,
 				CD256D872042E7740086EAAB /* iCloud-76@2x.png in Resources */,
@@ -624,6 +650,7 @@
 				CD3F267420B9A7D30016C2F0 /* info-fill@2x.png in Resources */,
 				CD36C63D2041C5290029FA9C /* circle-line@2x.png in Resources */,
 				CD64F03B20E3CB8A0017FCCF /* search-line@2x.png in Resources */,
+				CDC5399920F5253500BFCD38 /* month-subscription@2x.png in Resources */,
 				CD438C6720B0B6B600189B71 /* GoogleService-Info.plist in Resources */,
 				CD256D9F2042E7810086EAAB /* VK-76@2x.png in Resources */,
 				CD662FD21FC701E2002BA3F8 /* LaunchScreen.storyboard in Resources */,
@@ -720,6 +747,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD256D4B2042DFCE0086EAAB /* MobileCoreServices+Convenience.m in Sources */,
+				CD55A50120F3F02300BDB933 /* AppStoreReceipt.m in Sources */,
 				CD256D542042E0DF0086EAAB /* CommonCrypto+Convenience.m in Sources */,
 				CD36C6282041C2B90029FA9C /* UIImage+Convenience.m in Sources */,
 				CD36C62A2041C2B90029FA9C /* NSArray+Convenience.m in Sources */,
@@ -767,6 +795,7 @@
 				CD36C6352041C2B90029FA9C /* NSFormatter+Convenience.m in Sources */,
 				CD662FC41FC701E2002BA3F8 /* AppDelegate.m in Sources */,
 				CD662FD51FC701E2002BA3F8 /* main.m in Sources */,
+				CDC5398D20F4FAD000BFCD38 /* UITableView+Convenience.m in Sources */,
 				CD256D3F2041FFA90086EAAB /* UIGestureTransition.m in Sources */,
 				CD36C6312041C2B90029FA9C /* CoreImage+Convenience.m in Sources */,
 				CD36C5FA2041BFC10029FA9C /* NavigationController.m in Sources */,
@@ -774,6 +803,7 @@
 				CDE33B3F2049936000F89AD8 /* UIPageViewController+Convenience.m in Sources */,
 				CD256D45204200560086EAAB /* UIGestureRecognizer+Convenience.m in Sources */,
 				CD662FCD1FC701E2002BA3F8 /* Scans.xcdatamodeld in Sources */,
+				CDC5399320F4FEC100BFCD38 /* UITableViewCell+Convenience.m in Sources */,
 				CD8157B42059757E007EAEC6 /* UIImagePickerController+Convenience.m in Sources */,
 				CD36C6362041C2B90029FA9C /* UINavigationController+Convenience.m in Sources */,
 				CD256D5A2042E12E0086EAAB /* NSString+Convenience.m in Sources */,

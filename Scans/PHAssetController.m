@@ -102,7 +102,7 @@
 
 	idx(self.toolbarItems, 2).image = [UIImage image:self.asset.isFavorite ? @"like-fill" : @"like-line"];
 
-	[Answers logContentViewWithName:@"PHAsset" contentType:@"PHAssetMediaTypeImage" contentId:asset.localIdentifier customAttributes:Nil];
+	[Answers logContentViewWithName:Nil contentType:@"PHAsset" contentId:asset.localIdentifier customAttributes:Nil];
 }
 
 #pragma mark - Navigation

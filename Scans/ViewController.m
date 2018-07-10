@@ -16,6 +16,8 @@
 #import "UIView+Convenience.h"
 #import "UIViewController+Convenience.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 @interface ViewController () <PHPhotoLibraryChangeObserver, UISearchResultsUpdating, CollectionTransitionDelegate>
 @property (strong, nonatomic) IBOutlet UIView *emptyState;
 
@@ -169,6 +171,8 @@ static NSString * const reuseIdentifier = @"Cell";
 		[GCD main:^{
 			[self reloadData:status];
 		}];
+
+		[Answers logCustomEventWithName:@"Photos authorization" customAttributes:@{ @"success" : status == PHAuthorizationStatusAuthorized ? @YES : @NO }];
 	}];
 }
 

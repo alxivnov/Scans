@@ -13,6 +13,7 @@
 
 @import Firebase;
 
+#import "AppStoreReceipt.h"
 #import "TextDetector.h"
 
 #import "StoreKit+Convenience.h"
@@ -31,6 +32,8 @@
 	[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 
 	[application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+
+	[[AppStoreReceipt instance] verifyReceipt:YES handler:Nil];
 
 
 	[Fabric with:@[[Crashlytics class]]];
@@ -137,15 +140,19 @@
 
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
-	for (SKPaymentTransaction *transaction in transactions) {
-		if (transaction.transactionState == SKPaymentTransactionStatePurchased) {
+	BOOL success = [[AppStoreReceipt instance] verifyReceipt:YES handler:^(NSDictionary *receipt) {
+		if (receipt)
+			for (SKPaymentTransaction *transaction in transactions)
+				if (transaction.transactionState == SKPaymentTransactionStatePurchased || transaction.transactionState == SKPaymentTransactionStateFailed || transaction.transactionState == SKPaymentTransactionStateRestored)
+							[queue finishTransaction:transaction];
 
+		[[UIApplication sharedApplication].rootViewController forwardSelector:@selector(paymentQueue:updatedTransactions:) withObject:queue withObject:transactions nextTarget:UIViewControllerNextTarget(NO)];
+	}];
 
-			[queue finishTransaction:transaction];
-		}
-	}
-
-	[[UIApplication sharedApplication].rootViewController forwardSelector:@selector(paymentQueue:updatedTransactions:) withObject:queue withObject:transactions nextTarget:UIViewControllerNextTarget(NO)];
+	if (!success)
+		for (SKPaymentTransaction *transaction in transactions)
+			if (transaction.transactionState == SKPaymentTransactionStatePurchased || transaction.transactionState == SKPaymentTransactionStateFailed || transaction.transactionState == SKPaymentTransactionStateRestored)
+				[queue finishTransaction:transaction];
 }
 
 - (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {

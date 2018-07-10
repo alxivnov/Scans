@@ -10,6 +10,8 @@
 
 #import "PhotoLibrary.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 #warning Focus
 #warning Flash
 
@@ -113,22 +115,28 @@ __synthesize(CAShapeLayer *, shapeLayer, ({
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
-	AVCaptureSession *session = self.session;
-	AVCaptureInput *deviceInput = self.deviceInput;
-	AVCaptureOutput *photoOutput = self.photoOutput;
-	AVCaptureOutput *videoDataOutput = self.videoDataOutput;
+	[AVCaptureDevice requestAccessIfNeededForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+		AVCaptureSession *session = self.session;
+		AVCaptureInput *deviceInput = self.deviceInput;
+		AVCaptureOutput *photoOutput = self.photoOutput;
+		AVCaptureOutput *videoDataOutput = self.videoDataOutput;
 
-	if (deviceInput && ![session.inputs containsObject:deviceInput])
-		[session addInput:deviceInput];
-	if (photoOutput && ![session.outputs containsObject:photoOutput])
-		[session addOutput:photoOutput];
-	if (videoDataOutput && ![session.outputs containsObject:videoDataOutput])
-		[session addOutput:videoDataOutput];
-	if (deviceInput && photoOutput && videoDataOutput && !session.isRunning)
-		[session startRunning];
+		if (deviceInput && ![session.inputs containsObject:deviceInput])
+			[session addInput:deviceInput];
+		if (photoOutput && ![session.outputs containsObject:photoOutput])
+			[session addOutput:photoOutput];
+		if (videoDataOutput && ![session.outputs containsObject:videoDataOutput])
+			[session addOutput:videoDataOutput];
+		if (deviceInput && photoOutput && videoDataOutput && !session.isRunning)
+			[session startRunning];
 
-	self.previewLayer.frame = self.previewView.bounds;
-	self.shapeLayer.frame = self.previewView.bounds;
+		[GCD main:^{
+			self.previewLayer.frame = self.previewView.bounds;
+			self.shapeLayer.frame = self.previewView.bounds;
+		}];
+
+		[Answers logCustomEventWithName:@"Camera access" customAttributes:@{ @"granted" : @(granted) }];
+	}];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
