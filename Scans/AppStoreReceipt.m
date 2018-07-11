@@ -30,7 +30,7 @@
 		return [obj[@"product_id"] isEqualToString:productIdentifier];
 	}] ?: [[AppStoreReceipt instance].receipt[@"receipt"][@"in_app"] lastObject:^BOOL(NSDictionary *obj) {
 		return [obj[@"product_id"] isEqualToString:productIdentifier];
-	}]) : [[AppStoreReceipt instance].receipt[@"receipt"][@"in_app"] lastObject];
+	}]) : ([[AppStoreReceipt instance].receipt[@"latest_receipt_info"] lastObject] ?: [[AppStoreReceipt instance].receipt[@"receipt"][@"in_app"] lastObject]);
 
 	return receipt ? [NSDate dateWithTimeIntervalSince1970:[receipt[@"expires_date_ms"] integerValue] / 1000.0] : Nil;
 }
