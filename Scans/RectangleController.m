@@ -8,6 +8,8 @@
 
 #import "RectangleController.h"
 
+#import "UIAlertController+Convenience.h"
+
 #import "PhotoLibrary.h"
 
 #import <Crashlytics/Crashlytics.h>
@@ -115,10 +117,29 @@ __synthesize(CAShapeLayer *, shapeLayer, ({
 	[Answers logContentViewWithName:@"RectangleController" contentType:@"VC" contentId:Nil customAttributes:Nil];
 }
 
+- (void)requestAccessIfNeededForMediaType:(AVMediaType)mediaType completionHandler:(void (^)(BOOL))handler {
+	AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+
+	if (status == AVAuthorizationStatusAuthorized) {
+		if (handler)
+			handler(YES);
+	} else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
+		[self presentAlertWithTitle:@"Scans" message:@"Allow Scans to access Camera in Settings." cancelActionTitle:@"Cancel" destructiveActionTitle:nil otherActionTitles:@[ @"Settings" ] completion:^(UIAlertController *instance, NSInteger index) {
+			if (index == 0)
+				[UIApplication openSettings];
+		}];
+
+		if (handler)
+			handler(NO);
+	} else {
+		[AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:handler];
+	}
+}
+
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
-	[AVCaptureDevice requestAccessIfNeededForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+	[self requestAccessIfNeededForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
 		AVCaptureSession *session = self.session;
 		AVCaptureInput *deviceInput = self.deviceInput;
 		AVCaptureOutput *photoOutput = self.photoOutput;
@@ -162,7 +183,10 @@ __synthesize(CAShapeLayer *, shapeLayer, ({
 }
 
 - (IBAction)capture:(UIButton *)sender {
-	[self.photoOutput capturePhotoWithSettings:[AVCapturePhotoSettings photoSettings] delegate:self];
+	[self requestAccessIfNeededForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+		if (granted)
+			[self.photoOutput capturePhotoWithSettings:[AVCapturePhotoSettings photoSettings] delegate:self];
+	}];
 }
 
 - (void)captureOutput:(AVCapturePhotoOutput *)output didFinishProcessingPhoto:(AVCapturePhoto *)photo error:(NSError *)error {

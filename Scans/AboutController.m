@@ -67,6 +67,19 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 	[[NSUserDefaults standardUserDefaults] setObject:iaps forKey:@"iaps"];
 }
 
+- (void)reloadAppsAndIaps {
+	[self.tableView beginUpdates];
+
+	if (self.tableView.numberOfSections > IDX_APPS)
+		[self.tableView reloadSection:IDX_APPS];
+	else
+		[self.tableView insertSection:IDX_APPS];
+
+	[self.tableView reloadSection:IDX_IAPS];
+
+	[self.tableView endUpdates];
+}
+
 - (IBAction)refreshAction:(UIRefreshControl *)sender {
 	[AFMediaItem lookup:@{ KEY_ID : @(DEV_ID), KEY_MEDIA : kMediaSoftware, KEY_ENTITY : kEntitySoftware } handler:^(NSArray<AFMediaItem *> *results) {
 		self.apps = [results map:^id(AFMediaItem *obj) {
@@ -75,10 +88,7 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 
 		if (self.apps.count)
 			[GCD main:^{
-				if (self.tableView.numberOfSections > 4)
-					[self.tableView reloadSection:4];
-				else
-					[self.tableView insertSection:4];
+				[self reloadAppsAndIaps];
 
 				[sender endRefreshing];
 			}];
@@ -89,7 +99,7 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 	if (sender)
 		[[AppStoreReceipt instance] verifyReceipt:NO handler:^(NSDictionary *receipt) {
 			[GCD main:^{
-				[self.tableView reloadSection:1];
+				[self reloadAppsAndIaps];
 
 				[sender endRefreshing];
 			}];
@@ -286,7 +296,7 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 		}];
 
 		[GCD main:^{
-			[self.tableView reloadSection:1];
+			[self reloadAppsAndIaps];
 
 			[self.refreshControl endRefreshing];
 		}];
@@ -313,7 +323,7 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 		}
 
 	[GCD main:^{
-		[self.tableView reloadSection:1];
+		[self reloadAppsAndIaps];
 	}];
 }
 

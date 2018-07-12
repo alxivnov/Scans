@@ -381,7 +381,7 @@
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photos-120.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mpg-xF-X59">
                             <rect key="frame" x="60" y="32" width="120" height="120"/>
                         </imageView>
-                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scans searches your Photo Library for images with text to put them in the separate album for convenience." textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaK-SL-QEb">
+                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scans searches your Photo Library for images with text to put them in the separate album for convenience." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaK-SL-QEb">
                             <rect key="frame" x="16" y="160" width="208" height="78"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="78" id="F67-97-V5G"/>
@@ -641,6 +641,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.050980392159999999" green="0.050980392159999999" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="118" id="7FT-M9-OnJ"/>
                                     <constraint firstItem="bbV-aS-G7b" firstAttribute="centerX" secondItem="hjZ-X4-g6y" secondAttribute="centerX" id="Utm-mc-oaY"/>
                                     <constraint firstItem="bbV-aS-G7b" firstAttribute="centerY" secondItem="hjZ-X4-g6y" secondAttribute="centerY" id="oio-wA-XYJ"/>
                                 </constraints>

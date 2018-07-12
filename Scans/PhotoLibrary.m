@@ -21,6 +21,7 @@
 @property (assign, nonatomic) CGSize smallSize;
 
 @property (strong, nonatomic) NSArray<Observation *> *observations;
+@property (strong, nonatomic) NSArray<NSString *> *localIdentifiers;
 @end
 
 @implementation PhotoLibrary
@@ -87,6 +88,17 @@
 	return self;
 }
 
+- (NSArray<NSString *> *)localIdentifiers {
+	if (!_localIdentifiers) {
+		NSMutableArray *localIdentifiers = [NSMutableArray arrayWithCapacity:self.fetch.count];
+		for (PHAsset *asset in self.fetch)
+			[localIdentifiers addObject:asset.localIdentifier];
+		_localIdentifiers = localIdentifiers;
+	}
+
+	return _localIdentifiers;
+}
+
 - (void)setSearch:(NSString *)search {
 	_search = search;
 
@@ -98,15 +110,16 @@
 			if (val)
 				return val;
 
-			for (PHObject *asset in self.fetch)
-				if ([obj.assetIdentifier isEqualToString:asset.localIdentifier])
-					return obj;
+			if ([self.localIdentifiers containsObject:obj.assetIdentifier])
+				return obj;
 
 			return Nil;
 		}];
 		self.observations = dic.allValues;
 	} else {
 		self.observations = Nil;
+
+		self.localIdentifiers = Nil;
 	}
 }
 
