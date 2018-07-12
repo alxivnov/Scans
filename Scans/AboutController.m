@@ -108,6 +108,9 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 	[self addRefreshTarget:self action:@selector(refreshAction:)];
 
 	[self refreshAction:Nil];
+
+
+	[Answers logContentViewWithName:@"AboutController" contentType:@"VC" contentId:Nil customAttributes:Nil];
 }
 
 - (void)didReceiveMemoryWarning {

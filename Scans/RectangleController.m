@@ -110,6 +110,9 @@ __synthesize(CAShapeLayer *, shapeLayer, ({
 	self.captureButton.layer.borderColor = [UIColor grayColor].CGColor;
 	self.captureButton.layer.borderWidth = 4.0;
 	self.captureButton.layer.cornerRadius = self.captureButton.frame.size.height / 2.0;
+
+
+	[Answers logContentViewWithName:@"RectangleController" contentType:@"VC" contentId:Nil customAttributes:Nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

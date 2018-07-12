@@ -104,6 +104,9 @@ static NSString * const reuseIdentifier = @"Cell";
 	self.flowLayout.sectionHeadersPinToVisibleBounds = YES;
 
 	[self reloadData:NSNotFound];
+
+
+	[Answers logContentViewWithName:@"ViewController" contentType:@"VC" contentId:Nil customAttributes:Nil];
 }
 
 - (void)didReceiveMemoryWarning {
