@@ -57,6 +57,8 @@
 		CD256DAA2043045F0086EAAB /* StoreKit+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256DA82043045E0086EAAB /* StoreKit+Convenience.m */; };
 		CD256DAD20430DD20086EAAB /* QuartzCore+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256DAC20430DD20086EAAB /* QuartzCore+Convenience.m */; };
 		CD25C6D920B6B16F00D979FB /* FIRVision+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD25C6D820B6B16F00D979FB /* FIRVision+Convenience.m */; };
+		CD30649C20FD2D1A00759178 /* refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD30649A20FD2D1900759178 /* refresh@3x.png */; };
+		CD30649D20FD2D1A00759178 /* search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD30649B20FD2D1A00759178 /* search@3x.png */; };
 		CD30D8A3207000F200028C8D /* PhotoLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD30D8A2207000F200028C8D /* PhotoLibrary.m */; };
 		CD36C5FA2041BFC10029FA9C /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C5F92041BFC10029FA9C /* NavigationController.m */; };
 		CD36C6262041C2B90029FA9C /* UIAlertController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36C5FD2041C2B60029FA9C /* UIAlertController+Convenience.m */; };
@@ -116,6 +118,10 @@
 		CDE33AC02048611300F89AD8 /* CoreData+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33ABE2048611300F89AD8 /* CoreData+Convenience.m */; };
 		CDE33AD420486F8800F89AD8 /* Model+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33AD320486F8800F89AD8 /* Model+Convenience.m */; };
 		CDE33B3F2049936000F89AD8 /* UIPageViewController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE33B3D2049936000F89AD8 /* UIPageViewController+Convenience.m */; };
+		CDF1893C2104A2BE002EE4D5 /* SubscriptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF1893B2104A2BE002EE4D5 /* SubscriptionsController.m */; };
+		CDF1893F2104A3BE002EE4D5 /* UIButton+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF1893E2104A3BE002EE4D5 /* UIButton+Convenience.m */; };
+		CDF189422104B83A002EE4D5 /* SafariServices+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF189412104B83A002EE4D5 /* SafariServices+Convenience.m */; };
+		CDF189452104B8C8002EE4D5 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF189442104B8C8002EE4D5 /* SearchController.m */; };
 		CDFE017D2041F91300C5AC4E /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFE017C2041F91300C5AC4E /* AboutController.m */; };
 		CDFE01822041FD5B00C5AC4E /* chat-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017E2041FD5A00C5AC4E /* chat-fill@2x.png */; };
 		CDFE01832041FD5B00C5AC4E /* envelope-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017F2041FD5A00C5AC4E /* envelope-fill@2x.png */; };
@@ -193,6 +199,8 @@
 		CD256DAC20430DD20086EAAB /* QuartzCore+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QuartzCore+Convenience.m"; path = "../Objective Sea/QuartzCore+Convenience.m"; sourceTree = "<group>"; };
 		CD25C6D720B6B16F00D979FB /* FIRVision+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "FIRVision+Convenience.h"; path = "../Objective Sea/FIRVision+Convenience.h"; sourceTree = "<group>"; };
 		CD25C6D820B6B16F00D979FB /* FIRVision+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "FIRVision+Convenience.m"; path = "../Objective Sea/FIRVision+Convenience.m"; sourceTree = "<group>"; };
+		CD30649A20FD2D1900759178 /* refresh@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "refresh@3x.png"; path = "../Frameworks/Images/refresh@3x.png"; sourceTree = "<group>"; };
+		CD30649B20FD2D1A00759178 /* search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search@3x.png"; path = "../Frameworks/Images/search@3x.png"; sourceTree = "<group>"; };
 		CD30D8A1207000F200028C8D /* PhotoLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoLibrary.h; sourceTree = "<group>"; };
 		CD30D8A2207000F200028C8D /* PhotoLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoLibrary.m; sourceTree = "<group>"; };
 		CD36C5F82041BFC10029FA9C /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -299,6 +307,14 @@
 		CDE33AD320486F8800F89AD8 /* Model+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Model+Convenience.m"; sourceTree = "<group>"; };
 		CDE33B3D2049936000F89AD8 /* UIPageViewController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIPageViewController+Convenience.m"; path = "../Objective Sea/UIPageViewController+Convenience.m"; sourceTree = "<group>"; };
 		CDE33B3E2049936000F89AD8 /* UIPageViewController+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIPageViewController+Convenience.h"; path = "../Objective Sea/UIPageViewController+Convenience.h"; sourceTree = "<group>"; };
+		CDF1893A2104A2BE002EE4D5 /* SubscriptionsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscriptionsController.h; sourceTree = "<group>"; };
+		CDF1893B2104A2BE002EE4D5 /* SubscriptionsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscriptionsController.m; sourceTree = "<group>"; };
+		CDF1893D2104A3BE002EE4D5 /* UIButton+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+Convenience.h"; path = "../Objective Sea/UIButton+Convenience.h"; sourceTree = "<group>"; };
+		CDF1893E2104A3BE002EE4D5 /* UIButton+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+Convenience.m"; path = "../Objective Sea/UIButton+Convenience.m"; sourceTree = "<group>"; };
+		CDF189402104B83A002EE4D5 /* SafariServices+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SafariServices+Convenience.h"; path = "../Objective Sea/SafariServices+Convenience.h"; sourceTree = "<group>"; };
+		CDF189412104B83A002EE4D5 /* SafariServices+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SafariServices+Convenience.m"; path = "../Objective Sea/SafariServices+Convenience.m"; sourceTree = "<group>"; };
+		CDF189432104B8C8002EE4D5 /* SearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
+		CDF189442104B8C8002EE4D5 /* SearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
 		CDFE017B2041F91300C5AC4E /* AboutController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		CDFE017C2041F91300C5AC4E /* AboutController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		CDFE017E2041FD5A00C5AC4E /* chat-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chat-fill@2x.png"; path = "../Frameworks/Images/chat-fill@2x.png"; sourceTree = "<group>"; };
@@ -341,6 +357,8 @@
 		CD36C5FB2041C2130029FA9C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CD30649A20FD2D1900759178 /* refresh@3x.png */,
+				CD30649B20FD2D1A00759178 /* search@3x.png */,
 				CDC5399620F5253500BFCD38 /* month-subscription@2x.png */,
 				CDC5399520F5253500BFCD38 /* restore-subscriptions@2x.png */,
 				CDC5399420F5253500BFCD38 /* year-subscription@2x.png */,
@@ -440,6 +458,8 @@
 				CD36C5FF2041C2B60029FA9C /* Photos+Convenience.m */,
 				CD256DAB20430DD10086EAAB /* QuartzCore+Convenience.h */,
 				CD256DAC20430DD20086EAAB /* QuartzCore+Convenience.m */,
+				CDF189402104B83A002EE4D5 /* SafariServices+Convenience.h */,
+				CDF189412104B83A002EE4D5 /* SafariServices+Convenience.m */,
 				CD256DA52043045E0086EAAB /* SKInAppPurchase.h */,
 				CD256DA62043045E0086EAAB /* SKInAppPurchase.m */,
 				CD256DA72043045E0086EAAB /* StoreKit+Convenience.h */,
@@ -452,6 +472,8 @@
 				CD36C5FD2041C2B60029FA9C /* UIAlertController+Convenience.m */,
 				CD36C6242041C2B90029FA9C /* UIApplication+Convenience.h */,
 				CD36C6062041C2B70029FA9C /* UIApplication+Convenience.m */,
+				CDF1893D2104A3BE002EE4D5 /* UIButton+Convenience.h */,
+				CDF1893E2104A3BE002EE4D5 /* UIButton+Convenience.m */,
 				CD36C61E2041C2B80029FA9C /* UIDocumentPickerViewController+Convenience.h */,
 				CD36C6152041C2B80029FA9C /* UIDocumentPickerViewController+Convenience.m */,
 				CD256D43204200560086EAAB /* UIGestureRecognizer+Convenience.h */,
@@ -550,6 +572,10 @@
 				CD662FF41FC73B27002BA3F8 /* VNTextCollectionController.h */,
 				CD662FF51FC73B27002BA3F8 /* VNTextCollectionController.m */,
 				CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */,
+				CDF189432104B8C8002EE4D5 /* SearchController.h */,
+				CDF189442104B8C8002EE4D5 /* SearchController.m */,
+				CDF1893A2104A2BE002EE4D5 /* SubscriptionsController.h */,
+				CDF1893B2104A2BE002EE4D5 /* SubscriptionsController.m */,
 			);
 			path = Scans;
 			sourceTree = "<group>";
@@ -658,6 +684,7 @@
 				CD36C6412041DBF00029FA9C /* scans-30@3x.png in Resources */,
 				CDE0055E206E6BE200EA1C2F /* photos-120@3x.png in Resources */,
 				CD256D822042E7740086EAAB /* iCloud-60@2x.png in Resources */,
+				CD30649C20FD2D1A00759178 /* refresh@3x.png in Resources */,
 				CD256D7D2042E7740086EAAB /* Google+-76.png in Resources */,
 				CD256D8C2042E7740086EAAB /* Google+-76@3x.png in Resources */,
 				CD256D802042E7740086EAAB /* iCloud-60@3x.png in Resources */,
@@ -676,6 +703,7 @@
 				CD256D852042E7740086EAAB /* Facebook-76.png in Resources */,
 				CD256D7B2042E7740086EAAB /* iCloud-60.png in Resources */,
 				CD256DA02042E7810086EAAB /* VK-76@3x.png in Resources */,
+				CD30649D20FD2D1A00759178 /* search@3x.png in Resources */,
 				CD256D7F2042E7740086EAAB /* Facebook-60@2x.png in Resources */,
 				CD256D9B2042E7810086EAAB /* Twitter-60.png in Resources */,
 				CD256D892042E7740086EAAB /* Google+-60.png in Resources */,
@@ -762,6 +790,7 @@
 				CDE33AC02048611300F89AD8 /* CoreData+Convenience.m in Sources */,
 				CD36C62C2041C2B90029FA9C /* UIApplication+Convenience.m in Sources */,
 				CD04593D2049F922006D48D0 /* NSXMLDictionary.m in Sources */,
+				CDF1893C2104A2BE002EE4D5 /* SubscriptionsController.m in Sources */,
 				CD822B8B206D602700F2112F /* AVCaptureSession+Convenience.m in Sources */,
 				CD256D5D2042E1D90086EAAB /* Answers+Convenience.m in Sources */,
 				CD256D482042DFBD0086EAAB /* MessageUI+Convenience.m in Sources */,
@@ -772,6 +801,7 @@
 				CD256DAA2043045F0086EAAB /* StoreKit+Convenience.m in Sources */,
 				CDE33AD420486F8800F89AD8 /* Model+Convenience.m in Sources */,
 				CDE33ABD20485FA700F89AD8 /* CollectionTransition.m in Sources */,
+				CDF1893F2104A3BE002EE4D5 /* UIButton+Convenience.m in Sources */,
 				CD36C6332041C2B90029FA9C /* UIDocumentPickerViewController+Convenience.m in Sources */,
 				CD256DAD20430DD20086EAAB /* QuartzCore+Convenience.m in Sources */,
 				CD36C6322041C2B90029FA9C /* UIActivity+Convenience.m in Sources */,
@@ -788,6 +818,7 @@
 				CD662FF61FC73B27002BA3F8 /* VNTextCollectionController.m in Sources */,
 				CD36C62B2041C2B90029FA9C /* Dispatch+Convenience.m in Sources */,
 				CDC08DE72045C07C009C6AD0 /* VNTextPagingController.m in Sources */,
+				CDF189452104B8C8002EE4D5 /* SearchController.m in Sources */,
 				CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */,
 				CD36C6262041C2B90029FA9C /* UIAlertController+Convenience.m in Sources */,
 				CDC92D022072824C00287A55 /* TextDetector.m in Sources */,
@@ -803,6 +834,7 @@
 				CDE33B3F2049936000F89AD8 /* UIPageViewController+Convenience.m in Sources */,
 				CD256D45204200560086EAAB /* UIGestureRecognizer+Convenience.m in Sources */,
 				CD662FCD1FC701E2002BA3F8 /* Scans.xcdatamodeld in Sources */,
+				CDF189422104B83A002EE4D5 /* SafariServices+Convenience.m in Sources */,
 				CDC5399320F4FEC100BFCD38 /* UITableViewCell+Convenience.m in Sources */,
 				CD8157B42059757E007EAEC6 /* UIImagePickerController+Convenience.m in Sources */,
 				CD36C6362041C2B90029FA9C /* UINavigationController+Convenience.m in Sources */,

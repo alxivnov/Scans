@@ -23,26 +23,15 @@
 #import "UITableViewCell+Convenience.h"
 #import "UIView+Convenience.h"
 
-#import "AppStoreReceipt.h"
-
-#define IAP_BACKGROUND_MONTHLY @"com.alexivanov.scans.background.monthly"
-#define IAP_BACKGROUND_YEARLY @"com.alexivanov.scans.background.yearly"
-
 #define APP_ID 1352799843
 #define DEV_ID 734258593
 
-#define IDX_IAPS 1
-#define IDX_APPS 5
+#define IDX_APPS 4
 
-@interface AboutController () <SKProductsRequestDelegate>
+@interface AboutController ()
 @property (strong, nonatomic, readonly) NSDictionary *affiliateInfo;
 
 @property (strong, nonatomic) NSArray<NSDictionary *> *apps;
-
-@property (strong, nonatomic, readonly) NSArray *productIdentifiers;
-@property (strong, nonatomic) SKProductsRequest *productsRequest;
-
-@property (strong, nonatomic) NSDictionary<NSString *, NSDictionary *> *iaps;
 @end
 
 @implementation AboutController
@@ -57,29 +46,6 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 	[[NSUserDefaults standardUserDefaults] setObject:apps forKey:@"apps"];
 }
 
-__synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACKGROUND_YEARLY ]))
-
-- (NSDictionary<NSString *, NSDictionary *> *)iaps {
-	return [[NSUserDefaults standardUserDefaults] objectForKey:@"iaps"];
-}
-
-- (void)setIaps:(NSDictionary<NSString *, NSDictionary *> *)iaps {
-	[[NSUserDefaults standardUserDefaults] setObject:iaps forKey:@"iaps"];
-}
-
-- (void)reloadAppsAndIaps {
-	[self.tableView beginUpdates];
-
-	if (self.tableView.numberOfSections > IDX_APPS)
-		[self.tableView reloadSection:IDX_APPS];
-	else
-		[self.tableView insertSection:IDX_APPS];
-
-	[self.tableView reloadSection:IDX_IAPS];
-
-	[self.tableView endUpdates];
-}
-
 - (IBAction)refreshAction:(UIRefreshControl *)sender {
 	[AFMediaItem lookup:@{ KEY_ID : @(DEV_ID), KEY_MEDIA : kMediaSoftware, KEY_ENTITY : kEntitySoftware } handler:^(NSArray<AFMediaItem *> *results) {
 		self.apps = [results map:^id(AFMediaItem *obj) {
@@ -88,22 +54,14 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 
 		if (self.apps.count)
 			[GCD main:^{
-				[self reloadAppsAndIaps];
+				if (self.tableView.numberOfSections > IDX_APPS)
+					[self.tableView reloadSection:IDX_APPS];
+				else
+					[self.tableView insertSection:IDX_APPS];
 
 				[sender endRefreshing];
 			}];
 	}];
-
-	self.productsRequest = [SKProductsRequest startRequestWithProductIdentifiers:self.productIdentifiers delegate:self];
-
-	if (sender)
-		[[AppStoreReceipt instance] verifyReceipt:NO handler:^(NSDictionary *receipt) {
-			[GCD main:^{
-				[self reloadAppsAndIaps];
-
-				[sender endRefreshing];
-			}];
-		}];
 }
 
 - (void)viewDidLoad {
@@ -135,34 +93,16 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return section == IDX_APPS ? self.apps.count : section == IDX_IAPS ? (self.iaps.count + 1) : 1;
+	return section == IDX_APPS ? self.apps.count : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indexPath.section == IDX_IAPS && indexPath.row == self.iaps.count ? @"1*" : str(indexPath.section) forIndexPath:indexPath];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str(indexPath.section) forIndexPath:indexPath];
     
     // Configure the cell...
 	if (indexPath.section == 0 && indexPath.row == 0) {
 		cell.textLabel.text = [NSBundle bundleDisplayName];
 		cell.detailTextLabel.text = [NSBundle bundleShortVersionString];
-	} else if (indexPath.section == IDX_IAPS && indexPath.row < self.iaps.count) {
-		NSString *productIdentifier = self.productIdentifiers[indexPath.row];
-		NSDictionary *iap = self.iaps[productIdentifier];
-
-		NSDate *expiresDate = [[AppStoreReceipt instance] expiresDate:productIdentifier];
-		BOOL autoRenewStatus = [[AppStoreReceipt instance] autoRenewStatus:productIdentifier];
-
-		SKPaymentTransaction *transaction = [[SKPaymentQueue defaultQueue].transactions lastObject:^BOOL(SKPaymentTransaction *obj) {
-			return [obj.payment.productIdentifier isEqualToString:productIdentifier];
-		}];
-		SKPaymentTransactionState transactionState = transaction ? transaction.transactionState : NSNotFound;
-
-		cell.textLabel.text = iap[@"localizedTitle"];
-		cell.detailTextLabel.text = transactionState == SKPaymentTransactionStatePurchasing ? @"Purchasing..." : transactionState == SKPaymentTransactionStateDeferred ? @"Deferred" : expiresDate ? [NSString stringWithFormat:expiresDate.timeIntervalSinceNow > 0.0 ? (autoRenewStatus ? @"Renews on %@" : @"Expires on %@") : (autoRenewStatus ? @"Renewed on %@" : @"Expired on %@"), [expiresDate descriptionForDate:NSDateFormatterMediumStyle andTime:NSDateFormatterShortStyle]] : @"Subscription";
-		cell.accessoryLabel.text = iap[@"localizedPrice"];
-		[cell.accessoryLabel sizeToFit];
-
-		cell.imageView.image = [UIImage image:[productIdentifier isEqualToString:IAP_BACKGROUND_MONTHLY] ? @"month-subscription" : [productIdentifier isEqualToString:IAP_BACKGROUND_YEARLY] ? @"year-subscription" : @"moneybox-fill"];
 	} else if (indexPath.section == IDX_APPS && indexPath.row < self.apps.count) {
 		NSDictionary *app = self.apps[indexPath.row];
 
@@ -195,21 +135,13 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 
 	if (indexPath.section == 0 && indexPath.row == 0)
 		cell.detailTextLabel.text = [cell.detailTextLabel.text isEqualToString:[NSBundle bundleVersion]] ? [NSBundle bundleShortVersionString] : [NSBundle bundleVersion];
-	else if (indexPath.section == IDX_IAPS && indexPath.row < self.iaps.count) {
-		NSDictionary *iap = self.iaps[self.productIdentifiers[indexPath.row]];
-
-		self.productsRequest = [SKProductsRequest startRequestWithProductIdentifier:iap[@"productIdentifier"] delegate:self];
-
-		[Answers logAddToCartWithPrice:[iap[@"price"] decimalNumber] currency:iap[@"currencyCode"] itemName:iap[@"localizedTitle"] itemType:Nil itemId:iap[@"productIdentifier"] customAttributes:Nil];
-	} else if (indexPath.section == IDX_IAPS && indexPath.row == self.iaps.count)
-		[[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
-	else if (indexPath.section == 2 && indexPath.row == 0)
+	else if (indexPath.section == 1 && indexPath.row == 0)
 		[self presentMailComposeWithRecipients:arr_(cell.detailTextLabel.text) subject:[NSBundle bundleDisplayNameAndShortVersion] body:Nil attachments:dic_(@"screenshot.jpg", [[self.presentingViewController.view snapshotImageAfterScreenUpdates:YES] jpegRepresentation]) completionHandler:Nil];
-	else if (indexPath.section == 3 && indexPath.row == 0)
+	else if (indexPath.section == 2 && indexPath.row == 0)
 		[self presentWebActivityWithActivityItems:@[ [NSBundle bundleDisplayName], [NSURL URLForMobileAppWithIdentifier:APP_ID affiliateInfo:self.affiliateInfo] ] excludedTypes:Nil completionHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
 			[Answers logInviteWithMethod:activityType customAttributes:@{ @"version" : [NSBundle bundleVersion], @"success" : completed ? @"YES" : @"NO", @"error" : [activityError debugDescription] ?: STR_EMPTY }];
 		}];
-	else if (indexPath.section == 4 && indexPath.row == 0)
+	else if (indexPath.section == 3 && indexPath.row == 0)
 		[UIApplication openURL:[NSURL URLForMobileAppWithIdentifier:APP_ID affiliateInfo:self.affiliateInfo] options:Nil completionHandler:^(BOOL success) {
 
 		}];
@@ -220,11 +152,7 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return section == IDX_IAPS ? @"BACKGROUND SCANNING" : section == 2 ? @"FEEDBACK" : section == 3 ? @"SHARE" : section == 4 ? @"RATE" : section == IDX_APPS ? @"APPS" : Nil;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	return section == IDX_IAPS ? (self.iaps.allValues.firstObject[@"localizedDescription"] ?: @"Enable scanning for text in the background.") : Nil;
+	return section == 1 ? @"FEEDBACK" : section == 2 ? @"SHARE" : section == 3 ? @"RATE" : section == IDX_APPS ? @"APPS" : Nil;
 }
 
 /*
@@ -270,61 +198,5 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
     // Pass the selected object to the new view controller.
 }
 */
-
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
-	self.productsRequest = Nil;
-
-	NSUInteger count = response.products.count + response.invalidProductIdentifiers.count;
-	if (count == 1) {
-		SKProduct *product = response.products.firstObject;
-
-		[[SKPaymentQueue defaultQueue] addPaymentWithProduct:product];
-
-		[Answers logStartCheckoutWithPrice:product.price currency:product.currencyCode itemCount:Nil customAttributes:Nil];
-	} else if (count == 2) {
-		self.iaps = [response.products dictionaryWithKey:^id<NSCopying>(SKProduct *obj) {
-			return obj.productIdentifier;
-		} value:^id(SKProduct *obj, id<NSCopying> key, id val) {
-			NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:6];
-			dic[@"localizedTitle"] = obj.localizedTitle;
-			dic[@"localizedPrice"] = obj.localizedPrice;
-			dic[@"localizedDescription"] = obj.localizedDescription;
-			dic[@"productIdentifier"] = obj.productIdentifier;
-			dic[@"price"] = obj.price;
-			dic[@"currencyCode"] = obj.currencyCode;
-			return dic;
-		}];
-
-		[GCD main:^{
-			[self reloadAppsAndIaps];
-
-			[self.refreshControl endRefreshing];
-		}];
-	}
-}
-
-- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
-	self.productsRequest = Nil;
-	
-	[error log:@"request:didFailWithError:"];
-
-	[GCD main:^{
-		[self.refreshControl endRefreshing];
-	}];
-}
-
-
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
-	for (SKPaymentTransaction *transaction in transactions)
-		if (transaction.transactionState == SKPaymentTransactionStatePurchased) {
-			NSDictionary *iap = self.iaps[transaction.payment.productIdentifier];
-
-			[Answers logPurchaseWithPrice:[iap[@"price"] decimalNumber] currency:iap[@"currencyCode"] success:@YES itemName:iap[@"localizedTitle"] itemType:Nil itemId:iap[@"productIdentifier"] customAttributes:Nil];
-		}
-
-	[GCD main:^{
-		[self reloadAppsAndIaps];
-	}];
-}
 
 @end

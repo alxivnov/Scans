@@ -12,13 +12,12 @@
 #import "TextDetector.h"
 #import "RectangleController.h"
 
-#import "UISearchController+Convenience.h"
 #import "UIView+Convenience.h"
 #import "UIViewController+Convenience.h"
 
 #import <Crashlytics/Crashlytics.h>
 
-@interface ViewController () <PHPhotoLibraryChangeObserver, UISearchResultsUpdating, CollectionTransitionDelegate>
+@interface ViewController () <PHPhotoLibraryChangeObserver, CollectionTransitionDelegate>
 @property (strong, nonatomic) IBOutlet UIView *emptyState;
 
 @property (strong, nonatomic) TextDetector *detector;
@@ -34,14 +33,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionViewFlowLayout *)flowLayout {
 	return cls(UICollectionViewFlowLayout, self.collectionView.collectionViewLayout);
-}
-
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-	LIB.search = searchController.searchBar.text;
-
-	[self.collectionView reloadData];
-
-	[self updateFooter:Nil];
 }
 
 - (void)setDetector:(TextDetector *)detector {
@@ -86,8 +77,6 @@ static NSString * const reuseIdentifier = @"Cell";
 	[[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 
 	self.detector = [[TextDetector alloc] init];
-
-	self.searchResultsUpdater = self;
 }
 
 - (void)viewDidLoad {
@@ -192,28 +181,18 @@ static NSString * const reuseIdentifier = @"Cell";
 	[self updateHeader:Nil];
 }
 
-- (IBAction)searchAction:(UIBarButtonItem *)sender {
-//	self.navigationItem.searchController.active = YES;
-
-	[self.navigationItem.searchController.searchBar becomeFirstResponder];
-}
-
 - (void)photoLibraryDidChange:(PHChange *)changeInstance {
 	[GCD main:^{
 		@synchronized(self) {
 			PHFetchResultChangeDetails *changes = [LIB performFetchResultChanges:changeInstance];
 
-			if (LIB.search) {
-				[self.collectionView reloadData];
-			} else {
-				[self.collectionView performFetchResultChanges:changes inSection:0 completion:^(BOOL finished) {
-					if (changes.insertedIndexes.count)
-						[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:changes.insertedIndexes.firstIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+			[self.collectionView performFetchResultChanges:changes inSection:0 completion:^(BOOL finished) {
+				if (changes.insertedIndexes.count)
+					[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:changes.insertedIndexes.firstIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
 
-//					[self updateHeader:Nil];
-					[self updateFooter:Nil];
-				}];
-			}
+//				[self updateHeader:Nil];
+				[self updateFooter:Nil];
+			}];
 		}
 	}];
 }

@@ -55,7 +55,7 @@
 	[Answers logCustomEventWithName:@"Background fetch" customAttributes:expiresDate ? @{ @"expiresDate" : expiresDate } : Nil];
 
 	TextDetector *detector = [[TextDetector alloc] init];
-	if (detector.count && expiresDate.timeIntervalSinceNow > 0.0)
+	if (detector.count && (IS_DEBUGGING || expiresDate.timeIntervalSinceNow > 0.0))
 		[detector process:20.0 handler:^() {
 			[application.rootViewController forwardSelector:@selector(setDetector:) withObject:detector nextTarget:UIViewControllerNextTarget(NO)];
 
