@@ -20,7 +20,6 @@
 @property (assign, nonatomic) CGSize largeSize;
 @property (assign, nonatomic) CGSize smallSize;
 
-@property (strong, nonatomic) NSArray<Observation *> *observations;
 @property (strong, nonatomic) NSArray<NSString *> *localIdentifiers;
 @end
 
@@ -37,12 +36,14 @@
 		_cache = [[PHCachingImageManager alloc] init];
 
 		_fetch = [PHAsset fetchAssetsInAssetCollection:_album options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ]]];
+		_localIdentifiers = Nil;
 
 		[_cache startCachingImagesForAssets:_fetch.array targetSize:self.smallSize contentMode:PHImageContentModeAspectFill options:Nil];
 	} else {
 		_cache = Nil;
 
 		_fetch = Nil;
+		_localIdentifiers = Nil;
 	}
 }
 
@@ -99,36 +100,12 @@
 	return _localIdentifiers;
 }
 
-- (void)setSearch:(NSString *)search {
-	_search = search;
-
-	if (search.length) {
-		NSArray<Observation *> *arr = [self.db.viewContext fetchObservationsWithAlbumIdentifier:self.album.localIdentifier label:search];
-		NSDictionary *dic = [arr dictionaryWithKey:^id<NSCopying>(Observation *obj) {
-			return obj.assetIdentifier;
-		} value:^id(Observation *obj, id<NSCopying> key, id val) {
-			if (val)
-				return val;
-
-			if ([self.localIdentifiers containsObject:obj.assetIdentifier])
-				return obj;
-
-			return Nil;
-		}];
-		self.observations = dic.allValues;
-	} else {
-		self.observations = Nil;
-
-		self.localIdentifiers = Nil;
-	}
-}
-
 - (NSUInteger)count {
-	return self.observations ? self.observations.count : self.fetch.count;
+	return self.fetch.count;
 }
 
 - (PHAsset *)assetAtIndex:(NSUInteger)index {
-	return self.observations ? [PHAsset fetchAssetWithLocalIdentifier:idx(self.observations, index).assetIdentifier options:Nil] : idx(self.fetch, index);
+	return idx(self.fetch, index);
 }
 
 - (void)requestAuthorization:(void (^)(PHAuthorizationStatus))handler {
@@ -166,8 +143,7 @@
 	}];
 }
 
-- (PHImageRequestID)requestSmallImageAtIndex:(NSUInteger)index resultHandler:(void (^)(UIImage *, PHImageRequestID))resultHandler {
-	PHAsset *asset = [self assetAtIndex:index];
+- (PHImageRequestID)requestSmallImageForAsset:(PHAsset *)asset resultHandler:(void (^)(UIImage *, PHImageRequestID))resultHandler {
 	if (!asset)
 		return PHInvalidImageRequestID;
 
@@ -211,14 +187,14 @@
 				if (handler)
 					handler(texts);
 
-				if (result)
+				if (result || [info[PHImageResultIsInCloudKey] integerValue] == 0)
 					[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier texts:texts labels:labels size:result.size];
 			}];
 		} else {
 			if (handler)
 				handler(texts);
 
-			if (result)
+			if (result || [info[PHImageResultIsInCloudKey] integerValue] == 0)
 				[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier texts:texts labels:labels size:result.size];
 		}
 	}];
@@ -229,9 +205,14 @@
 		return obj.assetIdentifier;
 	}];
 	PHFetchResult *fetch = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:[PHFetchOptions fetchOptionsWithPredicate:Nil sortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ]]];
-	return [fetch.array query:^BOOL(PHAsset *obj) {
+	NSArray *array = [fetch.array query:^BOOL(PHAsset *obj) {
 		return ![assetIdentifiers containsObject:obj.localIdentifier];
 	}];
+	return array;
+}
+
+- (NSArray<Observation *> *)fetchObservationsWithLabel:(NSString *)label {
+	return label ? [self.db.viewContext fetchObservationsWithAlbumIdentifier:self.album.localIdentifier label:label] : Nil;
 }
 
 - (NSArray<Observation *> *)fetchObservationsWithAssetIdentifier:(NSString *)assetIdentifier {
@@ -250,19 +231,22 @@
 
 - (PHFetchResultChangeDetails *)performFetchResultChanges:(PHChange *)changeInstance {
 	PHFetchResultChangeDetails *changes = [changeInstance changeDetailsForFetchResult:self.fetch];
-	if (changes)
+	if (changes) {
 		self.fetch = changes.fetchResultAfterChanges;
+
+		self.localIdentifiers = Nil;
+	}
 
 	if (changes.insertedIndexes.count)
 		[self.cache startCachingImagesForAssets:changes.insertedObjects targetSize:self.smallSize contentMode:PHImageContentModeAspectFill options:Nil];
-
+/*
 	if (self.search)
 		self.observations = [self.observations query:^BOOL(Observation *observation) {
 			return ![changes.removedObjects any:^BOOL(PHObject *obj) {
 				return [obj.localIdentifier isEqualToString:observation.assetIdentifier];
 			}];
 		}];
-
+*/
 	return changes;
 }
 

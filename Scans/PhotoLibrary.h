@@ -17,19 +17,22 @@
 #define LIB [PhotoLibrary instance]
 
 @interface PhotoLibrary : NSObject
-@property (strong, nonatomic) NSString *search;
 @property (assign, nonatomic, readonly) NSUInteger count;
 - (PHAsset *)assetAtIndex:(NSUInteger)index;
+
+@property (strong, nonatomic, readonly) NSArray<NSString *> *localIdentifiers;
 
 - (void)requestAuthorization:(void (^)(PHAuthorizationStatus status))handler;
 
 - (void)createAssetWithImage:(UIImage *)image;
 
-- (PHImageRequestID)requestSmallImageAtIndex:(NSUInteger)index resultHandler:(void (^)(UIImage *result, PHImageRequestID requestID))resultHandler;
+- (PHImageRequestID)requestSmallImageForAsset:(PHAsset *)asset resultHandler:(void (^)(UIImage *result, PHImageRequestID requestID))resultHandler;
 - (PHImageRequestID)requestLargeImageForAsset:(PHAsset *)asset resultHandler:(void (^)(UIImage *result, BOOL isDegraded))resultHandler progressHandler:(PHAssetImageProgressHandler)progressHandler;
 
 - (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset networkAccessAllowed:(BOOL)networkAccessAllowed handler:(void (^)(NSArray<id<FIRVisionText>> *results))handler;
 - (NSArray<PHAsset *> *)fetchAssetsToDetect;
+
+- (NSArray<Observation *> *)fetchObservationsWithLabel:(NSString *)label;
 
 - (NSArray<Observation *> *)fetchObservationsWithAssetIdentifier:(NSString *)assetIdentifier;
 - (void)deleteAsset:(PHAsset *)asset fromLibrary:(BOOL)fromLibrary handler:(void (^)(BOOL success))handler;

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchController : UICollectionViewController
+#import "CollectionController.h"
+
+@interface SearchController : CollectionController
 
 @end

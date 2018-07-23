@@ -19,7 +19,7 @@
 @implementation PHAssetPagingController
 
 - (UIViewController *)viewControllerForIndex:(NSUInteger)index {
-	PHAsset *asset = [LIB assetAtIndex:index];
+	PHAsset *asset = self.observations ? [PHAsset fetchAssetWithLocalIdentifier:idx(self.observations, index).assetIdentifier options:Nil] : [LIB assetAtIndex:index];
 	if (!asset)
 		return Nil;
 
@@ -38,7 +38,7 @@
 }
 
 - (NSUInteger)numberOfPages {
-	return LIB.count;
+	return self.observations ? self.observations.count : LIB.count;
 }
 
 - (NSUInteger)currentPage {

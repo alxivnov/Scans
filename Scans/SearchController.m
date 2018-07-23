@@ -11,15 +11,41 @@
 #import "UISearchController+Convenience.h"
 
 @interface SearchController () <UISearchResultsUpdating>
+@property (strong, nonatomic) NSArray<Observation *> *observations;
 
+@property (strong, nonatomic) NSString *search;
 @end
 
 @implementation SearchController
 
-static NSString * const reuseIdentifier = @"Cell";
+- (PHAsset *)assetAtIndex:(NSUInteger)index {
+	return [PHAsset fetchAssetWithLocalIdentifier:idx(self.observations, index).assetIdentifier options:Nil];
+}
+
+- (void)setSearch:(NSString *)search {
+	_search = search;
+
+	if (search.length) {
+		NSArray<Observation *> *arr = [LIB fetchObservationsWithLabel:search];
+		NSDictionary *dic = [arr dictionaryWithKey:^id<NSCopying>(Observation *obj) {
+			return obj.assetIdentifier;
+		} value:^id(Observation *obj, id<NSCopying> key, id val) {
+			if (val)
+				return val;
+
+			if ([LIB.localIdentifiers containsObject:obj.assetIdentifier])
+				return obj;
+
+			return Nil;
+		}];
+		self.observations = dic.allValues;
+	} else {
+		self.observations = Nil;
+	}
+}
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-//	LIB.search = searchController.searchBar.text;
+	self.search = searchController.searchBar.text;
 
 	[self.collectionView reloadData];
 
@@ -33,42 +59,64 @@ static NSString * const reuseIdentifier = @"Cell";
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+//	[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.
 
 	self.searchResultsUpdater = self;
+
+
+	[Answers logContentViewWithName:@"ViewController" contentType:@"VC" contentId:Nil customAttributes:Nil];
 }
 
-/*
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
+	if (!self.navigationItem.searchController.searchBar.text.length)
+		self.navigationItem.hidesSearchBarWhenScrolling = NO;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+
+	if (!self.navigationItem.searchController.searchBar.text.length)
+		self.navigationItem.hidesSearchBarWhenScrolling = YES;
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+
+	[super prepareForSegue:segue sender:sender];
+
+	if ([segue.identifier isEqualToString:@"asset"])
+		[segue.destinationViewController forwardSelector:@selector(setObservations:) withObject:self.observations nextTarget:UIViewControllerNextTarget(NO)];
 }
-*/
+
+- (IBAction)delete:(UIStoryboardSegue *)sender {
+	NSIndexPath *indexPath = [sender.sourceViewController forwardSelector:@selector(indexPath) nextTarget:UIViewControllerNextTarget(YES)];
+	if (indexPath) {
+		self.observations = [self.observations arrayByRemovingObjectAtIndex:indexPath.item];
+
+		[self.collectionView deleteItemsAtIndexPaths:@[ indexPath ]];
+	} else {
+		self.search = self.search;
+	}
+}
 
 #pragma mark <UICollectionViewDataSource>
-
+/*
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
 #warning Incomplete implementation, return the number of sections
     return 0;
 }
-
+*/
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of items
-    return 0;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell
-    
-    return cell;
+    return self.observations.count;
 }
 
 #pragma mark <UICollectionViewDelegate>

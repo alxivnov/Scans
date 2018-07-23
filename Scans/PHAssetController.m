@@ -139,7 +139,11 @@
 		[LIB deleteAsset:self.asset fromLibrary:index == UIAlertActionDestructive handler:^(BOOL success) {
 			if (success)
 				[GCD main:^{
-					if (self.navigationController.viewControllers.count > 1)
+					UITabBarController *vc = cls(UITabBarController, [UIApplication sharedApplication].rootViewController);
+
+					if (vc.selectedIndex)
+						[self.parentViewController performSegueWithIdentifier:@"delete"];
+					else if (self.navigationController.viewControllers.count > 1)
 						[self.navigationController popViewControllerAnimated:YES];
 					else
 						[self.presentingViewController dismissViewControllerAnimated:YES completion:Nil];

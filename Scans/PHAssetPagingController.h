@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#import "PhotoLibrary.h"
+
 #import "UIPageViewController+Convenience.h"
 
 @interface PHAssetPagingController : UIPagingController
 
 @property (assign, nonatomic) NSIndexPath *indexPath;
+
+@property (strong, nonatomic) NSArray<Observation *> *observations;
 
 @end

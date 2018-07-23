@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UICollectionViewController
+#import "CollectionController.h"
+
+@interface ViewController : CollectionController
 
 @end
 

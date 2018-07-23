@@ -122,6 +122,7 @@
 		CDF1893F2104A3BE002EE4D5 /* UIButton+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF1893E2104A3BE002EE4D5 /* UIButton+Convenience.m */; };
 		CDF189422104B83A002EE4D5 /* SafariServices+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF189412104B83A002EE4D5 /* SafariServices+Convenience.m */; };
 		CDF189452104B8C8002EE4D5 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF189442104B8C8002EE4D5 /* SearchController.m */; };
+		CDF189482105CB26002EE4D5 /* CollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF189472105CB26002EE4D5 /* CollectionController.m */; };
 		CDFE017D2041F91300C5AC4E /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFE017C2041F91300C5AC4E /* AboutController.m */; };
 		CDFE01822041FD5B00C5AC4E /* chat-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017E2041FD5A00C5AC4E /* chat-fill@2x.png */; };
 		CDFE01832041FD5B00C5AC4E /* envelope-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017F2041FD5A00C5AC4E /* envelope-fill@2x.png */; };
@@ -315,6 +316,8 @@
 		CDF189412104B83A002EE4D5 /* SafariServices+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SafariServices+Convenience.m"; path = "../Objective Sea/SafariServices+Convenience.m"; sourceTree = "<group>"; };
 		CDF189432104B8C8002EE4D5 /* SearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		CDF189442104B8C8002EE4D5 /* SearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
+		CDF189462105CB26002EE4D5 /* CollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionController.h; sourceTree = "<group>"; };
+		CDF189472105CB26002EE4D5 /* CollectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionController.m; sourceTree = "<group>"; };
 		CDFE017B2041F91300C5AC4E /* AboutController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		CDFE017C2041F91300C5AC4E /* AboutController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		CDFE017E2041FD5A00C5AC4E /* chat-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chat-fill@2x.png"; path = "../Frameworks/Images/chat-fill@2x.png"; sourceTree = "<group>"; };
@@ -551,6 +554,10 @@
 				CD662FC31FC701E2002BA3F8 /* AppDelegate.m */,
 				CD662FC51FC701E2002BA3F8 /* ViewController.h */,
 				CD662FC61FC701E2002BA3F8 /* ViewController.m */,
+				CDF189462105CB26002EE4D5 /* CollectionController.h */,
+				CDF189472105CB26002EE4D5 /* CollectionController.m */,
+				CDF189432104B8C8002EE4D5 /* SearchController.h */,
+				CDF189442104B8C8002EE4D5 /* SearchController.m */,
 				CD36C5F82041BFC10029FA9C /* NavigationController.h */,
 				CD36C5F92041BFC10029FA9C /* NavigationController.m */,
 				CDFE017B2041F91300C5AC4E /* AboutController.h */,
@@ -572,8 +579,6 @@
 				CD662FF41FC73B27002BA3F8 /* VNTextCollectionController.h */,
 				CD662FF51FC73B27002BA3F8 /* VNTextCollectionController.m */,
 				CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */,
-				CDF189432104B8C8002EE4D5 /* SearchController.h */,
-				CDF189442104B8C8002EE4D5 /* SearchController.m */,
 				CDF1893A2104A2BE002EE4D5 /* SubscriptionsController.h */,
 				CDF1893B2104A2BE002EE4D5 /* SubscriptionsController.m */,
 			);
@@ -791,6 +796,7 @@
 				CD36C62C2041C2B90029FA9C /* UIApplication+Convenience.m in Sources */,
 				CD04593D2049F922006D48D0 /* NSXMLDictionary.m in Sources */,
 				CDF1893C2104A2BE002EE4D5 /* SubscriptionsController.m in Sources */,
+				CDF189482105CB26002EE4D5 /* CollectionController.m in Sources */,
 				CD822B8B206D602700F2112F /* AVCaptureSession+Convenience.m in Sources */,
 				CD256D5D2042E1D90086EAAB /* Answers+Convenience.m in Sources */,
 				CD256D482042DFBD0086EAAB /* MessageUI+Convenience.m in Sources */,
