@@ -59,11 +59,11 @@
 
 	BOOL networkAccessAllowed = [UIApplication sharedApplication].isActive || [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWiFi;
 	
-	[LIB detectTextRectanglesForAsset:asset networkAccessAllowed:networkAccessAllowed handler:^(NSArray *results) {
+	[LIB detectTextRectanglesForAsset:asset networkAccessAllowed:networkAccessAllowed handler:^(FIRVisionText *result) {
 		if (handler)
-			handler(results.count > 0);
+			handler(result.blocks.count > 0);
 
-		[Answers logCustomEventWithName:@"Detect text" customAttributes:@{ @"count" : @(results.count) }];
+		[Answers logCustomEventWithName:@"Detect text" customAttributes:@{ @"count" : @(result.blocks.count) }];
 	}];
 }
 

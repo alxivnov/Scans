@@ -98,19 +98,19 @@
 	return asset;
 }
 
-- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier texts:(NSArray<id<FIRVisionText>> *)texts labels:(NSArray<FIRVisionLabel *> *)labels size:(CGSize)size {
+- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier text:(FIRVisionText *)text labels:(NSArray<FIRVisionLabel *> *)labels size:(CGSize)size {
 	Asset *asset = [Asset insertInContext:self];
 	asset.assetIdentifier = assetIdentifier;
 	asset.albumIdentifier = albumIdentifier;
-	asset.numberOfObservations = texts.count;
+	asset.numberOfObservations = text.blocks.count;
 	asset.numberOfLabels = labels.count;
 
-	for (id<FIRVisionText> text in texts) {
-		NSArray<id<FIRVisionText>> *lines = ret(text, lines);
-		if (!lines)
-			lines = @[ text ];
+	for (FIRVisionTextBlock *block in text.blocks) {
+//		NSArray<FIRVisionTextLine *> *lines = block.lines;
+//		if (!lines)
+//			lines = @[ text ];
 
-		for (id<FIRVisionText> line in lines) {
+		for (FIRVisionTextLine *line in block.lines) {
 			Label *obj = [Label insertInContext:self];
 			obj.albumIdentifier = albumIdentifier;
 			obj.assetIdentifier = assetIdentifier;

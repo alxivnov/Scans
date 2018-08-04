@@ -117,8 +117,6 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 }
 
 - (IBAction)termsOfUseAction:(UIButton *)sender {
-#warning Terms!
-
 	[self presentSafariWithURL:[NSURL URLWithString:@"https://apptag.me/scans/terms.txt"] entersReaderIfAvailable:YES];
 }
 
