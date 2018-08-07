@@ -21,7 +21,6 @@
 		CD256D542042E0DF0086EAAB /* CommonCrypto+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D522042E0DF0086EAAB /* CommonCrypto+Convenience.m */; };
 		CD256D572042E0F80086EAAB /* NSData+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D562042E0F80086EAAB /* NSData+Convenience.m */; };
 		CD256D5A2042E12E0086EAAB /* NSString+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D592042E12E0086EAAB /* NSString+Convenience.m */; };
-		CD256D5D2042E1D90086EAAB /* Answers+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D5B2042E1D80086EAAB /* Answers+Convenience.m */; };
 		CD256D682042E5D70086EAAB /* NSDictionary+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD256D672042E5D60086EAAB /* NSDictionary+Convenience.m */; };
 		CD256D7B2042E7740086EAAB /* iCloud-60.png in Resources */ = {isa = PBXBuildFile; fileRef = CD256D692042E7710086EAAB /* iCloud-60.png */; };
 		CD256D7C2042E7740086EAAB /* iCloud-76@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD256D6A2042E7720086EAAB /* iCloud-76@3x.png */; };
@@ -89,6 +88,7 @@
 		CD466436205C203B002F068A /* RectangleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD466435205C203B002F068A /* RectangleController.m */; };
 		CD538BF120B88E8C004956D1 /* UISearchController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */; };
 		CD55A50120F3F02300BDB933 /* AppStoreReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = CD55A50020F3F02300BDB933 /* AppStoreReceipt.m */; };
+		CD5D9A1621186702005CFFE9 /* Answers+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5D9A1521186702005CFFE9 /* Answers+Convenience.m */; };
 		CD64F03B20E3CB8A0017FCCF /* search-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD64F03A20E3CB8A0017FCCF /* search-line@2x.png */; };
 		CD662FC41FC701E2002BA3F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC31FC701E2002BA3F8 /* AppDelegate.m */; };
 		CD662FC71FC701E2002BA3F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD662FC61FC701E2002BA3F8 /* ViewController.m */; };
@@ -158,8 +158,6 @@
 		CD256D562042E0F80086EAAB /* NSData+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Convenience.m"; path = "../Objective Sea/NSData+Convenience.m"; sourceTree = "<group>"; };
 		CD256D582042E12E0086EAAB /* NSString+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Convenience.h"; path = "../Objective Sea/NSString+Convenience.h"; sourceTree = "<group>"; };
 		CD256D592042E12E0086EAAB /* NSString+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Convenience.m"; path = "../Objective Sea/NSString+Convenience.m"; sourceTree = "<group>"; };
-		CD256D5B2042E1D80086EAAB /* Answers+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Answers+Convenience.m"; path = "../Objective Sea/Answers+Convenience.m"; sourceTree = "<group>"; };
-		CD256D5C2042E1D90086EAAB /* Answers+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Answers+Convenience.h"; path = "../Objective Sea/Answers+Convenience.h"; sourceTree = "<group>"; };
 		CD256D662042E5D60086EAAB /* NSDictionary+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Convenience.h"; path = "../Objective Sea/NSDictionary+Convenience.h"; sourceTree = "<group>"; };
 		CD256D672042E5D60086EAAB /* NSDictionary+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Convenience.m"; path = "../Objective Sea/NSDictionary+Convenience.m"; sourceTree = "<group>"; };
 		CD256D692042E7710086EAAB /* iCloud-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iCloud-60.png"; path = "../Frameworks/Images/iCloud-60.png"; sourceTree = "<group>"; };
@@ -258,6 +256,8 @@
 		CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UISearchController+Convenience.m"; path = "../Objective Sea/UISearchController+Convenience.m"; sourceTree = "<group>"; };
 		CD55A4FF20F3F02300BDB933 /* AppStoreReceipt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppStoreReceipt.h; sourceTree = "<group>"; };
 		CD55A50020F3F02300BDB933 /* AppStoreReceipt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppStoreReceipt.m; sourceTree = "<group>"; };
+		CD5D9A1421186701005CFFE9 /* Answers+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Answers+Convenience.h"; path = "../Objective Sea/Answers+Convenience.h"; sourceTree = "<group>"; };
+		CD5D9A1521186702005CFFE9 /* Answers+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Answers+Convenience.m"; path = "../Objective Sea/Answers+Convenience.m"; sourceTree = "<group>"; };
 		CD64F03A20E3CB8A0017FCCF /* search-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search-line@2x.png"; path = "../Frameworks/Images/search-line@2x.png"; sourceTree = "<group>"; };
 		CD662FBF1FC701E1002BA3F8 /* Scans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scans.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD662FC21FC701E1002BA3F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -414,10 +414,10 @@
 		CD36C5FC2041C2190029FA9C /* Objective Sea */ = {
 			isa = PBXGroup;
 			children = (
+				CD5D9A1421186701005CFFE9 /* Answers+Convenience.h */,
+				CD5D9A1521186702005CFFE9 /* Answers+Convenience.m */,
 				CD256D4D2042E0B60086EAAB /* Affiliates+Convenience.h */,
 				CD256D4C2042E0B60086EAAB /* Affiliates+Convenience.m */,
-				CD256D5C2042E1D90086EAAB /* Answers+Convenience.h */,
-				CD256D5B2042E1D80086EAAB /* Answers+Convenience.m */,
 				CD822B89206D602700F2112F /* AVCaptureSession+Convenience.h */,
 				CD822B8A206D602700F2112F /* AVCaptureSession+Convenience.m */,
 				CD256D532042E0DF0086EAAB /* CommonCrypto+Convenience.h */,
@@ -605,8 +605,8 @@
 				CD662FBB1FC701E1002BA3F8 /* Sources */,
 				CD662FBC1FC701E1002BA3F8 /* Frameworks */,
 				CD662FBD1FC701E1002BA3F8 /* Resources */,
-				CD256D5E2042E36A0086EAAB /* ShellScript */,
 				55B2AA0A2471CB67F582E69F /* [CP] Copy Pods Resources */,
+				CD98DE8C2118F47700DEB3B4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -759,12 +759,13 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CD256D5E2042E36A0086EAAB /* ShellScript */ = {
+		CD98DE8C2118F47700DEB3B4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			outputPaths = (
 			);
@@ -798,7 +799,6 @@
 				CDF1893C2104A2BE002EE4D5 /* SubscriptionsController.m in Sources */,
 				CDF189482105CB26002EE4D5 /* CollectionController.m in Sources */,
 				CD822B8B206D602700F2112F /* AVCaptureSession+Convenience.m in Sources */,
-				CD256D5D2042E1D90086EAAB /* Answers+Convenience.m in Sources */,
 				CD256D482042DFBD0086EAAB /* MessageUI+Convenience.m in Sources */,
 				CDFE017D2041F91300C5AC4E /* AboutController.m in Sources */,
 				CD36C6302041C2B90029FA9C /* NSBundle+Convenience.m in Sources */,
@@ -827,6 +827,7 @@
 				CDF189452104B8C8002EE4D5 /* SearchController.m in Sources */,
 				CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */,
 				CD36C6262041C2B90029FA9C /* UIAlertController+Convenience.m in Sources */,
+				CD5D9A1621186702005CFFE9 /* Answers+Convenience.m in Sources */,
 				CDC92D022072824C00287A55 /* TextDetector.m in Sources */,
 				CD36C6392041C2B90029FA9C /* NSObject+Convenience.m in Sources */,
 				CD36C6352041C2B90029FA9C /* NSFormatter+Convenience.m in Sources */,

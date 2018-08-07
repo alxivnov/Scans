@@ -36,7 +36,8 @@
 	[[AppStoreReceipt instance] verifyReceipt:YES handler:Nil];
 
 
-	[Fabric with:@[[Crashlytics class]]];
+//	if (!IS_DEBUGGING)
+		[Fabric with:@[[Crashlytics class]]];
 
 	[FIRApp configure];
 

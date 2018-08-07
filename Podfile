@@ -8,14 +8,14 @@ target 'Scans' do
   # use_frameworks!
 
   # Pods for Scans
-  
-  pod 'Fabric'
+
+# pod 'Fabric'
   pod 'Crashlytics'
-  
+
   pod 'Firebase/Core'
   pod 'Firebase/MLVision'
-  
-  pod 'Firebase/MLVisionLabelModel'
+
+# pod 'Firebase/MLVisionLabelModel'
   pod 'Firebase/MLVisionTextModel'
 
 end

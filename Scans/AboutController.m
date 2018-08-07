@@ -12,6 +12,7 @@
 #import "Answers+Convenience.h"
 #import "MessageUI+Convenience.h"
 #import "NSBundle+Convenience.h"
+#import "NSDictionary+Convenience.h"
 #import "NSFormatter+Convenience.h"
 #import "NSObject+Convenience.h"
 #import "NSURLSession+Convenience.h"

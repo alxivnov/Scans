@@ -10,9 +10,6 @@ PODS:
   - Firebase/MLVision (5.5.0):
     - Firebase/CoreOnly
     - FirebaseMLVision (= 0.11.0)
-  - Firebase/MLVisionLabelModel (5.5.0):
-    - Firebase/CoreOnly
-    - FirebaseMLVisionLabelModel (= 0.11.0)
   - Firebase/MLVisionTextModel (5.5.0):
     - Firebase/CoreOnly
     - FirebaseMLVisionTextModel (= 0.11.0)
@@ -38,8 +35,6 @@ PODS:
     - GoogleAPIClientForREST/Core (~> 1.3)
     - GoogleAPIClientForREST/Vision (~> 1.3)
     - GoogleMobileVision/Detector (~> 1.3)
-  - FirebaseMLVisionLabelModel (0.11.0):
-    - GoogleMobileVision/LabelDetector (~> 1.3)
   - FirebaseMLVisionTextModel (0.11.0):
     - GoogleMobileVision/TextDetector (~> 1.3)
   - GoogleAPIClientForREST/Core (1.3.5):
@@ -58,8 +53,6 @@ PODS:
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - GTMSessionFetcher/Core (~> 1.1)
     - Protobuf (~> 3.1)
-  - GoogleMobileVision/LabelDetector (1.3.2):
-    - GoogleMobileVision/Detector (~> 1.3)
   - GoogleMobileVision/TextDetector (1.3.2):
     - GoogleMobileVision/Detector (~> 1.3)
   - GoogleToolboxForMac/Defines (2.1.4)
@@ -96,10 +89,8 @@ PODS:
 
 DEPENDENCIES:
   - Crashlytics
-  - Fabric
   - Firebase/Core
   - Firebase/MLVision
-  - Firebase/MLVisionLabelModel
   - Firebase/MLVisionTextModel
 
 SPEC REPOS:
@@ -112,7 +103,6 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseMLCommon
     - FirebaseMLVision
-    - FirebaseMLVisionLabelModel
     - FirebaseMLVisionTextModel
     - GoogleAPIClientForREST
     - GoogleAppMeasurement
@@ -132,7 +122,6 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 8cd2c6cfe7b9ab65ce7e248f6da7f26f6775b9be
   FirebaseMLCommon: 285b93416df5f37164ad08795cb799f253fda549
   FirebaseMLVision: b2a14ec0d0d885b6b0d0c04825794715cb755c3e
-  FirebaseMLVisionLabelModel: e172ed744536db700508f6df125e05e72044826c
   FirebaseMLVisionTextModel: 52a42f7d723e3d2d7d68ca8269722c9b36cd4892
   GoogleAPIClientForREST: b4c23f6ec9b8c29419d0377168007963d0e25551
   GoogleAppMeasurement: e785bdb86d3d280abc778156cec323a975f11d1d
@@ -143,6 +132,6 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 0fc0ad8bec688b2a3017a139953e01374fedbd5f
 
-PODFILE CHECKSUM: 5d852c003f4736ad33ed83d9c051dc322ef01a6a
+PODFILE CHECKSUM: ac69b371faf833bd4bd0eb86a09c5c490365c7aa
 
 COCOAPODS: 1.5.2
