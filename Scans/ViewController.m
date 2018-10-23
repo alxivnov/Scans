@@ -10,8 +10,24 @@
 
 #import "TextDetector.h"
 
+#import "UIScrollView+Convenience.h"
 #import "UIView+Convenience.h"
 #import "UIViewController+Convenience.h"
+
+@implementation UICollectionView (Scroll)
+
+- (void)scrollToSupplementaryElementOfKind:(NSString *)kind inSection:(NSInteger)section animated:(BOOL)animated {
+	if (self.numberOfSections == 0)
+		return;
+
+	[self scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:kind == UICollectionElementKindSectionHeader ? 0 : [self numberOfItemsInSection:section] - 1 inSection:section] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:animated];
+
+	UICollectionViewLayoutAttributes *attr = [self layoutAttributesForSupplementaryElementOfKind:kind atIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+	if (attr)
+		[self setContentOffset:CGPointMake(self.contentOffset.x, attr.frame.origin.y) animated:animated];
+}
+
+@end
 
 @interface ViewController () <PHPhotoLibraryChangeObserver>
 @property (strong, nonatomic) IBOutlet UIView *emptyState;
@@ -58,7 +74,7 @@
 	[self.collectionView reloadData];
 
 	if (LIB.count)
-		[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:LIB.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+		[self.collectionView scrollToSupplementaryElementOfKind:UICollectionElementKindSectionFooter inSection:0 animated:NO];
 
 	[[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 

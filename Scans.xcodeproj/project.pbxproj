@@ -86,6 +86,7 @@
 		CD3F267620B9A8DE0016C2F0 /* camera-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD3F267520B9A8DE0016C2F0 /* camera-fill@2x.png */; };
 		CD438C6720B0B6B600189B71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */; };
 		CD466436205C203B002F068A /* RectangleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD466435205C203B002F068A /* RectangleController.m */; };
+		CD47ED392125F96F000D17B1 /* NSCalendar+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD47ED372125F96F000D17B1 /* NSCalendar+Convenience.m */; };
 		CD538BF120B88E8C004956D1 /* UISearchController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */; };
 		CD55A50120F3F02300BDB933 /* AppStoreReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = CD55A50020F3F02300BDB933 /* AppStoreReceipt.m */; };
 		CD5D9A1621186702005CFFE9 /* Answers+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5D9A1521186702005CFFE9 /* Answers+Convenience.m */; };
@@ -252,6 +253,8 @@
 		CD438C6620B0B6B600189B71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CD466434205C203B002F068A /* RectangleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RectangleController.h; sourceTree = "<group>"; };
 		CD466435205C203B002F068A /* RectangleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RectangleController.m; sourceTree = "<group>"; };
+		CD47ED372125F96F000D17B1 /* NSCalendar+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSCalendar+Convenience.m"; path = "../Objective Sea/NSCalendar+Convenience.m"; sourceTree = "<group>"; };
+		CD47ED382125F96F000D17B1 /* NSCalendar+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSCalendar+Convenience.h"; path = "../Objective Sea/NSCalendar+Convenience.h"; sourceTree = "<group>"; };
 		CD538BEF20B88E8C004956D1 /* UISearchController+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UISearchController+Convenience.h"; path = "../Objective Sea/UISearchController+Convenience.h"; sourceTree = "<group>"; };
 		CD538BF020B88E8C004956D1 /* UISearchController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UISearchController+Convenience.m"; path = "../Objective Sea/UISearchController+Convenience.m"; sourceTree = "<group>"; };
 		CD55A4FF20F3F02300BDB933 /* AppStoreReceipt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppStoreReceipt.h; sourceTree = "<group>"; };
@@ -437,6 +440,8 @@
 				CD36C6042041C2B70029FA9C /* NSArray+Convenience.m */,
 				CD36C5FE2041C2B60029FA9C /* NSBundle+Convenience.h */,
 				CD36C60C2041C2B70029FA9C /* NSBundle+Convenience.m */,
+				CD47ED382125F96F000D17B1 /* NSCalendar+Convenience.h */,
+				CD47ED372125F96F000D17B1 /* NSCalendar+Convenience.m */,
 				CD256D552042E0F80086EAAB /* NSData+Convenience.h */,
 				CD256D562042E0F80086EAAB /* NSData+Convenience.m */,
 				CD256D662042E5D60086EAAB /* NSDictionary+Convenience.h */,
@@ -826,6 +831,7 @@
 				CDC08DE72045C07C009C6AD0 /* VNTextPagingController.m in Sources */,
 				CDF189452104B8C8002EE4D5 /* SearchController.m in Sources */,
 				CDC08DEA2045E18C009C6AD0 /* PHAssetPagingController.m in Sources */,
+				CD47ED392125F96F000D17B1 /* NSCalendar+Convenience.m in Sources */,
 				CD36C6262041C2B90029FA9C /* UIAlertController+Convenience.m in Sources */,
 				CD5D9A1621186702005CFFE9 /* Answers+Convenience.m in Sources */,
 				CDC92D022072824C00287A55 /* TextDetector.m in Sources */,

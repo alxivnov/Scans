@@ -9,6 +9,7 @@
 #import "AppStoreReceipt.h"
 
 #import "StoreKit+Convenience.h"
+#import "NSCalendar+Convenience.h"
 #import "NSURLSession+Convenience.h"
 
 @interface AppStoreReceipt ()
@@ -32,7 +33,7 @@
 		return [obj[@"product_id"] isEqualToString:productIdentifier];
 	}]) : ([[AppStoreReceipt instance].receipt[@"latest_receipt_info"] lastObject] ?: [[AppStoreReceipt instance].receipt[@"receipt"][@"in_app"] lastObject]);
 
-	return receipt ? [NSDate dateWithTimeIntervalSince1970:[receipt[@"expires_date_ms"] integerValue] / 1000.0] : Nil;
+	return receipt ? [productIdentifier hasSuffix:@"month"] || [receipt[@"product_id"] hasSuffix:@"month"] ? [[NSDate dateWithTimeIntervalSince1970:[receipt[@"purchase_date_ms"] integerValue] / 1000.0] addValue:1 forComponent:NSCalendarUnitMonth] : [productIdentifier hasSuffix:@"year"] || [receipt[@"product_id"] hasSuffix:@"year"] ? [[NSDate dateWithTimeIntervalSince1970:[receipt[@"purchase_date_ms"] integerValue] / 1000.0] addValue:1 forComponent:NSCalendarUnitYear] : [NSDate dateWithTimeIntervalSince1970:[receipt[@"expires_date_ms"] integerValue] / 1000.0] : Nil;
 }
 
 - (BOOL)autoRenewStatus:(NSString *)productIdentifier {

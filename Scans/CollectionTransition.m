@@ -11,6 +11,9 @@
 @interface CollectionTransition ()
 @property (strong, nonatomic) UIView *scaleView;
 
+@property (strong, nonatomic) UIView *from;
+@property (strong, nonatomic) UIView *to;
+
 @property (assign, nonatomic) CGRect fromFrame;
 @property (assign, nonatomic) CGRect toFrame;
 @end
@@ -46,15 +49,18 @@
 
 	fromView.hidden = YES;
 	toView.hidden = YES;
+
+	self.from = fromView;
+	self.to = toView;
 }
 
 - (void)endInteractiveTransition:(BOOL)didComplete {
 	[super endInteractiveTransition:didComplete];
 
-	UIView *fromView = [self.fromViewController forwardSelector:@selector(transitionViewForView:) withObject:Nil nextTarget:UIViewControllerNextTarget(YES)];
+	UIView *fromView = self.from ?: [self.fromViewController forwardSelector:@selector(transitionViewForView:) withObject:Nil nextTarget:UIViewControllerNextTarget(YES)];
 	fromView.hidden = NO;
 
-	UIView *toView = [self.toViewController forwardSelector:@selector(transitionViewForView:) withObject:fromView nextTarget:UIViewControllerNextTarget(YES)];
+	UIView *toView = self.to ?: [self.toViewController forwardSelector:@selector(transitionViewForView:) withObject:fromView nextTarget:UIViewControllerNextTarget(YES)];
 	toView.hidden = NO;
 
 	[self.scaleView removeFromSuperview];

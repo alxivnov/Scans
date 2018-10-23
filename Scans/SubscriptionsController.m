@@ -16,11 +16,12 @@
 
 #import "AppStoreReceipt.h"
 
-#define IAP_BACKGROUND_MONTHLY @"com.alexivanov.scans.background.monthly"
-#define IAP_BACKGROUND_YEARLY @"com.alexivanov.scans.background.yearly"
+#define IAP_BACKGROUND_MONTHLY @"com.alexivanov.scans.background.month"
+#define IAP_BACKGROUND_YEARLY @"com.alexivanov.scans.background.year"
 
 @interface SubscriptionsController () <SKProductsRequestDelegate>
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *monthButton;
 @property (weak, nonatomic) IBOutlet UIButton *yearButton;
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -47,14 +48,14 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+/*
 	self.monthButton.titleLabel.numberOfLines = 0;
 	self.yearButton.titleLabel.numberOfLines = 0;
 	self.monthButton.titleLabel.textAlignment = NSTextAlignmentCenter;
 	self.yearButton.titleLabel.textAlignment = NSTextAlignmentCenter;
 	[self.monthButton layoutVertically:-8.0];
 	[self.yearButton layoutVertically:-8.0];
-
+*/
 	[self reloadIaps];
 	
 	self.productsRequest = [SKProductsRequest startRequestWithProductIdentifiers:self.productIdentifiers delegate:self];
@@ -68,9 +69,10 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 
 - (void)reloadIap:(NSString *)productIdentifier {
 	NSDictionary *iap = self.iaps[productIdentifier];
+	if (!iap[@"localizedTitle"] || !iap[@"localizedPrice"])
+		return;
 
 	NSDate *expiresDate = [[AppStoreReceipt instance] expiresDate:productIdentifier];
-	BOOL autoRenewStatus = [[AppStoreReceipt instance] autoRenewStatus:productIdentifier];
 
 	SKPaymentTransaction *transaction = [[SKPaymentQueue defaultQueue].transactions lastObject:^BOOL(SKPaymentTransaction *obj) {
 		return [obj.payment.productIdentifier isEqualToString:productIdentifier];
@@ -78,22 +80,33 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 	SKPaymentTransactionState transactionState = transaction ? transaction.transactionState : NSNotFound;
 
 	UIButton *button = [productIdentifier isEqualToString:IAP_BACKGROUND_MONTHLY] ? self.monthButton : [productIdentifier isEqualToString:IAP_BACKGROUND_YEARLY] ? self.yearButton : Nil;
-	[button setTitle:[NSString stringWithFormat:@"%@\n%@", iap[@"localizedTitle"], iap[@"localizedPrice"]]];
-	[button layoutVertically:-8.0];
+	[button setTitle:/*[NSString stringWithFormat:@"%@\n%@", iap[@"localizedTitle"],*/ iap[@"localizedPrice"]/*]*/];
+//	[button layoutVertically:-8.0];
 
 	UILabel *label = [productIdentifier isEqualToString:IAP_BACKGROUND_MONTHLY] ? self.monthLabel : [productIdentifier isEqualToString:IAP_BACKGROUND_YEARLY] ? self.yearLabel : Nil;
-	label.text = transactionState == SKPaymentTransactionStatePurchasing ? @"Purchasing..." : transactionState == SKPaymentTransactionStateDeferred ? @"Deferred" : expiresDate ? [NSString stringWithFormat:expiresDate.timeIntervalSinceNow > 0.0 ? (autoRenewStatus ? @"Renews on %@" : @"Expires on %@") : (autoRenewStatus ? @"Renewed on %@" : @"Expired on %@"), [expiresDate descriptionForDate:NSDateFormatterMediumStyle andTime:NSDateFormatterShortStyle]] : @"Subscription";
+	label.textColor = transactionState == SKPaymentTransactionStatePurchasing || transactionState == SKPaymentTransactionStateDeferred || expiresDate.timeIntervalSinceNow > 0.0 ? [UIColor whiteColor] : [UIColor lightGrayColor];
 
-	BOOL active = transactionState == SKPaymentTransactionStatePurchasing || transactionState == SKPaymentTransactionStateDeferred || expiresDate.timeIntervalSinceNow > 0.0;
-	button.enabled = !active;
-	label.textColor = active ? [UIColor whiteColor] : [UIColor lightGrayColor];
+	button.enabled = !([[SKPaymentQueue defaultQueue].transactions any:^BOOL(SKPaymentTransaction *obj) {
+		return obj.transactionState == SKPaymentTransactionStatePurchasing;
+	}] || [[SKPaymentQueue defaultQueue].transactions any:^BOOL(SKPaymentTransaction *obj) {
+		return obj.transactionState == SKPaymentTransactionStateDeferred;
+	}] || [[AppStoreReceipt instance] expiresDate:Nil].timeIntervalSinceNow > 0.0);
 }
 
 - (void)reloadIaps {
 	[self reloadIap:IAP_BACKGROUND_MONTHLY];
 	[self reloadIap:IAP_BACKGROUND_YEARLY];
 
-	self.descriptionLabel.text = self.iaps[IAP_BACKGROUND_MONTHLY][@"localizedDescription"] ?: self.iaps[IAP_BACKGROUND_YEARLY][@"localizedDescription"];
+	self.titleLabel.text = self.iaps[IAP_BACKGROUND_MONTHLY][@"localizedDescription"] ?: self.iaps[IAP_BACKGROUND_YEARLY][@"localizedDescription"];
+
+	NSDate *expiresDate = [[AppStoreReceipt instance] expiresDate:Nil];
+	BOOL autoRenewStatus = NO;//[[AppStoreReceipt instance] autoRenewStatus:productIdentifier];
+
+	self.subtitleLabel.text = [[SKPaymentQueue defaultQueue].transactions any:^BOOL(SKPaymentTransaction *obj) {
+		return obj.transactionState == SKPaymentTransactionStatePurchasing;
+	}] ? @"Purchasing..." : [[SKPaymentQueue defaultQueue].transactions any:^BOOL(SKPaymentTransaction *obj) {
+		return obj.transactionState == SKPaymentTransactionStateDeferred;
+	}] ? @"Deferred" : expiresDate ? [NSString stringWithFormat:expiresDate.timeIntervalSinceNow > 0.0 ? (autoRenewStatus ? @"Renews on %@" : @"Expires on %@") : (autoRenewStatus ? @"Renewed on %@" : @"Expired on %@"), [expiresDate descriptionForDate:NSDateFormatterMediumStyle andTime:NSDateFormatterShortStyle]] : Nil;
 }
 
 - (void)requestProduct:(NSString *)productIdentifier {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Icb-rQ-8X3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Icb-rQ-8X3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -632,30 +632,32 @@
                                             <constraint firstAttribute="height" constant="4" id="OzY-sd-DW0"/>
                                         </constraints>
                                     </view>
-                                    <label userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Enable scanning for text in the background." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKx-KE-6pp">
-                                        <rect key="frame" x="0.0" y="16" width="343" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                    <label userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" text="Subscribe to Enable Scanning for Text in the Background" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKx-KE-6pp">
+                                        <rect key="frame" x="0.0" y="16" width="343" height="276"/>
+                                        <color key="backgroundColor" red="0.050980392159999999" green="0.050980392159999999" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PBl-NT-vxh">
-                                        <rect key="frame" x="0.0" y="48.5" width="343" height="99.5"/>
+                                        <rect key="frame" x="0.0" y="304" width="343" height="70"/>
                                         <subviews>
                                             <stackView contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="tXb-Kd-F6x">
-                                                <rect key="frame" x="0.0" y="0.0" width="165.5" height="99.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="165.5" height="70"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aXM-vE-u1G">
-                                                        <rect key="frame" x="0.0" y="0.0" width="165.5" height="77.5"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                        <state key="normal" title="Month: 1.99" image="month-subscription.png">
+                                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aXM-vE-u1G">
+                                                        <rect key="frame" x="0.0" y="0.0" width="165.5" height="48"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                        <state key="normal" title="$1.99">
                                                             <color key="titleColor" red="0.76862745099999996" green="0.0078431372550000003" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="monthAction:" destination="Y0s-zc-fLJ" eventType="touchUpInside" id="60M-QP-V2a"/>
                                                         </connections>
                                                     </button>
-                                                    <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Subscription" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMn-kk-cM9">
-                                                        <rect key="frame" x="0.0" y="81.5" width="165.5" height="18"/>
+                                                    <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Monthly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMn-kk-cM9">
+                                                        <rect key="frame" x="0.0" y="52" width="165.5" height="18"/>
+                                                        <color key="backgroundColor" red="0.050980392159999999" green="0.050980392159999999" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -663,20 +665,21 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="vkb-nz-qOt">
-                                                <rect key="frame" x="177.5" y="0.0" width="165.5" height="99.5"/>
+                                                <rect key="frame" x="177.5" y="0.0" width="165.5" height="70"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tpu-zd-06M">
-                                                        <rect key="frame" x="0.0" y="0.0" width="165.5" height="77.5"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                        <state key="normal" title="Year: $19.99" image="year-subscription.png">
+                                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tpu-zd-06M">
+                                                        <rect key="frame" x="0.0" y="0.0" width="165.5" height="48"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                        <state key="normal" title="$19.99">
                                                             <color key="titleColor" red="0.76862745099999996" green="0.0078431372550000003" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="yearAction:" destination="Y0s-zc-fLJ" eventType="touchUpInside" id="opw-hG-Jqb"/>
                                                         </connections>
                                                     </button>
-                                                    <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Subscription" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biK-yA-kvH">
-                                                        <rect key="frame" x="0.0" y="81.5" width="165.5" height="18"/>
+                                                    <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Yearly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biK-yA-kvH">
+                                                        <rect key="frame" x="0.0" y="52" width="165.5" height="18"/>
+                                                        <color key="backgroundColor" red="0.050980392159999999" green="0.050980392159999999" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -686,7 +689,7 @@
                                         </subviews>
                                     </stackView>
                                     <button contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ieu-bX-tOZ">
-                                        <rect key="frame" x="0.0" y="160" width="343" height="28"/>
+                                        <rect key="frame" x="0.0" y="386" width="343" height="28"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                         <state key="normal" title="Restore Subscriptions">
                                             <color key="titleColor" red="0.76862745099999996" green="0.0078431372550000003" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -697,12 +700,21 @@
                                     </button>
                                     <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="A0s-6A-4xs">
                                         <rect key="frame" x="0.0" y="200" width="343" height="250"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.050980392159999999" green="0.050980392159999999" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <string key="text">• Payment will be charged to iTunes Account at confirmation of purchase
 • Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period
 • Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal
 • Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase
 • Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable</string>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Subscription" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPp-lW-Zu6">
+                                        <rect key="frame" x="0.0" y="426" width="343" height="24"/>
+                                        <color key="backgroundColor" red="0.050980392159999999" green="0.050980392159999999" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -735,6 +747,11 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="A0s-6A-4xs"/>
+                                    </mask>
+                                </variation>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.050980392159999999" green="0.050980392159999999" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -748,9 +765,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Background Scan" id="Sde-ko-BaL"/>
                     <connections>
-                        <outlet property="descriptionLabel" destination="PKx-KE-6pp" id="DDk-A8-knA"/>
                         <outlet property="monthButton" destination="aXM-vE-u1G" id="7Az-Js-noX"/>
                         <outlet property="monthLabel" destination="fMn-kk-cM9" id="d4E-kJ-yul"/>
+                        <outlet property="subtitleLabel" destination="YPp-lW-Zu6" id="Ojs-mV-vkB"/>
+                        <outlet property="titleLabel" destination="PKx-KE-6pp" id="4ld-XV-Rr2"/>
                         <outlet property="yearButton" destination="Tpu-zd-06M" id="afq-GT-Zvv"/>
                         <outlet property="yearLabel" destination="biK-yA-kvH" id="GjW-tx-Wc9"/>
                     </connections>
@@ -876,16 +894,14 @@
         <image name="envelope-fill.png" width="30" height="30"/>
         <image name="info-fill.png" width="30" height="30"/>
         <image name="like-line.png" width="30" height="30"/>
-        <image name="month-subscription.png" width="30" height="30"/>
         <image name="photos-120.png" width="120" height="120"/>
         <image name="refresh.png" width="30" height="30"/>
         <image name="scans-30.png" width="30" height="30"/>
         <image name="search.png" width="30" height="30"/>
         <image name="star-fill.png" width="30" height="30"/>
-        <image name="year-subscription.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GT8-ka-VFx"/>
+        <segue reference="JGy-f0-lez"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.9997679591178894" green="0.83609825372695923" blue="0.18242791295051575" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

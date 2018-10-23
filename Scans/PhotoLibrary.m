@@ -48,9 +48,11 @@
 }
 
 - (void)prep:(void (^)(void))handler {
-	NSString *albumIdentifier = [self.db.viewContext fetchLastAlbum].albumIdentifier;
+	PHAssetCollection *col = [[PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:Nil].array firstObject:^BOOL(PHAssetCollection *obj) {
+		return [obj.localizedTitle isEqualToString:@"Scans"] && obj.estimatedAssetCount > 0;
+	}];
 
-	self.album = [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:albumIdentifier options:Nil];
+	self.album = col ?: [PHAssetCollection fetchAssetCollectionWithLocalIdentifier:[self.db.viewContext fetchLastAlbum].albumIdentifier options:Nil];
 
 	if (self.album) {
 		if (handler)
