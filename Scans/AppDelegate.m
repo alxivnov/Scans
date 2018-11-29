@@ -57,7 +57,7 @@
 
 	TextDetector *detector = [[TextDetector alloc] init];
 	if (detector.count && (IS_DEBUGGING || expiresDate.timeIntervalSinceNow > 0.0))
-		[detector process:20.0 handler:^() {
+		[detector process:10.0 handler:^() {
 			[application.rootViewController forwardSelector:@selector(setDetector:) withObject:detector nextTarget:UIViewControllerNextTarget(NO)];
 
 			completionHandler(UIBackgroundFetchResultNewData);

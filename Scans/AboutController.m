@@ -50,7 +50,7 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 - (IBAction)refreshAction:(UIRefreshControl *)sender {
 	[AFMediaItem lookup:@{ KEY_ID : @(DEV_ID), KEY_MEDIA : kMediaSoftware, KEY_ENTITY : kEntitySoftware } handler:^(NSArray<AFMediaItem *> *results) {
 		self.apps = [results map:^id(AFMediaItem *obj) {
-			return [obj.wrapperType isEqualToString:kMediaSoftware] && obj.trackId.unsignedIntegerValue != APP_ID ? obj.dictionary : Nil;
+			return [obj.wrapperType isEqualToString:kMediaSoftware] && obj.trackId.integerValue != APP_ID ? obj.dictionary : Nil;
 		}];
 
 		if (self.apps.count)
