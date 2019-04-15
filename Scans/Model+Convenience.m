@@ -69,12 +69,12 @@
 	return album;
 }
 
-- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier observations:(NSArray<VNTextObservation *> *)observations labels:(NSArray<FIRVisionLabel *> *)labels {
+- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier observations:(NSArray<VNTextObservation *> *)observations /*labels:(NSArray<FIRVisionLabel *> *)labels*/ {
 	Asset *asset = [Asset insertInContext:self];
 	asset.assetIdentifier = assetIdentifier;
 	asset.albumIdentifier = albumIdentifier;
 	asset.numberOfObservations = observations.count;
-	asset.numberOfLabels = labels.count;
+//	asset.numberOfLabels = labels.count;
 
 	for (VNTextObservation *observation in observations) {
 		Observation *obj = [Observation insertInContext:self];
@@ -82,7 +82,7 @@
 		obj.assetIdentifier = assetIdentifier;
 		obj.observation = observation;
 	}
-
+/*
 	for (FIRVisionLabel *label in labels) {
 		Label *obj = [Label insertInContext:self];
 		obj.albumIdentifier = albumIdentifier;
@@ -92,18 +92,18 @@
 		obj.entityID = label.entityID;
 		obj.text = label.label;
 	}
-
+*/
 	[self save];
 
 	return asset;
 }
 
-- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier text:(FIRVisionText *)text labels:(NSArray<FIRVisionLabel *> *)labels size:(CGSize)size {
+- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier text:(FIRVisionText *)text /*labels:(NSArray<FIRVisionLabel *> *)labels*/ size:(CGSize)size {
 	Asset *asset = [Asset insertInContext:self];
 	asset.assetIdentifier = assetIdentifier;
 	asset.albumIdentifier = albumIdentifier;
 	asset.numberOfObservations = text.blocks.count;
-	asset.numberOfLabels = labels.count;
+//	asset.numberOfLabels = labels.count;
 
 	for (FIRVisionTextBlock *block in text.blocks) {
 //		NSArray<FIRVisionTextLine *> *lines = block.lines;
@@ -123,7 +123,7 @@
 			obj.text = line.text;
 		}
 	}
-
+/*
 	for (FIRVisionLabel *label in labels) {
 		Label *obj = [Label insertInContext:self];
 		obj.albumIdentifier = albumIdentifier;
@@ -133,7 +133,7 @@
 		obj.entityID = label.entityID;
 		obj.text = label.label;
 	}
-
+*/
 	[self save];
 
 	return asset;

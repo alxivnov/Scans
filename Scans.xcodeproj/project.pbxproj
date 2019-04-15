@@ -129,6 +129,7 @@
 		CDFE01832041FD5B00C5AC4E /* envelope-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE017F2041FD5A00C5AC4E /* envelope-fill@2x.png */; };
 		CDFE01842041FD5B00C5AC4E /* moneybox-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE01802041FD5A00C5AC4E /* moneybox-fill@2x.png */; };
 		CDFE01852041FD5B00C5AC4E /* star-fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE01812041FD5A00C5AC4E /* star-fill@2x.png */; };
+		FAC746F52264BF5200A72480 /* UILabel+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC746F42264BF5100A72480 /* UILabel+Convenience.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -327,6 +328,8 @@
 		CDFE017F2041FD5A00C5AC4E /* envelope-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "envelope-fill@2x.png"; path = "../Frameworks/Images/envelope-fill@2x.png"; sourceTree = "<group>"; };
 		CDFE01802041FD5A00C5AC4E /* moneybox-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "moneybox-fill@2x.png"; path = "../Frameworks/Images/moneybox-fill@2x.png"; sourceTree = "<group>"; };
 		CDFE01812041FD5A00C5AC4E /* star-fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star-fill@2x.png"; path = "../Frameworks/Images/star-fill@2x.png"; sourceTree = "<group>"; };
+		FAC746F32264BF5100A72480 /* UILabel+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Convenience.h"; sourceTree = "<group>"; };
+		FAC746F42264BF5100A72480 /* UILabel+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Convenience.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -492,6 +495,8 @@
 				CD256D412041FFC00086EAAB /* UIInteractiveTransition.m */,
 				CD36C6012041C2B70029FA9C /* UIImage+Convenience.h */,
 				CD36C6022041C2B70029FA9C /* UIImage+Convenience.m */,
+				FAC746F32264BF5100A72480 /* UILabel+Convenience.h */,
+				FAC746F42264BF5100A72480 /* UILabel+Convenience.m */,
 				CD36C6192041C2B80029FA9C /* UINavigationController+Convenience.h */,
 				CD8157B22059757D007EAEC6 /* UIImagePickerController+Convenience.h */,
 				CD8157B32059757D007EAEC6 /* UIImagePickerController+Convenience.m */,
@@ -796,6 +801,7 @@
 				CD30D8A3207000F200028C8D /* PhotoLibrary.m in Sources */,
 				CD662FEA1FC70ECD002BA3F8 /* PHAssetController.m in Sources */,
 				CD36C62E2041C2B90029FA9C /* NSLayoutConstraint+Convenience.m in Sources */,
+				FAC746F52264BF5200A72480 /* UILabel+Convenience.m in Sources */,
 				CD36C6372041C2B90029FA9C /* NSURL+Convenience.m in Sources */,
 				CD256D572042E0F80086EAAB /* NSData+Convenience.m in Sources */,
 				CD36C6382041C2B90029FA9C /* NSFileManager+Convenience.m in Sources */,

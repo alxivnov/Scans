@@ -64,6 +64,9 @@
     // Do any additional setup after loading the view.
 
 	self.searchResultsUpdater = self;
+	
+	self.navigationItem.searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+	self.definesPresentationContext = TRUE;
 
 
 	[Answers logContentViewWithName:@"ViewController" contentType:@"VC" contentId:Nil customAttributes:Nil];

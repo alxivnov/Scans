@@ -13,6 +13,7 @@
 #import "SafariServices+Convenience.h"
 #import "StoreKit+Convenience.h"
 #import "UIButton+Convenience.h"
+#import "UILabel+Convenience.h"
 
 #import "AppStoreReceipt.h"
 
@@ -85,11 +86,10 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 
 	UILabel *label = [productIdentifier isEqualToString:IAP_BACKGROUND_MONTHLY] ? self.monthLabel : [productIdentifier isEqualToString:IAP_BACKGROUND_YEARLY] ? self.yearLabel : Nil;
 	label.textColor = transactionState == SKPaymentTransactionStatePurchasing || transactionState == SKPaymentTransactionStateDeferred || expiresDate.timeIntervalSinceNow > 0.0 ? [UIColor whiteColor] : [UIColor lightGrayColor];
+	label.font = transactionState == SKPaymentTransactionStatePurchasing || transactionState == SKPaymentTransactionStateDeferred ? label.italicSystemFont : expiresDate.timeIntervalSinceNow > 0.0 ? label.boldSystemFont : label.systemFont;
 
 	button.enabled = !([[SKPaymentQueue defaultQueue].transactions any:^BOOL(SKPaymentTransaction *obj) {
-		return obj.transactionState == SKPaymentTransactionStatePurchasing;
-	}] || [[SKPaymentQueue defaultQueue].transactions any:^BOOL(SKPaymentTransaction *obj) {
-		return obj.transactionState == SKPaymentTransactionStateDeferred;
+		return obj.transactionState == SKPaymentTransactionStatePurchasing || obj.transactionState == SKPaymentTransactionStateDeferred;
 	}] || [[AppStoreReceipt instance] expiresDate:Nil].timeIntervalSinceNow > 0.0);
 }
 

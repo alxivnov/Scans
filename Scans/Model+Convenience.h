@@ -33,7 +33,7 @@
 - (NSArray<Observation *> *)fetchObservationsWithAlbumIdentifier:(NSString *)albumIdentifier label:(NSString *)label;
 
 - (Album *)saveAlbumWithIdentifier:(NSString *)albumIdentifier;
-- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier observations:(NSArray<VNTextObservation *> *)observations labels:(NSArray<FIRVisionLabel *> *)labels;
-- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier text:(FIRVisionText *)text labels:(NSArray<FIRVisionLabel *> *)labels size:(CGSize)size;
+- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier observations:(NSArray<VNTextObservation *> *)observations /*labels:(NSArray<FIRVisionLabel *> *)labels*/;
+- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier text:(FIRVisionText *)text /*labels:(NSArray<FIRVisionLabel *> *)labels*/ size:(CGSize)size;
 
 @end

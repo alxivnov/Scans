@@ -20,7 +20,7 @@
 @property (assign, nonatomic, readonly) NSUInteger count;
 - (PHAsset *)assetAtIndex:(NSUInteger)index;
 
-@property (strong, nonatomic, readonly) NSArray<NSString *> *localIdentifiers;
+@property (strong, nonatomic, readonly) NSSet<NSString *> *localIdentifiers;
 
 - (void)requestAuthorization:(void (^)(PHAuthorizationStatus status))handler;
 

@@ -20,7 +20,7 @@
 @property (assign, nonatomic) CGSize largeSize;
 @property (assign, nonatomic) CGSize smallSize;
 
-@property (strong, nonatomic) NSArray<NSString *> *localIdentifiers;
+@property (strong, nonatomic) NSSet<NSString *> *localIdentifiers;
 @end
 
 @implementation PhotoLibrary
@@ -91,9 +91,9 @@
 	return self;
 }
 
-- (NSArray<NSString *> *)localIdentifiers {
+- (NSSet<NSString *> *)localIdentifiers {
 	if (!_localIdentifiers) {
-		NSMutableArray *localIdentifiers = [NSMutableArray arrayWithCapacity:self.fetch.count];
+		NSMutableSet *localIdentifiers = [NSMutableSet setWithCapacity:self.fetch.count];
 		for (PHAsset *asset in self.fetch)
 			[localIdentifiers addObject:asset.localIdentifier];
 		_localIdentifiers = localIdentifiers;
@@ -133,14 +133,14 @@
 			return;
 
 		FIRVisionText *text = [[FIRVisionTextRecognizer onDeviceTextRecognizer] processImage:image];
-		NSArray<FIRVisionLabel *> *labels = Nil;//[[FIRVisionLabelDetector labelDetector] detectInImage:image];
+//		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector labelDetector] detectInImage:image];
 //		[image detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
 			if (text.blocks.count)
 				[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:self.album completionHandler:^(BOOL success) {
-					[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier text:text labels:labels size:image.size];
+					[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier text:text /*labels:labels*/ size:image.size];
 				}];
 			else
-				[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier text:text labels:labels size:image.size];
+				[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier text:text /*labels:labels*/ size:image.size];
 //		}];
 	}];
 }
@@ -181,7 +181,7 @@
 	NSString *assetIdentifier = asset.localIdentifier;
 	return [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:LIB.largeSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
 		FIRVisionText *text = [[FIRVisionTextRecognizer onDeviceTextRecognizer] processImage:result];
-		NSArray<FIRVisionLabel *> *labels = Nil;//[[FIRVisionLabelDetector labelDetector] detectInImage:result];
+//		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector labelDetector] detectInImage:result];
 //		NSArray<VNTextObservation *> *results = [result detectTextRectanglesWithOptions:@{ VNImageOptionPreferBackgroundProcessing : @YES, VNImageOptionReportCharacterBoxes : @YES }];
 
 		if (text.blocks.count) {
@@ -190,14 +190,14 @@
 					handler(text);
 
 				if (result || [info[PHImageResultIsInCloudKey] integerValue] == 0)
-					[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier text:text labels:labels size:result.size];
+					[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier text:text /*labels:labels*/ size:result.size];
 			}];
 		} else {
 			if (handler)
 				handler(text);
 
 			if (result || [info[PHImageResultIsInCloudKey] integerValue] == 0)
-				[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier text:text labels:labels size:result.size];
+				[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier text:text /*labels:labels*/ size:result.size];
 		}
 	}];
 }
