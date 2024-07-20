@@ -29,7 +29,8 @@
 - (PHImageRequestID)requestSmallImageForAsset:(PHAsset *)asset resultHandler:(void (^)(UIImage *result, PHImageRequestID requestID))resultHandler;
 - (PHImageRequestID)requestLargeImageForAsset:(PHAsset *)asset resultHandler:(void (^)(UIImage *result, BOOL isDegraded))resultHandler progressHandler:(PHAssetImageProgressHandler)progressHandler;
 
-- (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset networkAccessAllowed:(BOOL)networkAccessAllowed handler:(void (^)(FIRVisionText *result))handler;
+//- (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset networkAccessAllowed:(BOOL)networkAccessAllowed handler:(void (^)(FIRVisionText *result))handler;
+- (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset networkAccessAllowed:(BOOL)networkAccessAllowed handler:(void (^)(NSArray<VNRecognizedTextObservation *> *result))handler;
 - (NSArray<PHAsset *> *)fetchAssetsToDetect;
 
 - (NSArray<Observation *> *)fetchObservationsWithLabel:(NSString *)label;

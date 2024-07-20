@@ -8,10 +8,10 @@
 
 #import "AppDelegate.h"
 
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
+//#import <Fabric/Fabric.h>
+//#import <Crashlytics/Crashlytics.h>
 
-@import Firebase;
+//@import Firebase;
 
 #import "AppStoreReceipt.h"
 #import "TextDetector.h"
@@ -37,9 +37,9 @@
 
 
 //	if (!IS_DEBUGGING)
-		[Fabric with:@[[Crashlytics class]]];
+//		[Fabric with:@[[Crashlytics class]]];
 
-	[FIRApp configure];
+//	[FIRApp configure];
 
 
 //	[GCD global:^{
@@ -53,7 +53,7 @@
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 	NSDate *expiresDate = [[AppStoreReceipt instance] expiresDate:Nil];
 
-	[Answers logCustomEventWithName:@"Background fetch" customAttributes:expiresDate ? @{ @"expiresDate" : expiresDate } : Nil];
+//	[Answers logCustomEventWithName:@"Background fetch" customAttributes:expiresDate ? @{ @"expiresDate" : expiresDate } : Nil];
 
 	TextDetector *detector = [[TextDetector alloc] init];
 	if (detector.count && (IS_DEBUGGING || expiresDate.timeIntervalSinceNow > 0.0))

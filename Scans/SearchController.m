@@ -69,7 +69,7 @@
 	self.definesPresentationContext = TRUE;
 
 
-	[Answers logContentViewWithName:@"ViewController" contentType:@"VC" contentId:Nil customAttributes:Nil];
+//	[Answers logContentViewWithName:@"ViewController" contentType:@"VC" contentId:Nil customAttributes:Nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

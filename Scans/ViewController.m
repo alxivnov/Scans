@@ -97,7 +97,7 @@
 	[self reloadData:NSNotFound];
 
 
-	[Answers logContentViewWithName:@"ViewController" contentType:@"VC" contentId:Nil customAttributes:Nil];
+//	[Answers logContentViewWithName:@"ViewController" contentType:@"VC" contentId:Nil customAttributes:Nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -130,7 +130,7 @@
 			[self reloadData:status];
 		}];
 
-		[Answers logCustomEventWithName:@"Photos authorization" customAttributes:@{ @"success" : status == PHAuthorizationStatusAuthorized ? @YES : @NO }];
+//		[Answers logCustomEventWithName:@"Photos authorization" customAttributes:@{ @"success" : status == PHAuthorizationStatusAuthorized ? @YES : @NO }];
 	}];
 }
 

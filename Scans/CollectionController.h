@@ -12,7 +12,7 @@
 
 #import "PhotoLibrary.h"
 
-#import <Crashlytics/Crashlytics.h>
+//#import <Crashlytics/Crashlytics.h>
 
 @interface CollectionController : UICollectionViewController
 

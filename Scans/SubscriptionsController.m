@@ -8,7 +8,7 @@
 
 #import "SubscriptionsController.h"
 
-#import "Answers+Convenience.h"
+//#import "Answers+Convenience.h"
 #import "NSFormatter+Convenience.h"
 #import "SafariServices+Convenience.h"
 #import "StoreKit+Convenience.h"
@@ -114,7 +114,7 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 
 	self.productsRequest = [SKProductsRequest startRequestWithProductIdentifier:iap[@"productIdentifier"] delegate:self];
 
-	[Answers logAddToCartWithPrice:[iap[@"price"] decimalNumber] currency:iap[@"currencyCode"] itemName:iap[@"localizedTitle"] itemType:Nil itemId:iap[@"productIdentifier"] customAttributes:Nil];
+//	[Answers logAddToCartWithPrice:[iap[@"price"] decimalNumber] currency:iap[@"currencyCode"] itemName:iap[@"localizedTitle"] itemType:Nil itemId:iap[@"productIdentifier"] customAttributes:Nil];
 }
 
 - (IBAction)monthAction:(UIButton *)sender {
@@ -156,7 +156,7 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 
 		[[SKPaymentQueue defaultQueue] addPaymentWithProduct:product];
 
-		[Answers logStartCheckoutWithPrice:product.price currency:product.currencyCode itemCount:Nil customAttributes:Nil];
+//		[Answers logStartCheckoutWithPrice:product.price currency:product.currencyCode itemCount:Nil customAttributes:Nil];
 	} else if (count == 2) {
 		self.iaps = [response.products dictionaryWithKey:^id<NSCopying>(SKProduct *obj) {
 			return obj.productIdentifier;
@@ -189,7 +189,7 @@ __synthesize(NSArray *, productIdentifiers, (@[ IAP_BACKGROUND_MONTHLY, IAP_BACK
 		if (transaction.transactionState == SKPaymentTransactionStatePurchased) {
 			NSDictionary *iap = self.iaps[transaction.payment.productIdentifier];
 
-			[Answers logPurchaseWithPrice:[iap[@"price"] decimalNumber] currency:iap[@"currencyCode"] success:@YES itemName:iap[@"localizedTitle"] itemType:Nil itemId:iap[@"productIdentifier"] customAttributes:Nil];
+//			[Answers logPurchaseWithPrice:[iap[@"price"] decimalNumber] currency:iap[@"currencyCode"] success:@YES itemName:iap[@"localizedTitle"] itemType:Nil itemId:iap[@"productIdentifier"] customAttributes:Nil];
 		}
 
 	[GCD main:^{

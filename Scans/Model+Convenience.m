@@ -8,13 +8,13 @@
 
 #import "Model+Convenience.h"
 
-@implementation Observation (VNTextObservation)
+@implementation Observation (VNRecognizedTextObservation)
 
-- (VNTextObservation *)observation {
-	return [VNTextObservation observationWithBoundingBox:CGRectMake(self.x, self.y, self.width, self.height)];
+- (VNRecognizedTextObservation *)observation {
+	return [VNRecognizedTextObservation observationWithBoundingBox:CGRectMake(self.x, self.y, self.width, self.height)];
 }
 
-- (void)setObservation:(VNTextObservation *)observation {
+- (void)setObservation:(VNRecognizedTextObservation *)observation {
 	self.x = observation.boundingBox.origin.x;
 	self.y = observation.boundingBox.origin.y;
 	self.width = observation.boundingBox.size.width;
@@ -69,74 +69,76 @@
 	return album;
 }
 
-- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier observations:(NSArray<VNTextObservation *> *)observations /*labels:(NSArray<FIRVisionLabel *> *)labels*/ {
+- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier observations:(NSArray<VNRecognizedTextObservation *> *)observations /*labels:(NSArray<FIRVisionLabel *> *)labels*/ {
 	Asset *asset = [Asset insertInContext:self];
 	asset.assetIdentifier = assetIdentifier;
 	asset.albumIdentifier = albumIdentifier;
 	asset.numberOfObservations = observations.count;
 //	asset.numberOfLabels = labels.count;
 
-	for (VNTextObservation *observation in observations) {
-		Observation *obj = [Observation insertInContext:self];
+//	for (VNRecognizedTextObservation *observation in observations) {
+//		Observation *obj = [Observation insertInContext:self];
+//		obj.albumIdentifier = albumIdentifier;
+//		obj.assetIdentifier = assetIdentifier;
+//		obj.observation = observation;
+//	}
+
+	for (VNRecognizedTextObservation *observation in observations) {
+		VNRecognizedText *label = [observation topCandidates:1].firstObject;
+		Label *obj = [Label insertInContext:self];
 		obj.albumIdentifier = albumIdentifier;
 		obj.assetIdentifier = assetIdentifier;
 		obj.observation = observation;
-	}
-/*
-	for (FIRVisionLabel *label in labels) {
-		Label *obj = [Label insertInContext:self];
-		obj.albumIdentifier = albumIdentifier;
-		obj.assetIdentifier = assetIdentifier;
-		obj.frame = label.frame;
+		obj.frame = observation.boundingBox;
 		obj.confidence = label.confidence;
-		obj.entityID = label.entityID;
-		obj.text = label.label;
+//		obj.entityID = label.entityID;
+		obj.text = label.string;
 	}
-*/
+
 	[self save];
 
 	return asset;
 }
 
-- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier text:(FIRVisionText *)text /*labels:(NSArray<FIRVisionLabel *> *)labels*/ size:(CGSize)size {
-	Asset *asset = [Asset insertInContext:self];
-	asset.assetIdentifier = assetIdentifier;
-	asset.albumIdentifier = albumIdentifier;
-	asset.numberOfObservations = text.blocks.count;
-//	asset.numberOfLabels = labels.count;
-
-	for (FIRVisionTextBlock *block in text.blocks) {
-//		NSArray<FIRVisionTextLine *> *lines = block.lines;
-//		if (!lines)
-//			lines = @[ text ];
-
-		for (FIRVisionTextLine *line in block.lines) {
-			Label *obj = [Label insertInContext:self];
-			obj.albumIdentifier = albumIdentifier;
-			obj.assetIdentifier = assetIdentifier;
-			CGRect frame = line.frame;
-			frame.origin.x /= size.width;
-			frame.origin.y = 1.0 - (frame.origin.y + frame.size.height) / size.height;
-			frame.size.width /= size.width;
-			frame.size.height /= size.height;
-			obj.frame = frame;
-			obj.text = line.text;
-		}
-	}
-/*
-	for (FIRVisionLabel *label in labels) {
-		Label *obj = [Label insertInContext:self];
-		obj.albumIdentifier = albumIdentifier;
-		obj.assetIdentifier = assetIdentifier;
-		obj.frame = label.frame;
-		obj.confidence = label.confidence;
-		obj.entityID = label.entityID;
-		obj.text = label.label;
-	}
-*/
-	[self save];
-
-	return asset;
-}
+//- (Asset *)saveAssetWithIdentifier:(NSString *)assetIdentifier albumIdentifier:(NSString *)albumIdentifier text:(FIRVisionText *)text /*labels:(NSArray<FIRVisionLabel *> *)labels*/ size:(CGSize)size {
+//	Asset *asset = [Asset insertInContext:self];
+//	asset.assetIdentifier = assetIdentifier;
+//	asset.albumIdentifier = albumIdentifier;
+//	asset.numberOfObservations = text.blocks.count;
+////	asset.numberOfLabels = labels.count;
+//
+//	for (FIRVisionTextBlock *block in text.blocks) {
+////		NSArray<FIRVisionTextLine *> *lines = block.lines;
+////		if (!lines)
+////			lines = @[ text ];
+//
+//		for (FIRVisionTextLine *line in block.lines) {
+//			Label *obj = [Label insertInContext:self];
+//			obj.albumIdentifier = albumIdentifier;
+//			obj.assetIdentifier = assetIdentifier;
+//			CGRect frame = line.frame;
+//			frame.origin.x /= size.width;
+//			frame.origin.y = 1.0 - (frame.origin.y + frame.size.height) / size.height;
+//			frame.size.width /= size.width;
+//			frame.size.height /= size.height;
+//			obj.frame = frame;
+//			obj.text = line.text;
+//		}
+//	}
+///*
+//	for (FIRVisionLabel *label in labels) {
+//		Label *obj = [Label insertInContext:self];
+//		obj.albumIdentifier = albumIdentifier;
+//		obj.assetIdentifier = assetIdentifier;
+//		obj.frame = label.frame;
+//		obj.confidence = label.confidence;
+//		obj.entityID = label.entityID;
+//		obj.text = label.label;
+//	}
+//*/
+//	[self save];
+//
+//	return asset;
+//}
 
 @end

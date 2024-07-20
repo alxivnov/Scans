@@ -12,7 +12,7 @@
 
 #import "PhotoLibrary.h"
 
-#import <Crashlytics/Crashlytics.h>
+//#import <Crashlytics/Crashlytics.h>
 
 #warning Focus
 #warning Flash
@@ -114,7 +114,7 @@ __synthesize(CAShapeLayer *, shapeLayer, ({
 	self.captureButton.layer.cornerRadius = self.captureButton.frame.size.height / 2.0;
 
 
-	[Answers logContentViewWithName:@"RectangleController" contentType:@"VC" contentId:Nil customAttributes:Nil];
+//	[Answers logContentViewWithName:@"RectangleController" contentType:@"VC" contentId:Nil customAttributes:Nil];
 }
 
 - (void)requestAccessIfNeededForMediaType:(AVMediaType)mediaType completionHandler:(void (^)(BOOL))handler {
@@ -159,7 +159,7 @@ __synthesize(CAShapeLayer *, shapeLayer, ({
 			self.shapeLayer.frame = self.previewView.bounds;
 		}];
 
-		[Answers logCustomEventWithName:@"Camera access" customAttributes:@{ @"granted" : @(granted) }];
+//		[Answers logCustomEventWithName:@"Camera access" customAttributes:@{ @"granted" : @(granted) }];
 	}];
 }
 

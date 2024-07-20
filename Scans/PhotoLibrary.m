@@ -8,7 +8,7 @@
 
 #import "PhotoLibrary.h"
 
-#import "FIRVision+Convenience.h"
+//#import "FIRVision+Convenience.h"
 
 @interface PhotoLibrary ()
 @property (strong, nonatomic) NSPersistentContainer *db;
@@ -132,16 +132,19 @@
 		if (!asset)
 			return;
 
-		FIRVisionText *text = [[FIRVisionTextRecognizer onDeviceTextRecognizer] processImage:image];
+//		FIRVisionText *text = [[FIRVisionTextRecognizer onDeviceTextRecognizer] processImage:image];
 //		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector labelDetector] detectInImage:image];
-//		[image detectTextRectanglesWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
-			if (text.blocks.count)
+		[image recognizeTextWithOptions:@{ VNImageOptionReportCharacterBoxes : @YES } completionHandler:^(NSArray<VNTextObservation *> *results) {
+//			if (text.blocks.count)
+			if (results.count)
 				[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:self.album completionHandler:^(BOOL success) {
-					[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier text:text /*labels:labels*/ size:image.size];
+//					[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier text:text /*labels:labels*/ size:image.size];
+					[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results /*labels:labels*/ /*size:image.size*/];
 				}];
 			else
-				[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier text:text /*labels:labels*/ size:image.size];
-//		}];
+//				[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier text:text /*labels:labels*/ size:image.size];
+				[self.db.viewContext saveAssetWithIdentifier:asset.localIdentifier albumIdentifier:self.album.localIdentifier observations:results /*labels:labels*/ /*size:image.size*/];
+		}];
 	}];
 }
 
@@ -172,7 +175,8 @@
 	}];
 }
 
-- (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset networkAccessAllowed:(BOOL)networkAccessAllowed handler:(void (^)(FIRVisionText *))handler {
+//- (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset networkAccessAllowed:(BOOL)networkAccessAllowed handler:(void (^)(FIRVisionText *))handler {
+- (PHImageRequestID)detectTextRectanglesForAsset:(PHAsset *)asset networkAccessAllowed:(BOOL)networkAccessAllowed handler:(void (^)(NSArray<VNRecognizedTextObservation *> *))handler {
 	PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
 	options.networkAccessAllowed = networkAccessAllowed;
 	options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
@@ -180,24 +184,29 @@
 
 	NSString *assetIdentifier = asset.localIdentifier;
 	return [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:LIB.largeSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
-		FIRVisionText *text = [[FIRVisionTextRecognizer onDeviceTextRecognizer] processImage:result];
+//		FIRVisionText *text = [[FIRVisionTextRecognizer onDeviceTextRecognizer] processImage:result];
 //		NSArray<FIRVisionLabel *> *labels = [[FIRVisionLabelDetector labelDetector] detectInImage:result];
-//		NSArray<VNTextObservation *> *results = [result detectTextRectanglesWithOptions:@{ VNImageOptionPreferBackgroundProcessing : @YES, VNImageOptionReportCharacterBoxes : @YES }];
+		NSArray<VNRecognizedTextObservation *> *results = [result recognizeTextWithOptions:@{ VNImageOptionPreferBackgroundProcessing : @YES, VNImageOptionReportCharacterBoxes : @YES }];
 
-		if (text.blocks.count) {
+//		if (text.blocks.count) {
+		if (results.count) {
 			[PHPhotoLibrary insertAssets:@[ asset ] atIndexes:Nil intoAssetCollection:LIB.album completionHandler:^(BOOL success) {
 				if (handler)
-					handler(text);
+//					handler(text);
+					handler(results);
 
 				if (result || [info[PHImageResultIsInCloudKey] integerValue] == 0)
-					[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier text:text /*labels:labels*/ size:result.size];
+//					[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier text:text /*labels:labels*/ size:result.size];
+					[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier observations:results /*labels:labels*/ /*size:result.size*/];
 			}];
 		} else {
 			if (handler)
-				handler(text);
+//				handler(text);
+				handler(results);
 
 			if (result || [info[PHImageResultIsInCloudKey] integerValue] == 0)
-				[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier text:text /*labels:labels*/ size:result.size];
+//				[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier text:text /*labels:labels*/ size:result.size];
+				[LIB.db.viewContext saveAssetWithIdentifier:assetIdentifier albumIdentifier:LIB.album.localIdentifier observations:results /*labels:labels*/ /*size:result.size*/];
 		}
 	}];
 }

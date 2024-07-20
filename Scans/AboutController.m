@@ -9,7 +9,7 @@
 #import "AboutController.h"
 
 #import "Affiliates+Convenience.h"
-#import "Answers+Convenience.h"
+//#import "Answers+Convenience.h"
 #import "MessageUI+Convenience.h"
 #import "NSBundle+Convenience.h"
 #import "NSDictionary+Convenience.h"
@@ -79,7 +79,7 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 	[self refreshAction:Nil];
 
 
-	[Answers logContentViewWithName:@"AboutController" contentType:@"VC" contentId:Nil customAttributes:Nil];
+//	[Answers logContentViewWithName:@"AboutController" contentType:@"VC" contentId:Nil customAttributes:Nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -140,7 +140,7 @@ __synthesize(NSDictionary *, affiliateInfo, [[NSDictionary dictionaryWithProvide
 		[self presentMailComposeWithRecipients:arr_(cell.detailTextLabel.text) subject:[NSBundle bundleDisplayNameAndShortVersion] body:Nil attachments:dic_(@"screenshot.jpg", [[self.presentingViewController.view snapshotImageAfterScreenUpdates:YES] jpegRepresentation]) completionHandler:Nil];
 	else if (indexPath.section == 2 && indexPath.row == 0)
 		[self presentWebActivityWithActivityItems:@[ [NSBundle bundleDisplayName], [NSURL URLForMobileAppWithIdentifier:APP_ID affiliateInfo:self.affiliateInfo] ] excludedTypes:Nil completionHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
-			[Answers logInviteWithMethod:activityType customAttributes:@{ @"version" : [NSBundle bundleVersion], @"success" : completed ? @"YES" : @"NO", @"error" : [activityError debugDescription] ?: STR_EMPTY }];
+//			[Answers logInviteWithMethod:activityType customAttributes:@{ @"version" : [NSBundle bundleVersion], @"success" : completed ? @"YES" : @"NO", @"error" : [activityError debugDescription] ?: STR_EMPTY }];
 		}];
 	else if (indexPath.section == 3 && indexPath.row == 0)
 		[UIApplication openURL:[NSURL URLForMobileAppWithIdentifier:APP_ID affiliateInfo:self.affiliateInfo] options:Nil completionHandler:^(BOOL success) {

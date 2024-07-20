@@ -8,7 +8,7 @@
 
 #import "PHAssetController.h"
 
-#import <Crashlytics/Crashlytics.h>
+//#import <Crashlytics/Crashlytics.h>
 
 #import "Dispatch+Convenience.h"
 #import "NSArray+Convenience.h"
@@ -102,7 +102,7 @@
 
 	idx(self.toolbarItems, 2).image = [UIImage image:self.asset.isFavorite ? @"like-fill" : @"like-line"];
 
-	[Answers logContentViewWithName:Nil contentType:@"PHAsset" contentId:asset.localIdentifier customAttributes:Nil];
+//	[Answers logContentViewWithName:Nil contentType:@"PHAsset" contentId:asset.localIdentifier customAttributes:Nil];
 }
 
 #pragma mark - Navigation

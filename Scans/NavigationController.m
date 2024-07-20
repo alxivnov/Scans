@@ -94,6 +94,7 @@ __synthesize(CollectionTransition *, collectionTransition, [CollectionTransition
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+//	return Nil;
 	return (operation == UINavigationControllerOperationPush && [toVC isKindOfClass:[UIPageViewController class]]) || (operation == UINavigationControllerOperationPop && [fromVC isKindOfClass:[UIPageViewController class]]) ? self.collectionTransition : Nil;
 }
 

@@ -10,7 +10,7 @@
 
 #import "Reachability.h"
 
-#import <Crashlytics/Crashlytics.h>
+//#import <Crashlytics/Crashlytics.h>
 
 @interface TextDetector ()
 @property (strong, nonatomic) NSMutableArray<PHAsset *> *assets;
@@ -59,11 +59,13 @@
 
 	BOOL networkAccessAllowed = [UIApplication sharedApplication].isActive || [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWiFi;
 	
-	[LIB detectTextRectanglesForAsset:asset networkAccessAllowed:networkAccessAllowed handler:^(FIRVisionText *result) {
+//	[LIB detectTextRectanglesForAsset:asset networkAccessAllowed:networkAccessAllowed handler:^(FIRVisionText *result) {
+	[LIB detectTextRectanglesForAsset:asset networkAccessAllowed:networkAccessAllowed handler:^(NSArray<VNTextObservation *> *results) {
 		if (handler)
-			handler(result.blocks.count > 0);
+//			handler(result.blocks.count > 0);
+			handler(results.count > 0);
 
-		[Answers logCustomEventWithName:@"Detect text" customAttributes:@{ @"count" : @(result.blocks.count) }];
+//		[Answers logCustomEventWithName:@"Detect text" customAttributes:@{ @"count" : @(result.blocks.count) }];
 	}];
 }
 
